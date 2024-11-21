@@ -18,32 +18,100 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
+        <!-- Menu -->
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
-            <MenuItem Header="_Plik"/>
-            <MenuItem Header="_Magazyn">
-                <MenuItem Header="Wszystkie towary"/>
-                <MenuItem Header="Nowy towar"/>
-                <MenuItem Header="Wydanie Zewnętrzne (WZ)"/>
-                <MenuItem Header="Przyjęcie Zewnętrzne (PZ)"/>
+            <MenuItem Header="_Plik">
+                <MenuItem Header="Nowy"/>
+                <MenuItem Header="Zapisz"/>
+                <MenuItem Header="Zamknij"/>
             </MenuItem>
-            <MenuItem Header="Program"/>
+            <MenuItem Header="_Ewidencja Biura">
+                <MenuItem Header="Towary">
+                    <MenuItem Header="Wszystkie Towary"/>
+                    <MenuItem Header="Dodaj Nowy Towar"/>
+                    <MenuItem Header="Materiały"/>
+                </MenuItem>
+                <MenuItem Header="Projekty">
+                    <MenuItem Header="Wszystkie Projekty"/>
+                    <MenuItem Header="Dodaj Nowy Projekt"/>
+                    <MenuItem Header="Zadania"/>
+                </MenuItem>
+                <MenuItem Header="Sprzedaż">
+                    <MenuItem Header="Lista Sprzedaży"/>
+                    <MenuItem Header="Dodaj Nową Sprzedaż"/>
+                    <MenuItem Header="Faktury"/>
+                </MenuItem>
+                <MenuItem Header="Pracownicy">
+                    <MenuItem Header="Lista Pracowników"/>
+                    <MenuItem Header="Dodaj Pracownika"/>
+                    <MenuItem Header="Działy"/>
+                </MenuItem>
+                <MenuItem Header="Klienci">
+                    <MenuItem Header="Lista Klientów"/>
+                    <MenuItem Header="Dodaj Klienta"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="_Program">
+                <MenuItem Header="O Programie"/>
+                <MenuItem Header="Wyjdź"/>
+            </MenuItem>
         </Menu>
+        <!-- Toolbar -->
         <ToolBar Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="2">
-            <ToggleButton Width="32" Height="32" Background="Blue" Margin="2"/>
-            <ToggleButton Width="32" Height="32" Background="Yellow" Margin="2"/>
+            <Button Width="32" Height="32" Background="Blue" Content="Dodaj" Margin="2" ToolTip="Dodaj element"/>
+            <Button Width="32" Height="32" Background="Green" Content="Zapisz" Margin="2" ToolTip="Zapisz zmiany"/>
+            <Button Width="32" Height="32" Background="Red" Content="Usuń" Margin="2" ToolTip="Usuń element"/>
+            <Separator/>
+            <TextBox Width="100" Margin="2" ToolTip="Szukaj"/>
+            <Button Width="32" Height="32" Content="🔍" ToolTip="Wyszukaj" Margin="2"/>
         </ToolBar>
+        <!-- Left Menu with Expander -->
         <Border Grid.Row="2" Grid.Column="0">
             <HeaderedContentControl 
-                Header="Operacje" 
-                Background="Aqua" 
-                Content="{Binding Path=Commands}" 
-                ContentTemplate="{StaticResource CommandsTemplate}"
-                Style="{StaticResource MainHCCStyle}"
-                />
+        Header="MENU" 
+        Background="Aqua"
+        Style="{StaticResource MainHCCStyle}">
+                <StackPanel>
+                    <!-- Sekcja Towary -->
+                    <Expander Header="Towary" IsExpanded="False" Margin="5">
+                        <StackPanel>
+                            <Button Content="Wszystkie Towary" Margin="5" Command="{Binding ShowAllTowaryCommand}"/>
+                            <Button Content="Dodaj Nowy Towar" Margin="5" Command="{Binding AddNewTowarCommand}"/>
+                            <Button Content="Materiały" Margin="5" Command="{Binding ShowMaterialsCommand}"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <!-- Sekcja Projekty -->
+                    <Expander Header="Projekty" IsExpanded="False" Margin="5">
+                        <StackPanel>
+                            <Button Content="Wszystkie Projekty" Margin="5" Command="{Binding ShowAllProjectsCommand}"/>
+                            <Button Content="Dodaj Nowy Projekt" Margin="5" Command="{Binding AddNewProjectCommand}"/>
+                            <Button Content="Zadania" Margin="5" Command="{Binding ShowTasksCommand}"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <!-- Sekcja Pracownicy -->
+                    <Expander Header="Pracownicy" IsExpanded="False" Margin="5">
+                        <StackPanel>
+                            <Button Content="Lista Pracowników" Margin="5" Command="{Binding ShowEmployeesCommand}"/>
+                            <Button Content="Dodaj Pracownika" Margin="5" Command="{Binding AddEmployeeCommand}"/>
+                            <Button Content="Działy" Margin="5" Command="{Binding ShowDepartmentsCommand}"/>
+                        </StackPanel>
+                    </Expander>
+
+                    <!-- Sekcja Klienci -->
+                    <Expander Header="Klienci" IsExpanded="False" Margin="5">
+                        <StackPanel>
+                            <Button Content="Lista Klientów" Margin="5" Command="{Binding ShowClientsCommand}"/>
+                            <Button Content="Dodaj Klienta" Margin="5" Command="{Binding AddClientCommand}"/>
+                        </StackPanel>
+                    </Expander>
+                </StackPanel>
+            </HeaderedContentControl>
         </Border>
         <Border Grid.Row="2" Grid.Column="1">
             <HeaderedContentControl 
-                Header="Przestrzeń robocza"
+                Header="WORKSPACE"
                 Content="{Binding Path=Workspaces}"
                 ContentTemplate="{StaticResource WorkspacesTemplate}"
                 Style="{StaticResource MainHCCStyle}"
@@ -51,11 +119,11 @@
         </Border>
         <StatusBar Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
             <StatusBarItem>
-                <TextBlock>Artur Kornatka</TextBlock>
+                <TextBlock>Patryk Konior</TextBlock>
             </StatusBarItem>
             <Separator/>
             <StatusBarItem>
-                <TextBlock>WSB-NLU</TextBlock>
+                <TextBlock>Biuro Projektowe - Patryk Konior</TextBlock>
             </StatusBarItem>
         </StatusBar>
     </Grid>
