@@ -58,12 +58,19 @@
         </Menu>
         <!-- Toolbar -->
         <ToolBar Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="2">
-            <Button Width="32" Height="32" Background="Blue" Content="Dodaj" Margin="2" ToolTip="Dodaj element"/>
-            <Button Width="32" Height="32" Background="Green" Content="Zapisz" Margin="2" ToolTip="Zapisz zmiany"/>
-            <Button Width="32" Height="32" Background="Red" Content="Usuń" Margin="2" ToolTip="Usuń element"/>
+            <!-- Powiększone przyciski -->
+            <Button Width="120" Height="40" Background="Blue" Content="Dodaj" Margin="5" ToolTip="Dodaj element"/>
+            <Button Width="120" Height="40" Background="Green" Content="Zapisz" Margin="5" ToolTip="Zapisz zmiany"/>
+            <Button Width="120" Height="40" Background="Red" Content="Usuń" Margin="5" ToolTip="Usuń element"/>
+
+            <!-- Separator -->
             <Separator/>
-            <TextBox Width="100" Margin="2" ToolTip="Szukaj"/>
-            <Button Width="32" Height="32" Content="🔍" ToolTip="Wyszukaj" Margin="2"/>
+
+            <!-- Powiększone pole wyszukiwania -->
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBox Width="250" Height="40" ToolTip="Szukaj" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <Button Width="35" Height="35" Content="🔍" ToolTip="Wyszukaj" Margin="0"/>
+            </StackPanel>
         </ToolBar>
         <!-- Left Menu with Expander -->
         <Border Grid.Row="2" Grid.Column="0">
