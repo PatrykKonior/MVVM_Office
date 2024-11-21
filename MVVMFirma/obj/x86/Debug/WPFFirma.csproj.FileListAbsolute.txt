@@ -1,0 +1,10 @@
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\Views\NowyTowarView.baml
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\Views\WszystkieTowaryView.baml
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\Views\NowyTowarView.g.cs
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\Views\Window1.g.cs
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\Views\WszystkieTowaryView.g.cs
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\App.g.cs
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\WPF MVVM Application_MarkupCompile.cache
+C:\Users\Artur\AppData\Local\Temporary Projects\WPFFirma\obj\x86\Debug\WPF MVVM Application_MarkupCompile.lref
