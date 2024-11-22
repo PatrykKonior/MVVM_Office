@@ -37,11 +37,20 @@ namespace MVVMFirma.ViewModels
             {
                 new CommandViewModel(
                     "Towary",
-                    new BaseCommand(() => this.ShowAllTowar())),
+                    new BaseCommand(() => this.CreateShowAll(new WszystkieTowaryViewModel()))),
 
                 new CommandViewModel(
-                    "Towar",
-                    new BaseCommand(() => this.CreateTowar()))
+                    "Nowy Towar",
+                    new BaseCommand(() => this.CreateView(new NowyTowarViewModel()))),
+
+                new CommandViewModel(
+                    "Lista Faktur",
+                    new BaseCommand(() => this.CreateShowAll(new WszystkieFakturyViewModel()))),
+
+                
+                new CommandViewModel(
+                    "Dodaj Nową Fakturę",
+                    new BaseCommand(() => this.CreateView(new NowaFakturaViewModel())))
             };
         }
         #endregion
@@ -79,21 +88,20 @@ namespace MVVMFirma.ViewModels
         #endregion // Workspaces
 
         #region Private Helpers
-        private void CreateTowar()
+        private void CreateView(WorkspaceViewModel nowy)
         {
             NowyTowarViewModel workspace = new NowyTowarViewModel();
-            this.Workspaces.Add(workspace);
-            this.SetActiveWorkspace(workspace);
+            this.Workspaces.Add(nowy);
+            this.SetActiveWorkspace(nowy);
         }
-        private void ShowAllTowar()
+
+        private void CreateShowAll(WorkspaceViewModel model)
         {
-            WszystkieTowaryViewModel workspace =
-                this.Workspaces.FirstOrDefault(vm => vm is WszystkieTowaryViewModel)
-                as WszystkieTowaryViewModel;
+            var workspace = this.Workspaces.FirstOrDefault(vm => vm.GetType() == model.GetType());
             if (workspace == null)
             {
-                workspace = new WszystkieTowaryViewModel();
-                this.Workspaces.Add(workspace);
+                this.Workspaces.Add(model);
+                workspace = model;
             }
 
             this.SetActiveWorkspace(workspace);

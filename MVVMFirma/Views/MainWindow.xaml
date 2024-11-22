@@ -76,9 +76,31 @@
         <Border Grid.Row="2" Grid.Column="0">
             <HeaderedContentControl 
         Header="MENU" 
-        Background="Aqua"
+        Background="Aqua" 
         Style="{StaticResource MainHCCStyle}">
                 <StackPanel>
+                    <!-- Dynamicznie generowane komendy -->
+                    <ItemsControl ItemsSource="{Binding Path=Commands}" Margin="5">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Margin="5">
+                            <Hyperlink Command="{Binding Path=Command}">
+                                <TextBlock Text="{Binding Path=DisplayName}" />
+                            </Hyperlink>
+                        </TextBlock>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <!-- Sekcja Faktury -->
+                    <Expander Header="Faktury" IsExpanded="False" Margin="5">
+                        <StackPanel>
+                            <Button Content="Lista Faktur" Margin="5" Command="{Binding ShowAllFakturyCommand}"/>
+                            <Button Content="Dodaj Nową Fakturę" Margin="5" Command="{Binding AddNewInvoiceCommand}"/>
+                            <Button Content="Płatności" Margin="5" Command="{Binding ShowPaymentsCommand}"/>
+                        </StackPanel>
+                    </Expander>
+
                     <!-- Sekcja Towary -->
                     <Expander Header="Towary" IsExpanded="False" Margin="5">
                         <StackPanel>

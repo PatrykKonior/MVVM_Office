@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\App.xaml
-42057856104
+6875579888
 
-14-1313469587
+18232063087
 121182277259
-Views\MainWindow.xaml;Views\MainWindowResources.xaml;Views\NowyTowarView.xaml;Views\WszystkieTowaryView.xaml;
+Views\MainWindow.xaml;Views\MainWindowResources.xaml;Views\NowaFakturaView.xaml;Views\NowyTowarView.xaml;Views\WszystkieFakturyView.xaml;Views\WszystkieTowaryView.xaml;
 
 False
 

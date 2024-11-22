@@ -177,3 +177,7 @@ C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\MVVMFirma.csproj.CoreCompileInputs.cache
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\MVVMFirma.exe
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\MVVMFirma.pdb
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\NowaFakturaView.g.cs
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\WszystkieFakturyView.g.cs
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\NowaFakturaView.baml
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\WszystkieFakturyView.baml
