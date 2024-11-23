@@ -18,7 +18,7 @@ namespace MVVMFirma.Views
     /// <summary>
     /// Logika interakcji dla klasy WszystkieFakturyView.xaml
     /// </summary>
-    public partial class WszystkieFakturyView : UserControl
+    public partial class WszystkieFakturyView : WszystkieViewBase
     {
         public WszystkieFakturyView()
         {

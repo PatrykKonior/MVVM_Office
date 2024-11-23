@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using MVVMFirma.Models.Entities;
+using MVVMFirma.Helper;
+using System.Windows.Input;
 
 namespace MVVMFirma.ViewModels
 {

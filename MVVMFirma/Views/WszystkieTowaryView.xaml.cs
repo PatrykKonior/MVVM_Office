@@ -11,13 +11,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MVVMFirma.ViewModels;
+using MVVMFirma.Helper;
+using MVVMFirma.Views;
 
 namespace MVVMFirma.Views
 {
     /// <summary>
     /// Interaction logic for WszystkieTowaryView.xaml
     /// </summary>
-    public partial class WszystkieTowaryView : UserControl
+    public partial class WszystkieTowaryView : WszystkieViewBase
     {
         public WszystkieTowaryView()
         {

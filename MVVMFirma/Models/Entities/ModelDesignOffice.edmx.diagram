@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b37d2d55167e4b05902dac3515bc78c5" Name="Diagram1">
+        <EntityTypeShape EntityType="DesignOfficeModel.ClientDetails" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Clients" Width="1.5" PointX="0.75" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Contracts" Width="1.5" PointX="5.25" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Departments" Width="1.5" PointX="3" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.EmployeeDepartments" Width="1.5" PointX="5.25" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Employees" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Expenses" Width="1.5" PointX="5.25" PointY="18.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Invoices" Width="1.5" PointX="5.25" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Materials" Width="1.5" PointX="6" PointY="22.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Payments" Width="1.5" PointX="7.5" PointY="26.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.ProjectAssignments" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.ProjectMaterials" Width="1.5" PointX="8.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Projects" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.SaleItems" Width="1.5" PointX="5.25" PointY="29.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Sales" Width="1.5" PointX="3" PointY="27.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.sysdiagrams" Width="3.375" PointX="1.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.Tasks" Width="1.5" PointX="8.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.TimeLogs" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="DesignOfficeModel.FK__ClientDet__Clien__1273C1CD" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Projects__Client__1ED998B2" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Sales__ClientID__36B12243" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Contracts__Proje__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Departmen__Manag__22AA2996" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__EmployeeD__Depar__267ABA7A" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__EmployeeD__Emplo__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__ProjectAs__Emplo__2A4B4B5E" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Projects__Manage__1FCDBCEB" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Tasks__AssignedE__2E1BDC42" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__TimeLogs__Employ__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Expenses__Projec__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Invoices__SaleID__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Payments__Invoic__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__ProjectMa__Mater__33D4B598" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__ProjectAs__Proje__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__ProjectMa__Proje__32E0915F" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__Tasks__ProjectID__2D27B809" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__TimeLogs__Projec__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="DesignOfficeModel.FK__SaleItems__SaleI__398D8EEE" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

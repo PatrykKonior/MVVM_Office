@@ -1,0 +1,1464 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DesignOfficeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClientDetails">
+          <Key>
+            <PropertyRef Name="ClientDetailID" />
+          </Key>
+          <Property Name="ClientDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="Address" Type="varchar" MaxLength="255" />
+          <Property Name="City" Type="varchar" MaxLength="100" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+          <Property Name="Country" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="NIP" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Regon" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="ContactPersonName" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Contracts">
+          <Key>
+            <PropertyRef Name="ContractID" />
+          </Key>
+          <Property Name="ContractID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="ContractDate" Type="date" />
+          <Property Name="ContractValueNet" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="VATRate" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="ContractValueGross" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="ClientSignatureDate" Type="date" />
+          <Property Name="CompanySignatureDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="100" />
+          <Property Name="ManagerID" Type="int" />
+        </EntityType>
+        <EntityType Name="EmployeeDepartments">
+          <Key>
+            <PropertyRef Name="EmployeeDepartmentID" />
+          </Key>
+          <Property Name="EmployeeDepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="100" />
+          <Property Name="LastName" Type="varchar" MaxLength="100" />
+          <Property Name="Position" Type="varchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="HireDate" Type="date" />
+          <Property Name="Salary" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Expenses">
+          <Key>
+            <PropertyRef Name="ExpenseID" />
+          </Key>
+          <Property Name="ExpenseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="ExpenseDate" Type="date" />
+          <Property Name="ExpenseDescription" Type="text" />
+          <Property Name="NetAmount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="VATAmount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="GrossAmount" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Invoices">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleID" Type="int" />
+          <Property Name="InvoiceDate" Type="date" />
+          <Property Name="PaymentDueDate" Type="date" />
+          <Property Name="InvoiceStatus" Type="varchar" MaxLength="50" />
+          <Property Name="TotalAmount" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="MaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaterialName" Type="varchar" MaxLength="255" />
+          <Property Name="MaterialDescription" Type="text" />
+          <Property Name="UnitPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="VATRate" Type="decimal" Precision="4" Scale="2" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceID" Type="int" />
+          <Property Name="PaymentDate" Type="date" />
+          <Property Name="PaymentAmount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="PaymentMethod" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProjectAssignments">
+          <Key>
+            <PropertyRef Name="ProjectAssignmentID" />
+          </Key>
+          <Property Name="ProjectAssignmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="AssignmentDate" Type="date" />
+          <Property Name="Role" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ProjectMaterials">
+          <Key>
+            <PropertyRef Name="ProjectMaterialID" />
+          </Key>
+          <Property Name="ProjectMaterialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="MaterialID" Type="int" />
+          <Property Name="Quantity" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UnitPrice" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="VATAmount" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ProjectType" Type="varchar" MaxLength="100" />
+          <Property Name="ProjectStartDate" Type="date" />
+          <Property Name="ProjectEndDate" Type="date" />
+          <Property Name="ProjectBudget" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="VATRate" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="ProjectStatus" Type="varchar" MaxLength="50" />
+          <Property Name="ManagerID" Type="int" />
+        </EntityType>
+        <EntityType Name="SaleItems">
+          <Key>
+            <PropertyRef Name="SaleItemID" />
+          </Key>
+          <Property Name="SaleItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleID" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Quantity" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="UnitPriceNet" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="VATRate" Type="decimal" Precision="4" Scale="2" />
+          <Property Name="NetAmount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="VATAmount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="GrossAmount" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" />
+          <Property Name="SaleDate" Type="date" />
+          <Property Name="TotalNetAmount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="TotalVATAmount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="TotalGrossAmount" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="SaleStatus" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="TaskName" Type="varchar" MaxLength="255" />
+          <Property Name="TaskDescription" Type="text" />
+          <Property Name="AssignedEmployeeID" Type="int" />
+          <Property Name="TaskStartDate" Type="date" />
+          <Property Name="TaskEndDate" Type="date" />
+          <Property Name="EstimatedHours" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="TaskStatus" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TimeLogs">
+          <Key>
+            <PropertyRef Name="TimeLogID" />
+          </Key>
+          <Property Name="TimeLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="ProjectID" Type="int" />
+          <Property Name="LogDate" Type="date" />
+          <Property Name="HoursWorked" Type="decimal" Precision="5" Scale="2" />
+          <Property Name="HourlyRate" Type="decimal" Precision="12" Scale="2" />
+          <Property Name="TotalAmount" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <Association Name="FK__ClientDet__Clien__1273C1CD">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ClientDetails" Type="Self.ClientDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="ClientDetails">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contracts__Proje__4222D4EF">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Contracts">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__Manag__22AA2996">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Departments" Type="Self.Departments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Departments">
+              <PropertyRef Name="ManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeD__Depar__267ABA7A">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeDepartments" Type="Self.EmployeeDepartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="EmployeeDepartments">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeD__Emplo__25869641">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeDepartments" Type="Self.EmployeeDepartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeDepartments">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Projec__44FF419A">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Invoices__SaleID__3C69FB99">
+          <End Role="Sales" Type="Self.Sales" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Invoices" Type="Self.Invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="Invoices">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__Invoic__3F466844">
+          <End Role="Invoices" Type="Self.Invoices" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoices">
+              <PropertyRef Name="InvoiceID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="InvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectAs__Emplo__2A4B4B5E">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectAssignments" Type="Self.ProjectAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="ProjectAssignments">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectAs__Proje__29572725">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectAssignments" Type="Self.ProjectAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectAssignments">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectMa__Mater__33D4B598">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectMaterials" Type="Self.ProjectMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="MaterialID" />
+            </Principal>
+            <Dependent Role="ProjectMaterials">
+              <PropertyRef Name="MaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectMa__Proje__32E0915F">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectMaterials" Type="Self.ProjectMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectMaterials">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Projects__Client__1ED998B2">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Projects__Manage__1FCDBCEB">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SaleItems__SaleI__398D8EEE">
+          <End Role="Sales" Type="Self.Sales" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SaleItems" Type="Self.SaleItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="SaleItems">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales__ClientID__36B12243">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tasks__AssignedE__2E1BDC42">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="AssignedEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tasks__ProjectID__2D27B809">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TimeLogs__Employ__47DBAE45">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TimeLogs" Type="Self.TimeLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="TimeLogs">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TimeLogs__Projec__48CFD27E">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TimeLogs" Type="Self.TimeLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TimeLogs">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DesignOfficeModelStoreContainer">
+          <EntitySet Name="ClientDetails" EntityType="Self.ClientDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contracts" EntityType="Self.Contracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeDepartments" EntityType="Self.EmployeeDepartments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expenses" EntityType="Self.Expenses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materials" EntityType="Self.Materials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectAssignments" EntityType="Self.ProjectAssignments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectMaterials" EntityType="Self.ProjectMaterials" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SaleItems" EntityType="Self.SaleItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeLogs" EntityType="Self.TimeLogs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ClientDet__Clien__1273C1CD" Association="Self.FK__ClientDet__Clien__1273C1CD">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientDetails" EntitySet="ClientDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contracts__Proje__4222D4EF" Association="Self.FK__Contracts__Proje__4222D4EF">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__Manag__22AA2996" Association="Self.FK__Departmen__Manag__22AA2996">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Departments" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Depar__267ABA7A" Association="Self.FK__EmployeeD__Depar__267ABA7A">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="EmployeeDepartments" EntitySet="EmployeeDepartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Emplo__25869641" Association="Self.FK__EmployeeD__Emplo__25869641">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="EmployeeDepartments" EntitySet="EmployeeDepartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Projec__44FF419A" Association="Self.FK__Expenses__Projec__44FF419A">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Invoices__SaleID__3C69FB99" Association="Self.FK__Invoices__SaleID__3C69FB99">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="Invoices" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__Invoic__3F466844" Association="Self.FK__Payments__Invoic__3F466844">
+            <End Role="Invoices" EntitySet="Invoices" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectAs__Emplo__2A4B4B5E" Association="Self.FK__ProjectAs__Emplo__2A4B4B5E">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="ProjectAssignments" EntitySet="ProjectAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectAs__Proje__29572725" Association="Self.FK__ProjectAs__Proje__29572725">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectAssignments" EntitySet="ProjectAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectMa__Mater__33D4B598" Association="Self.FK__ProjectMa__Mater__33D4B598">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="ProjectMaterials" EntitySet="ProjectMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectMa__Proje__32E0915F" Association="Self.FK__ProjectMa__Proje__32E0915F">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectMaterials" EntitySet="ProjectMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Projects__Client__1ED998B2" Association="Self.FK__Projects__Client__1ED998B2">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Projects__Manage__1FCDBCEB" Association="Self.FK__Projects__Manage__1FCDBCEB">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SaleItems__SaleI__398D8EEE" Association="Self.FK__SaleItems__SaleI__398D8EEE">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="SaleItems" EntitySet="SaleItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales__ClientID__36B12243" Association="Self.FK__Sales__ClientID__36B12243">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tasks__AssignedE__2E1BDC42" Association="Self.FK__Tasks__AssignedE__2E1BDC42">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tasks__ProjectID__2D27B809" Association="Self.FK__Tasks__ProjectID__2D27B809">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TimeLogs__Employ__47DBAE45" Association="Self.FK__TimeLogs__Employ__47DBAE45">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TimeLogs" EntitySet="TimeLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TimeLogs__Projec__48CFD27E" Association="Self.FK__TimeLogs__Projec__48CFD27E">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="TimeLogs" EntitySet="TimeLogs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DesignOfficeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ClientDetails">
+          <Key>
+            <PropertyRef Name="ClientDetailID" />
+          </Key>
+          <Property Name="ClientDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__ClientDet__Clien__1273C1CD" FromRole="ClientDetails" ToRole="Clients" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NIP" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Regon" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ContactPersonName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ClientDetails" Relationship="Self.FK__ClientDet__Clien__1273C1CD" FromRole="Clients" ToRole="ClientDetails" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__Projects__Client__1ED998B2" FromRole="Clients" ToRole="Projects" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK__Sales__ClientID__36B12243" FromRole="Clients" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="Contracts">
+          <Key>
+            <PropertyRef Name="ContractID" />
+          </Key>
+          <Property Name="ContractID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="ContractDate" Type="DateTime" Precision="0" />
+          <Property Name="ContractValueNet" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="VATRate" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="ContractValueGross" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="ClientSignatureDate" Type="DateTime" Precision="0" />
+          <Property Name="CompanySignatureDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__Contracts__Proje__4222D4EF" FromRole="Contracts" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerID" Type="Int32" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Departmen__Manag__22AA2996" FromRole="Departments" ToRole="Employees" />
+          <NavigationProperty Name="EmployeeDepartments" Relationship="Self.FK__EmployeeD__Depar__267ABA7A" FromRole="Departments" ToRole="EmployeeDepartments" />
+        </EntityType>
+        <EntityType Name="EmployeeDepartments">
+          <Key>
+            <PropertyRef Name="EmployeeDepartmentID" />
+          </Key>
+          <Property Name="EmployeeDepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK__EmployeeD__Depar__267ABA7A" FromRole="EmployeeDepartments" ToRole="Departments" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__EmployeeD__Emplo__25869641" FromRole="EmployeeDepartments" ToRole="Employees" />
+        </EntityType>
+        <EntityType Name="Employees">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Position" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="HireDate" Type="DateTime" Precision="0" />
+          <Property Name="Salary" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK__Departmen__Manag__22AA2996" FromRole="Employees" ToRole="Departments" />
+          <NavigationProperty Name="EmployeeDepartments" Relationship="Self.FK__EmployeeD__Emplo__25869641" FromRole="Employees" ToRole="EmployeeDepartments" />
+          <NavigationProperty Name="ProjectAssignments" Relationship="Self.FK__ProjectAs__Emplo__2A4B4B5E" FromRole="Employees" ToRole="ProjectAssignments" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__Projects__Manage__1FCDBCEB" FromRole="Employees" ToRole="Projects" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK__Tasks__AssignedE__2E1BDC42" FromRole="Employees" ToRole="Tasks" />
+          <NavigationProperty Name="TimeLogs" Relationship="Self.FK__TimeLogs__Employ__47DBAE45" FromRole="Employees" ToRole="TimeLogs" />
+        </EntityType>
+        <EntityType Name="Expenses">
+          <Key>
+            <PropertyRef Name="ExpenseID" />
+          </Key>
+          <Property Name="ExpenseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="ExpenseDate" Type="DateTime" Precision="0" />
+          <Property Name="ExpenseDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NetAmount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="VATAmount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="GrossAmount" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__Expenses__Projec__44FF419A" FromRole="Expenses" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="Invoices">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleID" Type="Int32" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="0" />
+          <Property Name="PaymentDueDate" Type="DateTime" Precision="0" />
+          <Property Name="InvoiceStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK__Invoices__SaleID__3C69FB99" FromRole="Invoices" ToRole="Sales" />
+          <NavigationProperty Name="Payments" Relationship="Self.FK__Payments__Invoic__3F466844" FromRole="Invoices" ToRole="Payments" />
+        </EntityType>
+        <EntityType Name="Materials">
+          <Key>
+            <PropertyRef Name="MaterialID" />
+          </Key>
+          <Property Name="MaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaterialName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MaterialDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="VATRate" Type="Decimal" Precision="4" Scale="2" />
+          <NavigationProperty Name="ProjectMaterials" Relationship="Self.FK__ProjectMa__Mater__33D4B598" FromRole="Materials" ToRole="ProjectMaterials" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceID" Type="Int32" />
+          <Property Name="PaymentDate" Type="DateTime" Precision="0" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK__Payments__Invoic__3F466844" FromRole="Payments" ToRole="Invoices" />
+        </EntityType>
+        <EntityType Name="ProjectAssignments">
+          <Key>
+            <PropertyRef Name="ProjectAssignmentID" />
+          </Key>
+          <Property Name="ProjectAssignmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="AssignmentDate" Type="DateTime" Precision="0" />
+          <Property Name="Role" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__ProjectAs__Emplo__2A4B4B5E" FromRole="ProjectAssignments" ToRole="Employees" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__ProjectAs__Proje__29572725" FromRole="ProjectAssignments" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="ProjectMaterials">
+          <Key>
+            <PropertyRef Name="ProjectMaterialID" />
+          </Key>
+          <Property Name="ProjectMaterialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="MaterialID" Type="Int32" />
+          <Property Name="Quantity" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="VATAmount" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Materials" Relationship="Self.FK__ProjectMa__Mater__33D4B598" FromRole="ProjectMaterials" ToRole="Materials" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__ProjectMa__Proje__32E0915F" FromRole="ProjectMaterials" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="ProjectName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProjectType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectStartDate" Type="DateTime" Precision="0" />
+          <Property Name="ProjectEndDate" Type="DateTime" Precision="0" />
+          <Property Name="ProjectBudget" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="VATRate" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="ProjectStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ManagerID" Type="Int32" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Projects__Client__1ED998B2" FromRole="Projects" ToRole="Clients" />
+          <NavigationProperty Name="Contracts" Relationship="Self.FK__Contracts__Proje__4222D4EF" FromRole="Projects" ToRole="Contracts" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Projects__Manage__1FCDBCEB" FromRole="Projects" ToRole="Employees" />
+          <NavigationProperty Name="Expenses" Relationship="Self.FK__Expenses__Projec__44FF419A" FromRole="Projects" ToRole="Expenses" />
+          <NavigationProperty Name="ProjectAssignments" Relationship="Self.FK__ProjectAs__Proje__29572725" FromRole="Projects" ToRole="ProjectAssignments" />
+          <NavigationProperty Name="ProjectMaterials" Relationship="Self.FK__ProjectMa__Proje__32E0915F" FromRole="Projects" ToRole="ProjectMaterials" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK__Tasks__ProjectID__2D27B809" FromRole="Projects" ToRole="Tasks" />
+          <NavigationProperty Name="TimeLogs" Relationship="Self.FK__TimeLogs__Projec__48CFD27E" FromRole="Projects" ToRole="TimeLogs" />
+        </EntityType>
+        <EntityType Name="SaleItems">
+          <Key>
+            <PropertyRef Name="SaleItemID" />
+          </Key>
+          <Property Name="SaleItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleID" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Quantity" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="UnitPriceNet" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="VATRate" Type="Decimal" Precision="4" Scale="2" />
+          <Property Name="NetAmount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="VATAmount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="GrossAmount" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Sales" Relationship="Self.FK__SaleItems__SaleI__398D8EEE" FromRole="SaleItems" ToRole="Sales" />
+        </EntityType>
+        <EntityType Name="Sales">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" />
+          <Property Name="SaleDate" Type="DateTime" Precision="0" />
+          <Property Name="TotalNetAmount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="TotalVATAmount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="TotalGrossAmount" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="SaleStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Sales__ClientID__36B12243" FromRole="Sales" ToRole="Clients" />
+          <NavigationProperty Name="Invoices" Relationship="Self.FK__Invoices__SaleID__3C69FB99" FromRole="Sales" ToRole="Invoices" />
+          <NavigationProperty Name="SaleItems" Relationship="Self.FK__SaleItems__SaleI__398D8EEE" FromRole="Sales" ToRole="SaleItems" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="TaskName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TaskDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AssignedEmployeeID" Type="Int32" />
+          <Property Name="TaskStartDate" Type="DateTime" Precision="0" />
+          <Property Name="TaskEndDate" Type="DateTime" Precision="0" />
+          <Property Name="EstimatedHours" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="TaskStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__Tasks__AssignedE__2E1BDC42" FromRole="Tasks" ToRole="Employees" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__Tasks__ProjectID__2D27B809" FromRole="Tasks" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="TimeLogs">
+          <Key>
+            <PropertyRef Name="TimeLogID" />
+          </Key>
+          <Property Name="TimeLogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="ProjectID" Type="Int32" />
+          <Property Name="LogDate" Type="DateTime" Precision="0" />
+          <Property Name="HoursWorked" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="HourlyRate" Type="Decimal" Precision="12" Scale="2" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK__TimeLogs__Employ__47DBAE45" FromRole="TimeLogs" ToRole="Employees" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__TimeLogs__Projec__48CFD27E" FromRole="TimeLogs" ToRole="Projects" />
+        </EntityType>
+        <Association Name="FK__ClientDet__Clien__1273C1CD">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ClientDetails" Type="Self.ClientDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="ClientDetails">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Projects__Client__1ED998B2">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Sales__ClientID__36B12243">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+          <End Role="Sales" Type="Self.Sales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Sales">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Contracts__Proje__4222D4EF">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Contracts" Type="Self.Contracts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Contracts">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Departmen__Manag__22AA2996">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Departments" Type="Self.Departments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Departments">
+              <PropertyRef Name="ManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeD__Depar__267ABA7A">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeDepartments" Type="Self.EmployeeDepartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="DepartmentID" />
+            </Principal>
+            <Dependent Role="EmployeeDepartments">
+              <PropertyRef Name="DepartmentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EmployeeD__Emplo__25869641">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeDepartments" Type="Self.EmployeeDepartments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="EmployeeDepartments">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectAs__Emplo__2A4B4B5E">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectAssignments" Type="Self.ProjectAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="ProjectAssignments">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Projects__Manage__1FCDBCEB">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ManagerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tasks__AssignedE__2E1BDC42">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="AssignedEmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TimeLogs__Employ__47DBAE45">
+          <End Role="Employees" Type="Self.Employees" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TimeLogs" Type="Self.TimeLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employees">
+              <PropertyRef Name="EmployeeID" />
+            </Principal>
+            <Dependent Role="TimeLogs">
+              <PropertyRef Name="EmployeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Expenses__Projec__44FF419A">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Expenses" Type="Self.Expenses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Expenses">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Invoices__SaleID__3C69FB99">
+          <End Role="Sales" Type="Self.Sales" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Invoices" Type="Self.Invoices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="Invoices">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Payments__Invoic__3F466844">
+          <End Role="Invoices" Type="Self.Invoices" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Payments" Type="Self.Payments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoices">
+              <PropertyRef Name="InvoiceID" />
+            </Principal>
+            <Dependent Role="Payments">
+              <PropertyRef Name="InvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectMa__Mater__33D4B598">
+          <End Role="Materials" Type="Self.Materials" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectMaterials" Type="Self.ProjectMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materials">
+              <PropertyRef Name="MaterialID" />
+            </Principal>
+            <Dependent Role="ProjectMaterials">
+              <PropertyRef Name="MaterialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectAs__Proje__29572725">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectAssignments" Type="Self.ProjectAssignments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectAssignments">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectMa__Proje__32E0915F">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectMaterials" Type="Self.ProjectMaterials" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectMaterials">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tasks__ProjectID__2D27B809">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TimeLogs__Projec__48CFD27E">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="TimeLogs" Type="Self.TimeLogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TimeLogs">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SaleItems__SaleI__398D8EEE">
+          <End Role="Sales" Type="Self.Sales" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="SaleItems" Type="Self.SaleItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sales">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="SaleItems">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DesignOfficeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClientDetails" EntityType="Self.ClientDetails" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Contracts" EntityType="Self.Contracts" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" />
+          <EntitySet Name="EmployeeDepartments" EntityType="Self.EmployeeDepartments" />
+          <EntitySet Name="Employees" EntityType="Self.Employees" />
+          <EntitySet Name="Expenses" EntityType="Self.Expenses" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoices" />
+          <EntitySet Name="Materials" EntityType="Self.Materials" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" />
+          <EntitySet Name="ProjectAssignments" EntityType="Self.ProjectAssignments" />
+          <EntitySet Name="ProjectMaterials" EntityType="Self.ProjectMaterials" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" />
+          <EntitySet Name="SaleItems" EntityType="Self.SaleItems" />
+          <EntitySet Name="Sales" EntityType="Self.Sales" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" />
+          <EntitySet Name="TimeLogs" EntityType="Self.TimeLogs" />
+          <AssociationSet Name="FK__ClientDet__Clien__1273C1CD" Association="Self.FK__ClientDet__Clien__1273C1CD">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="ClientDetails" EntitySet="ClientDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Projects__Client__1ED998B2" Association="Self.FK__Projects__Client__1ED998B2">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Sales__ClientID__36B12243" Association="Self.FK__Sales__ClientID__36B12243">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Sales" EntitySet="Sales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Contracts__Proje__4222D4EF" Association="Self.FK__Contracts__Proje__4222D4EF">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Contracts" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Departmen__Manag__22AA2996" Association="Self.FK__Departmen__Manag__22AA2996">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Departments" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Depar__267ABA7A" Association="Self.FK__EmployeeD__Depar__267ABA7A">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="EmployeeDepartments" EntitySet="EmployeeDepartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EmployeeD__Emplo__25869641" Association="Self.FK__EmployeeD__Emplo__25869641">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="EmployeeDepartments" EntitySet="EmployeeDepartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectAs__Emplo__2A4B4B5E" Association="Self.FK__ProjectAs__Emplo__2A4B4B5E">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="ProjectAssignments" EntitySet="ProjectAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Projects__Manage__1FCDBCEB" Association="Self.FK__Projects__Manage__1FCDBCEB">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tasks__AssignedE__2E1BDC42" Association="Self.FK__Tasks__AssignedE__2E1BDC42">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TimeLogs__Employ__47DBAE45" Association="Self.FK__TimeLogs__Employ__47DBAE45">
+            <End Role="Employees" EntitySet="Employees" />
+            <End Role="TimeLogs" EntitySet="TimeLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Expenses__Projec__44FF419A" Association="Self.FK__Expenses__Projec__44FF419A">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Expenses" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Invoices__SaleID__3C69FB99" Association="Self.FK__Invoices__SaleID__3C69FB99">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="Invoices" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Payments__Invoic__3F466844" Association="Self.FK__Payments__Invoic__3F466844">
+            <End Role="Invoices" EntitySet="Invoices" />
+            <End Role="Payments" EntitySet="Payments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectMa__Mater__33D4B598" Association="Self.FK__ProjectMa__Mater__33D4B598">
+            <End Role="Materials" EntitySet="Materials" />
+            <End Role="ProjectMaterials" EntitySet="ProjectMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectAs__Proje__29572725" Association="Self.FK__ProjectAs__Proje__29572725">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectAssignments" EntitySet="ProjectAssignments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectMa__Proje__32E0915F" Association="Self.FK__ProjectMa__Proje__32E0915F">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectMaterials" EntitySet="ProjectMaterials" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tasks__ProjectID__2D27B809" Association="Self.FK__Tasks__ProjectID__2D27B809">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TimeLogs__Projec__48CFD27E" Association="Self.FK__TimeLogs__Projec__48CFD27E">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="TimeLogs" EntitySet="TimeLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SaleItems__SaleI__398D8EEE" Association="Self.FK__SaleItems__SaleI__398D8EEE">
+            <End Role="Sales" EntitySet="Sales" />
+            <End Role="SaleItems" EntitySet="SaleItems" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DesignOfficeModelStoreContainer" CdmEntityContainer="DesignOfficeEntities">
+          <EntitySetMapping Name="ClientDetails">
+            <EntityTypeMapping TypeName="DesignOfficeModel.ClientDetails">
+              <MappingFragment StoreEntitySet="ClientDetails">
+                <ScalarProperty Name="ClientDetailID" ColumnName="ClientDetailID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="NIP" ColumnName="NIP" />
+                <ScalarProperty Name="Regon" ColumnName="Regon" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ContactPersonName" ColumnName="ContactPersonName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contracts">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Contracts">
+              <MappingFragment StoreEntitySet="Contracts">
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="ContractValueNet" ColumnName="ContractValueNet" />
+                <ScalarProperty Name="VATRate" ColumnName="VATRate" />
+                <ScalarProperty Name="ContractValueGross" ColumnName="ContractValueGross" />
+                <ScalarProperty Name="ClientSignatureDate" ColumnName="ClientSignatureDate" />
+                <ScalarProperty Name="CompanySignatureDate" ColumnName="CompanySignatureDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Departments">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeDepartments">
+            <EntityTypeMapping TypeName="DesignOfficeModel.EmployeeDepartments">
+              <MappingFragment StoreEntitySet="EmployeeDepartments">
+                <ScalarProperty Name="EmployeeDepartmentID" ColumnName="EmployeeDepartmentID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Employees">
+              <MappingFragment StoreEntitySet="Employees">
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Expenses">
+              <MappingFragment StoreEntitySet="Expenses">
+                <ScalarProperty Name="ExpenseID" ColumnName="ExpenseID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ExpenseDate" ColumnName="ExpenseDate" />
+                <ScalarProperty Name="ExpenseDescription" ColumnName="ExpenseDescription" />
+                <ScalarProperty Name="NetAmount" ColumnName="NetAmount" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Invoices">
+              <MappingFragment StoreEntitySet="Invoices">
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="PaymentDueDate" ColumnName="PaymentDueDate" />
+                <ScalarProperty Name="InvoiceStatus" ColumnName="InvoiceStatus" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materials">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Materials">
+              <MappingFragment StoreEntitySet="Materials">
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="MaterialName" ColumnName="MaterialName" />
+                <ScalarProperty Name="MaterialDescription" ColumnName="MaterialDescription" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="VATRate" ColumnName="VATRate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectAssignments">
+            <EntityTypeMapping TypeName="DesignOfficeModel.ProjectAssignments">
+              <MappingFragment StoreEntitySet="ProjectAssignments">
+                <ScalarProperty Name="ProjectAssignmentID" ColumnName="ProjectAssignmentID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="AssignmentDate" ColumnName="AssignmentDate" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectMaterials">
+            <EntityTypeMapping TypeName="DesignOfficeModel.ProjectMaterials">
+              <MappingFragment StoreEntitySet="ProjectMaterials">
+                <ScalarProperty Name="ProjectMaterialID" ColumnName="ProjectMaterialID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="MaterialID" ColumnName="MaterialID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Projects">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="ProjectType" ColumnName="ProjectType" />
+                <ScalarProperty Name="ProjectStartDate" ColumnName="ProjectStartDate" />
+                <ScalarProperty Name="ProjectEndDate" ColumnName="ProjectEndDate" />
+                <ScalarProperty Name="ProjectBudget" ColumnName="ProjectBudget" />
+                <ScalarProperty Name="VATRate" ColumnName="VATRate" />
+                <ScalarProperty Name="ProjectStatus" ColumnName="ProjectStatus" />
+                <ScalarProperty Name="ManagerID" ColumnName="ManagerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SaleItems">
+            <EntityTypeMapping TypeName="DesignOfficeModel.SaleItems">
+              <MappingFragment StoreEntitySet="SaleItems">
+                <ScalarProperty Name="SaleItemID" ColumnName="SaleItemID" />
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPriceNet" ColumnName="UnitPriceNet" />
+                <ScalarProperty Name="VATRate" ColumnName="VATRate" />
+                <ScalarProperty Name="NetAmount" ColumnName="NetAmount" />
+                <ScalarProperty Name="VATAmount" ColumnName="VATAmount" />
+                <ScalarProperty Name="GrossAmount" ColumnName="GrossAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sales">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Sales">
+              <MappingFragment StoreEntitySet="Sales">
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="TotalNetAmount" ColumnName="TotalNetAmount" />
+                <ScalarProperty Name="TotalVATAmount" ColumnName="TotalVATAmount" />
+                <ScalarProperty Name="TotalGrossAmount" ColumnName="TotalGrossAmount" />
+                <ScalarProperty Name="SaleStatus" ColumnName="SaleStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DesignOfficeModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="DesignOfficeModel.Tasks">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="TaskName" ColumnName="TaskName" />
+                <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+                <ScalarProperty Name="AssignedEmployeeID" ColumnName="AssignedEmployeeID" />
+                <ScalarProperty Name="TaskStartDate" ColumnName="TaskStartDate" />
+                <ScalarProperty Name="TaskEndDate" ColumnName="TaskEndDate" />
+                <ScalarProperty Name="EstimatedHours" ColumnName="EstimatedHours" />
+                <ScalarProperty Name="TaskStatus" ColumnName="TaskStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeLogs">
+            <EntityTypeMapping TypeName="DesignOfficeModel.TimeLogs">
+              <MappingFragment StoreEntitySet="TimeLogs">
+                <ScalarProperty Name="TimeLogID" ColumnName="TimeLogID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
+                <ScalarProperty Name="HoursWorked" ColumnName="HoursWorked" />
+                <ScalarProperty Name="HourlyRate" ColumnName="HourlyRate" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
