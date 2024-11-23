@@ -11,6 +11,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID Materiału" IsReadOnly="True" Binding="{Binding MaterialID}"/>
                 <DataGridTextColumn Header="Nazwa" Binding="{Binding MaterialName}"/>
+                <DataGridTextColumn Header="Opis" Binding="{Binding MaterialDescription}"/>
                 <DataGridTextColumn Header="Cena" Binding="{Binding UnitPrice}"/>
                 <DataGridTextColumn Header="Stawka VAT" Binding="{Binding VATRate}"/>
             </DataGrid.Columns>
