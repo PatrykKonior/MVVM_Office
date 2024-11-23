@@ -10,54 +10,18 @@ using System.Windows.Input;
 
 namespace MVVMFirma.ViewModels
 {
-    public class WszystkieTowaryViewModel : WorkspaceViewModel
+    public class WszystkieTowaryViewModel : WszystkieViewModel<Materials>
     {
-        #region DB
-        private readonly DesignOfficeEntities designOfficeEntities;
 
-        
-        #endregion
-        #region LoadCommand
-        private BaseCommand _LoadCommand;
-        #endregion
-        #region Properties
-        public ICommand LoadCommand
-        {
-            get
-            {
-                if (_LoadCommand == null)
-                {
-                    _LoadCommand = new BaseCommand(() => load());
-                }
-                return _LoadCommand;
-            }
-        }
-        #endregion
-        #region List
-        private ObservableCollection<Materials> _List;
-        public ObservableCollection<Materials> List
-        {
-            get
-            {
-                if (_List == null)
-                    load();
-                return _List;
-            }
-            set
-            {
-                _List = value;
-                OnPropertyChanged(() => List);
-            }
-        }
-        #endregion
+        #region Constructor
         public WszystkieTowaryViewModel()
+            :base("Towary")
         {
-            base.DisplayName = "Towary";
-            designOfficeEntities = new DesignOfficeEntities();
-
         }
+        #endregion
+
         #region Helpers
-        private void load()
+        public override void Load()
         {
             List = new ObservableCollection<Materials>
             (
