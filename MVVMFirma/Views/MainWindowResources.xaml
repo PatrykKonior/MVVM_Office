@@ -18,6 +18,9 @@
     <DataTemplate DataType="{x:Type vm:WszyscyKlienciViewModel}">
         <vw:WszyscyKlienciView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:WszyscyPracownicyViewModel}">
+        <vw:WszyscyPracownicyView/>
+    </DataTemplate>
     
 
     <Style x:Key="MainHCCStyle" TargetType="{x:Type HeaderedContentControl}">
