@@ -24,6 +24,9 @@
     <DataTemplate DataType="{x:Type vm:WszyscyPracownicyViewModel}">
         <vw:WszyscyPracownicyView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:NowyPracownikViewModel}">
+        <vw:NowyPracownikView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:WszystkieDzialyViewModel}">
         <vw:WszystkieDzialyView/>
     </DataTemplate>
