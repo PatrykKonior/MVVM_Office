@@ -163,6 +163,9 @@
     <Compile Include="Views\NowaFakturaView.xaml.cs">
       <DependentUpon>NowaFakturaView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\NowyDzialView.xaml.cs">
+      <DependentUpon>NowyDzialView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NowyKlientView.xaml.cs">
       <DependentUpon>NowyKlientView.xaml</DependentUpon>
     </Compile>
@@ -236,6 +239,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\NowaFakturaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NowyDzialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

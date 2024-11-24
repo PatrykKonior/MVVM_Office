@@ -30,7 +30,6 @@
     <DataTemplate DataType="{x:Type vm:WszystkieDzialyViewModel}">
         <vw:WszystkieDzialyView/>
     </DataTemplate>
-    
 
     <Style x:Key="MainHCCStyle" TargetType="{x:Type HeaderedContentControl}">
         <Setter Property="HeaderTemplate">
