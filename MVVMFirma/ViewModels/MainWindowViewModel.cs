@@ -47,10 +47,13 @@ namespace MVVMFirma.ViewModels
                     "Lista Faktur",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieFakturyViewModel()))),
 
-                
                 new CommandViewModel(
                     "Dodaj Nową Fakturę",
-                    new BaseCommand(() => this.CreateView(new NowaFakturaViewModel())))
+                    new BaseCommand(() => this.CreateView(new NowaFakturaViewModel()))),
+
+                new CommandViewModel(
+                    "Lista Klientów",
+                    new BaseCommand(() => this.CreateShowAll(new WszyscyKlienciViewModel()))),
             };
         }
         #endregion

@@ -188,3 +188,5 @@ C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debu
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\MVVMFirma_Content.g.cs
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\MVVMFirma.csproj.Up2Date
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Themes\Generic.baml
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\WszyscyKlienciView.g.cs
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\WszyscyKlienciView.baml
