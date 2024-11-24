@@ -1,98 +1,148 @@
 ﻿<Window x:Class="MVVMFirma.Views.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"  
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MVVMFirma" Height="300" Width="300" WindowState="Maximized"
-        xmlns:vm="clr-namespace:MVVMFirma.Views"
-        >
+        xmlns:vm="clr-namespace:MVVMFirma.Views">
     <Window.Resources>
-        <ResourceDictionary Source="MainWindowResources.xaml"  />
+        <ResourceDictionary Source="MainWindowResources.xaml" />
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="180"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
         </Grid.RowDefinitions>
         <!-- Menu -->
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="2">
             <MenuItem Header="_Plik">
-                <MenuItem Header="Nowy"/>
-                <MenuItem Header="Zapisz"/>
-                <MenuItem Header="Zamknij"/>
+                <MenuItem Header="Nowy" />
+                <MenuItem Header="Zapisz" />
+                <MenuItem Header="Zamknij" />
             </MenuItem>
             <MenuItem Header="_Ewidencja Biura">
                 <MenuItem Header="Towary">
-                    <MenuItem Header="Wszystkie Towary"/>
-                    <MenuItem Header="Dodaj Nowy Towar"/>
-                    <MenuItem Header="Materiały"/>
+                    <MenuItem Header="Wszystkie Towary" />
+                    <MenuItem Header="Dodaj Nowy Towar" />
+                    <MenuItem Header="Materiały" />
                 </MenuItem>
                 <MenuItem Header="Projekty">
-                    <MenuItem Header="Wszystkie Projekty"/>
-                    <MenuItem Header="Dodaj Nowy Projekt"/>
-                    <MenuItem Header="Zadania"/>
+                    <MenuItem Header="Wszystkie Projekty" />
+                    <MenuItem Header="Dodaj Nowy Projekt" />
+                    <MenuItem Header="Zadania" />
                 </MenuItem>
                 <MenuItem Header="Sprzedaż">
-                    <MenuItem Header="Lista Sprzedaży"/>
-                    <MenuItem Header="Dodaj Nową Sprzedaż"/>
-                    <MenuItem Header="Faktury"/>
+                    <MenuItem Header="Lista Sprzedaży" />
+                    <MenuItem Header="Dodaj Nową Sprzedaż" />
+                    <MenuItem Header="Faktury" />
                 </MenuItem>
                 <MenuItem Header="Pracownicy">
-                    <MenuItem Header="Lista Pracowników"/>
-                    <MenuItem Header="Dodaj Pracownika"/>
-                    <MenuItem Header="Działy"/>
+                    <MenuItem Header="Lista Pracowników" />
+                    <MenuItem Header="Dodaj Pracownika" />
+                    <MenuItem Header="Działy" />
                 </MenuItem>
                 <MenuItem Header="Klienci">
-                    <MenuItem Header="Lista Klientów"/>
-                    <MenuItem Header="Dodaj Klienta"/>
+                    <MenuItem Header="Lista Klientów" />
+                    <MenuItem Header="Dodaj Klienta" />
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="_Program">
-                <MenuItem Header="O Programie"/>
-                <MenuItem Header="Wyjdź"/>
+                <MenuItem Header="O Programie" />
+                <MenuItem Header="Wyjdź" />
             </MenuItem>
         </Menu>
         <!-- Toolbar -->
-        <ToolBar Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="2">
-            <!-- Powiększone przyciski -->
-            <Button Width="120" Height="40" Background="Blue" Content="Dodaj" Margin="5" ToolTip="Dodaj element"/>
-            <Button Width="120" Height="40" Background="Green" Content="Zapisz" Margin="5" ToolTip="Zapisz zmiany"/>
-            <Button Width="120" Height="40" Background="Red" Content="Usuń" Margin="5" ToolTip="Usuń element"/>
+        <ToolBar Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5" Background="LightSlateGray">
+            <!-- Nawigacja między zakładkami -->
+            <Button Width="40" Height="40" Content="⏪" ToolTip="Poprzednia zakładka"
+                    Margin="5" />
+            <Button Width="40" Height="40" Content="⏩" ToolTip="Następna zakładka"
+                    Margin="5" />
 
             <!-- Separator -->
-            <Separator/>
+            <Separator />
 
-            <!-- Powiększone pole wyszukiwania -->
+            <!-- Lista rozwijana zakładek -->
+            <ComboBox Width="200" Height="40" Margin="5" ToolTip="Przejdź do zakładki"
+                      DisplayMemberPath="DisplayName"
+                      SelectedItem="{Binding CurrentWorkspace}" />
+
+            <!-- Separator -->
+            <Separator />
+
+            <!-- Przycisk odśwież -->
+            <Button Width="40" Height="40" Content="🔄" ToolTip="Odśwież zakładkę"
+                    Margin="5" />
+
+            <!-- Przycisk zamykania wszystkich zakładek -->
+            <Button Width="40" Height="40" Content="❌" ToolTip="Zamknij wszystkie zakładki"
+                    Margin="5" />
+
+            <!-- Separator -->
+            <Separator />
+
+            <!-- Pole wyszukiwania -->
             <StackPanel Orientation="Horizontal" Margin="5">
-                <TextBox Width="250" Height="40" ToolTip="Szukaj" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                <Button Width="35" Height="35" Content="🔍" ToolTip="Wyszukaj" Margin="0"/>
+                <TextBox Width="250" Height="40" ToolTip="Szukaj" VerticalAlignment="Center" Margin="0,0,5,0" />
+                <Button Width="100" Height="40" Content="Wyszukaj" VerticalAlignment="Center" ToolTip="Wyszukaj" Margin="0,0,5,0" />
             </StackPanel>
         </ToolBar>
+
         <!-- Left Menu with Expander -->
-        <Border Grid.Row="2" Grid.Column="0">
-            <HeaderedContentControl 
-        Header="MENU" 
-        Background="Aqua" 
-        Style="{StaticResource MainHCCStyle}">
+        <Border Grid.Row="2" Grid.Column="0" Background="#F5F5F5" CornerRadius="10">
+            <HeaderedContentControl
+                Header="MENU"
+                Background="#E6E6E6"
+                Style="{StaticResource MainHCCStyle}">
                 <StackPanel>
                     <!-- Dynamicznie generowane komendy -->
-                    <ItemsControl ItemsSource="{Binding Path=Commands}" Margin="5">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Margin="5">
-                            <Hyperlink Command="{Binding Path=Command}">
-                                <TextBlock Text="{Binding Path=DisplayName}" />
-                            </Hyperlink>
-                        </TextBlock>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <ItemsControl ItemsSource="{Binding Path=Commands}" Margin="0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="Transparent" CornerRadius="5" Margin="2" Padding="5">
+                                        <TextBlock VerticalAlignment="Center" TextAlignment="Left">
+                                            <Hyperlink Command="{Binding Path=Command}" Cursor="Hand">
+                                                <TextBlock Text="{Binding Path=DisplayName}">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <!-- Domyślny kolor tekstu -->
+                                                            <Setter Property="Foreground" Value="DarkSlateGray" />
+                                                            <Setter Property="FontWeight" Value="Normal" />
+                                                            <Style.Triggers>
+                                                                <!-- Efekt hover na tekście -->
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Foreground" Value="DarkGreen" />
+                                                                    <Setter Property="FontWeight" Value="Bold" />
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Hyperlink>
+                                        </TextBlock>
+                                        <!-- Efekt hover na tle -->
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Setter Property="Background" Value="Transparent" />
+                                                <Setter Property="BorderBrush" Value="Transparent" />
+                                                <Setter Property="BorderThickness" Value="0" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter Property="Background" Value="LightGray" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
 
-                    <!-- Sekcja Faktury -->
+                        <!--~1~ Sekcja Faktury @1@
                     <Expander Header="Faktury" IsExpanded="False" Margin="5">
                         <StackPanel>
                             <Button Content="Lista Faktur" Margin="5" Command="{Binding ShowAllFakturyCommand}"/>
@@ -101,7 +151,7 @@
                         </StackPanel>
                     </Expander>
 
-                    <!-- Sekcja Towary -->
+                    ~1~ Sekcja Towary @1@
                     <Expander Header="Towary" IsExpanded="False" Margin="5">
                         <StackPanel>
                             <Button Content="Wszystkie Towary" Margin="5" Command="{Binding ShowAllTowaryCommand}"/>
@@ -110,7 +160,7 @@
                         </StackPanel>
                     </Expander>
 
-                    <!-- Sekcja Projekty -->
+                    ~1~ Sekcja Projekty @1@
                     <Expander Header="Projekty" IsExpanded="False" Margin="5">
                         <StackPanel>
                             <Button Content="Wszystkie Projekty" Margin="5" Command="{Binding ShowAllProjectsCommand}"/>
@@ -119,7 +169,7 @@
                         </StackPanel>
                     </Expander>
 
-                    <!-- Sekcja Pracownicy -->
+                    ~1~ Sekcja Pracownicy @1@
                     <Expander Header="Pracownicy" IsExpanded="False" Margin="5">
                         <StackPanel>
                             <Button Content="Lista Pracowników" Margin="5" Command="{Binding ShowEmployeesCommand}"/>
@@ -128,31 +178,31 @@
                         </StackPanel>
                     </Expander>
 
-                    <!-- Sekcja Klienci -->
+                    ~1~ Sekcja Klienci @1@
                     <Expander Header="Klienci" IsExpanded="False" Margin="5">
                         <StackPanel>
                             <Button Content="Lista Klientów" Margin="5" Command="{Binding ShowClientsCommand}"/>
                             <Button Content="Dodaj Klienta" Margin="5" Command="{Binding AddClientCommand}"/>
                         </StackPanel>
-                    </Expander>
+                    </Expander>-->
                 </StackPanel>
             </HeaderedContentControl>
         </Border>
         <Border Grid.Row="2" Grid.Column="1">
-            <HeaderedContentControl 
+            <HeaderedContentControl
                 Header="WORKSPACE"
                 Content="{Binding Path=Workspaces}"
                 ContentTemplate="{StaticResource WorkspacesTemplate}"
-                Style="{StaticResource MainHCCStyle}"
-            />
+                Style="{StaticResource MainHCCStyle}" />
         </Border>
-        <StatusBar Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">
+        <StatusBar Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Background="DarkSlateGray" Padding="5">
             <StatusBarItem>
-                <TextBlock>Patryk Konior</TextBlock>
+                <TextBlock Text="Patryk Konior" Foreground="LightGray" FontWeight="Bold" Margin="30,0" />
             </StatusBarItem>
-            <Separator/>
+            <!-- Separator wizualny -->
+            <Separator Background="LightSlateGray" Width="2" Margin="35,0" />
             <StatusBarItem>
-                <TextBlock>Biuro Projektowe - Patryk Konior</TextBlock>
+                <TextBlock Text="Biuro Projektowe - Patryk Konior" Foreground="LightGray" Margin="5,0" />
             </StatusBarItem>
         </StatusBar>
     </Grid>

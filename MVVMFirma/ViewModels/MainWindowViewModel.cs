@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace MVVMFirma.ViewModels
 {
@@ -134,5 +135,6 @@ namespace MVVMFirma.ViewModels
                 collectionView.MoveCurrentTo(workspace);
         }
         #endregion
+        
     }
 }

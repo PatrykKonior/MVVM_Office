@@ -35,22 +35,21 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Border 
-            Background="Blue" 
-            BorderBrush="LightGray" 
-            BorderThickness="1" 
-            CornerRadius="5" 
-            Margin="4" 
-            Padding="4" 
-            SnapsToDevicePixels="True" 
-            >
+                    <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="8" Margin="6" Padding="8" SnapsToDevicePixels="True">
+                        <!-- Gradient w tle -->
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="DarkSlateGray" Offset="0.0"/>
+                                <GradientStop Color="LightSlateGray" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <!-- Tekst nagłówka -->
                         <TextBlock 
-              FontSize="14"
-              FontWeight="Bold"
-              Foreground="White" 
-              HorizontalAlignment="Center"  
-              Text="{TemplateBinding Content}" 
-              />
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Foreground="White" 
+                            HorizontalAlignment="Center"  
+                            Text="{TemplateBinding Content}" />
                     </Border>
                 </DataTemplate>
             </Setter.Value>
@@ -95,14 +94,27 @@
   side in the main window (the 'Control Panel' area).
   -->
     <DataTemplate x:Key="CommandsTemplate">
-        <ItemsControl IsTabStop="False" ItemsSource="{Binding}" Margin="6,2">
+        <ItemsControl IsTabStop="False" ItemsSource="{Binding}" Margin="10">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Margin="2,6">
-            <Hyperlink Command="{Binding Path=Command}">
-              <TextBlock Text="{Binding Path=DisplayName}" />
-            </Hyperlink>
-          </TextBlock>
+                    <Border Background="Transparent" Margin="0,5" CornerRadius="5">
+                        <TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Padding="10,5">
+                            <Hyperlink Command="{Binding Path=Command}" Cursor="Hand">
+                                <TextBlock Text="{Binding Path=DisplayName}" Foreground="Black">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Hyperlink>
+                        </TextBlock>
+                    </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
