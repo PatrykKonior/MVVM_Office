@@ -149,6 +149,7 @@
     <Compile Include="ViewModels\NowyTowarViewModel.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="ViewModels\WszyscyPracownicyViewModel.cs" />
+    <Compile Include="ViewModels\WszystkieDzialyViewModel.cs" />
     <Compile Include="ViewModels\WszystkieFakturyViewModel.cs" />
     <Compile Include="ViewModels\WszyscyKlienciViewModel.cs" />
     <Compile Include="ViewModels\WszystkieTowaryViewModel.cs" />
@@ -165,6 +166,9 @@
     </Compile>
     <Compile Include="Views\WszyscyPracownicyView.xaml.cs">
       <DependentUpon>WszyscyPracownicyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WszystkieDzialyView.xaml.cs">
+      <DependentUpon>WszystkieDzialyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WszystkieFakturyView.xaml.cs">
       <DependentUpon>WszystkieFakturyView.xaml</DependentUpon>
@@ -232,6 +236,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WszyscyPracownicyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WszystkieDzialyView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
