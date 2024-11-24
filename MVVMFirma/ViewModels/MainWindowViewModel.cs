@@ -56,6 +56,10 @@ namespace MVVMFirma.ViewModels
                     new BaseCommand(() => this.CreateShowAll(new WszyscyKlienciViewModel()))),
                 
                 new CommandViewModel(
+                    "Dodaj Nowego Klienta",
+                    new BaseCommand(() => this.CreateView(new NowyKlientViewModel()))),
+                
+                new CommandViewModel(
                     "Lista Pracowników",
                     new BaseCommand(() => this.CreateShowAll(new WszyscyPracownicyViewModel()))),
                 
