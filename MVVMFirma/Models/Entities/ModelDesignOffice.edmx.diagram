@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b37d2d55167e4b05902dac3515bc78c5" Name="Diagram1">
+      <Diagram DiagramId="b37d2d55167e4b05902dac3515bc78c5" Name="Diagram1" ZoomLevel="97">
         <EntityTypeShape EntityType="DesignOfficeModel.ClientDetails" Width="1.5" PointX="3" PointY="20.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DesignOfficeModel.Clients" Width="1.5" PointX="0.75" PointY="17" IsExpanded="true" />
         <EntityTypeShape EntityType="DesignOfficeModel.Contracts" Width="1.5" PointX="5.25" PointY="15.375" IsExpanded="true" />
@@ -20,7 +20,7 @@
         <EntityTypeShape EntityType="DesignOfficeModel.Projects" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DesignOfficeModel.SaleItems" Width="1.5" PointX="5.25" PointY="29.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DesignOfficeModel.Sales" Width="1.5" PointX="3" PointY="27.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DesignOfficeModel.sysdiagrams" Width="3.375" PointX="1.125" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DesignOfficeModel.sysdiagrams" Width="3.375" PointX="1.25" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DesignOfficeModel.Tasks" Width="1.5" PointX="8.25" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="DesignOfficeModel.TimeLogs" Width="1.5" PointX="5.25" PointY="8.25" IsExpanded="true" />
         <AssociationConnector Association="DesignOfficeModel.FK__ClientDet__Clien__1273C1CD" ManuallyRouted="false" />
