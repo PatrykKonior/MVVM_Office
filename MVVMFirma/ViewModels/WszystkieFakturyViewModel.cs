@@ -31,6 +31,9 @@ namespace MVVMFirma.ViewModels
                     select new FakturaForAllView
                     {
                         InvoiceID = faktura.InvoiceID,
+                        ClientsCompanyName = faktura.Sales.Clients.CompanyName,
+                        ClientsNIP = faktura.Sales.Clients.NIP,
+                        ClientsRegon = faktura.Sales.Clients.Regon,
                         SalesSaleDate = faktura.Sales.SaleDate,
                         SalesTotalNetAmount = faktura.Sales.TotalNetAmount,
                         SalesTotalVATAmount = faktura.Sales.TotalVATAmount,

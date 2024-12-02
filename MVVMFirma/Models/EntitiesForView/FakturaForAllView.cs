@@ -11,6 +11,12 @@ namespace MVVMFirma.Models.EntitiesForView
     {
         public int InvoiceID { get; set; }
 
+        public string ClientsCompanyName { get; set; }
+
+        public string ClientsNIP { get; set; }
+
+        public string ClientsRegon { get; set; }
+
         public DateTime? SalesSaleDate { get; set; }
 
         public decimal? SalesTotalNetAmount { get; set; }

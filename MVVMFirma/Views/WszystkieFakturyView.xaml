@@ -8,14 +8,21 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="AntiqueWhite">
         <Grid Background="white">
-            <DataGrid AutoGenerateColumns="False">
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID Faktury" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Data wystawienia"/>
-                    <DataGridTextColumn Header="Termin płatności" />
-                    <DataGridTextColumn Header="Status"/>
-                    <DataGridTextColumn Header="Klient"/>
-                    <DataGridTextColumn Header="Kwota całkowita"/>
+                    <DataGridTextColumn Header="ID Faktury" Binding="{Binding InvoiceID}"/>
+                    <DataGridTextColumn Header="Nazwa firmy" Binding="{Binding ClientsCompanyName}"/>
+                    <DataGridTextColumn Header="NIP" Binding="{Binding ClientsNIP}"/>
+                    <DataGridTextColumn Header="REGON" Binding="{Binding ClientsRegon}"/>
+                    <DataGridTextColumn Header="Data sprzedaży" Binding="{Binding SalesSaleDate}"/>
+                    <DataGridTextColumn Header="Kwota netto" Binding="{Binding SalesTotalNetAmount}"/>
+                    <DataGridTextColumn Header="Kwota VAT" Binding="{Binding SalesTotalVATAmount}"/>
+                    <DataGridTextColumn Header="Kwota brutto" Binding="{Binding SalesTotalGrossAmount}"/>
+                    <DataGridTextColumn Header="Status zamówienia" Binding="{Binding SalesSaleStatus}"/>
+                    <DataGridTextColumn Header="Data wystawienia" Binding="{Binding InvoiceDate}"/>
+                    <DataGridTextColumn Header="Termin płatności" Binding="{Binding PaymentDueDate}"/>
+                    <DataGridTextColumn Header="Status Faktury" Binding="{Binding InvoiceStatus}"/>
+                    <DataGridTextColumn Header="Kwota całkowita" Binding="{Binding TotalAmount}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
