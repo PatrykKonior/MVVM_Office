@@ -36,6 +36,10 @@ namespace MVVMFirma.ViewModels
         {
             return new List<CommandViewModel>
             {
+                 new CommandViewModel(
+                    "Lista Projektów",
+                    new BaseCommand(() => this.CreateShowAll(new WszystkieProjektyViewModel()))),
+
                 new CommandViewModel(
                     "Towary",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieTowaryViewModel()))),
