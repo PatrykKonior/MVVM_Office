@@ -7,10 +7,11 @@ using System.Windows.Documents;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Helper;
 using System.Windows.Input;
+using MVVMFirma.Models.EntitiesForView;
 
 namespace MVVMFirma.ViewModels
 {
-    public class WszystkieDzialyViewModel : WszystkieViewModel<Departments>
+    public class WszystkieDzialyViewModel : WszystkieViewModel<DzialyForAllView>
     {
 
         #region Constructor
@@ -23,9 +24,21 @@ namespace MVVMFirma.ViewModels
         #region Helpers
         public override void Load()
         {
-            List = new ObservableCollection<Departments>
+            List = new ObservableCollection<DzialyForAllView>
             (
-                designOfficeEntities.Departments.ToList()
+                List = new ObservableCollection<DzialyForAllView>
+                (
+                    from department in designOfficeEntities.Departments
+                    select new DzialyForAllView
+                    {
+                        DepartmentID = department.DepartmentID,
+                        DepartmentName = department.DepartmentName,
+                        EmployeeFirstName = department.Employees != null ? department.Employees.FirstName : "Brak menedżera",
+                        EmployeeLastName = department.Employees != null ? department.Employees.LastName : " ",
+                        EmployeeEmail = department.Employees != null ? department.Employees.Email : " ",
+                        EmployeePhoneNumber = department.Employees != null ? department.Employees.PhoneNumber : " ",
+                    }
+                )
             );
         }
         #endregion

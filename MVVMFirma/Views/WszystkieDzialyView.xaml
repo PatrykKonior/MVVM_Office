@@ -9,9 +9,12 @@
     <Grid Background="White">
         <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID Działu" IsReadOnly="True" Binding="{Binding DepartmentID}"/>
-                <DataGridTextColumn Header="Nazwa działu" IsReadOnly="True" Binding="{Binding DepartmentName}"/>
-                <DataGridTextColumn Header="ID Menadżera" Binding="{Binding ManagerID}"/>
+                <DataGridTextColumn Header="ID Działu" Binding="{Binding DepartmentID}" Width="100"/>
+                <DataGridTextColumn Header="Nazwa Działu" Binding="{Binding DepartmentName}" Width="200"/>
+                <DataGridTextColumn Header="Imię Menedżera" Binding="{Binding EmployeeFirstName}" Width="150"/>
+                <DataGridTextColumn Header="Nazwisko Menedżera" Binding="{Binding EmployeeLastName}" Width="150"/>
+                <DataGridTextColumn Header="Email Menedżera" Binding="{Binding EmployeeEmail}" Width="200"/>
+                <DataGridTextColumn Header="Telefon Menedżera" Binding="{Binding EmployeePhoneNumber}" Width="150"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
