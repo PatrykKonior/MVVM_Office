@@ -18,6 +18,9 @@
     <DataTemplate DataType="{x:Type vm:NowaFakturaViewModel}">
         <vw:NowaFakturaView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:WszystkieSprzedazeViewModel}">
+        <vw:WszystkieSprzedazeView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:WszystkieFakturyViewModel}">
         <vw:WszystkieFakturyView/>
     </DataTemplate>

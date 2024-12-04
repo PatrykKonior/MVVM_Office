@@ -59,7 +59,9 @@ namespace MVVMFirma.ViewModels
                 new CommandViewModel(
                     "Dodaj Nową Fakturę",
                     new BaseCommand(() => this.CreateView(new NowaFakturaViewModel()))),
-
+                new CommandViewModel(
+                    "Wykaz sprzedaży",
+                    new BaseCommand(() => this.CreateShowAll(new WszystkieSprzedazeViewModel()))),
                 new CommandViewModel(
                     "Lista Klientów",
                     new BaseCommand(() => this.CreateShowAll(new WszyscyKlienciViewModel()))),
