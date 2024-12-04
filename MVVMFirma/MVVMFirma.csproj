@@ -75,6 +75,7 @@
     <Compile Include="Models\EntitiesForView\DzialyForAllView.cs" />
     <Compile Include="Models\EntitiesForView\FakturaForAllView.cs" />
     <Compile Include="Models\EntitiesForView\ProjectsForAllView.cs" />
+    <Compile Include="Models\EntitiesForView\ZadaniaForAllView.cs" />
     <Compile Include="Models\Entities\ClientDetails.cs">
       <DependentUpon>ModelDesignOffice.tt</DependentUpon>
     </Compile>
@@ -154,6 +155,7 @@
     <Compile Include="ViewModels\NowyTowarViewModel.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="ViewModels\WszyscyPracownicyViewModel.cs" />
+    <Compile Include="ViewModels\WszystkieZadaniaViewModel.cs" />
     <Compile Include="ViewModels\WszystkieDzialyViewModel.cs" />
     <Compile Include="ViewModels\WszystkieProjektyViewModel.cs" />
     <Compile Include="ViewModels\WszystkieFakturyViewModel.cs" />
@@ -184,6 +186,9 @@
     </Compile>
     <Compile Include="Views\WszystkieDzialyView.xaml.cs">
       <DependentUpon>WszystkieDzialyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WszystkieZadaniaView.xaml.cs">
+      <DependentUpon>WszystkieZadaniaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WszystkieProjektyView.xaml.cs">
       <DependentUpon>WszystkieProjektyView.xaml</DependentUpon>
@@ -270,6 +275,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WszystkieDzialyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WszystkieZadaniaView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

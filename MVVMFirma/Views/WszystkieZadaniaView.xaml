@@ -1,0 +1,28 @@
+﻿<local:WszystkieViewBase x:Class="MVVMFirma.Views.WszystkieZadaniaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MVVMFirma.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="AntiqueWhite">
+        <Grid Background="white">
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID Zadania" Binding="{Binding TaskID}" Width="100"/>
+                    <DataGridTextColumn Header="Nazwa Projektu" Binding="{Binding ProjectName}" Width="200"/>
+                    <DataGridTextColumn Header="Typ Projektu" Binding="{Binding ProjectType}" Width="200"/>
+                    <DataGridTextColumn Header="Nazwa Zadania" Binding="{Binding TaskName}" Width="200"/>
+                    <DataGridTextColumn Header="Opis Zadania" Binding="{Binding TaskDescription}" Width="300"/>
+                    <DataGridTextColumn Header="Imię Pracownika" Binding="{Binding EmployeesFirstName}" Width="150"/>
+                    <DataGridTextColumn Header="Nazwisko Pracownika" Binding="{Binding EmployeesLastName}" Width="150"/>
+                    <DataGridTextColumn Header="Data Rozpoczęcia" Binding="{Binding TaskStartDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="150"/>
+                    <DataGridTextColumn Header="Data Zakończenia" Binding="{Binding TaskEndDate, StringFormat=\{0:yyyy-MM-dd\}}" Width="150"/>
+                    <DataGridTextColumn Header="Szacowane Godziny" Binding="{Binding EstimatedHours, StringFormat=\{0:N1\}}" Width="150"/>
+                    <DataGridTextColumn Header="Status Zadania" Binding="{Binding TaskStatus}" Width="150"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</local:WszystkieViewBase>

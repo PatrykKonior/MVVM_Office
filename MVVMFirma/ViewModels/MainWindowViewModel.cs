@@ -40,6 +40,10 @@ namespace MVVMFirma.ViewModels
                     "Lista Projektów",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieProjektyViewModel()))),
 
+                 new CommandViewModel(
+                    "Lista Zadań",
+                    new BaseCommand(() => this.CreateShowAll(new WszystkieZadaniaViewModel()))),
+
                 new CommandViewModel(
                     "Towary",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieTowaryViewModel()))),
