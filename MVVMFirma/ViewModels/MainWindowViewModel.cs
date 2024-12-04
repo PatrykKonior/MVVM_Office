@@ -65,6 +65,9 @@ namespace MVVMFirma.ViewModels
                     "Wykaz sprzedaży",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieSprzedazeViewModel()))),
                 new CommandViewModel(
+                    "Lista wydatków",
+                    new BaseCommand(() => this.CreateShowAll(new WszystkieWydatkiViewModel()))),
+                new CommandViewModel(
                     "Lista Klientów",
                     new BaseCommand(() => this.CreateShowAll(new WszyscyKlienciViewModel()))),
                 

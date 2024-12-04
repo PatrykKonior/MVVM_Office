@@ -27,6 +27,9 @@
     <DataTemplate DataType="{x:Type vm:WszystkieFakturyViewModel}">
         <vw:WszystkieFakturyView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:WszystkieWydatkiViewModel}">
+        <vw:WszystkieWydatkiView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:NowyKlientViewModel}">
         <vw:NowyKlientView/>
     </DataTemplate>
