@@ -72,6 +72,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helper\BaseCommand.cs" />
+    <Compile Include="Models\EntitiesForView\CzasPracyForAllView.cs" />
     <Compile Include="Models\EntitiesForView\DzialyForAllView.cs" />
     <Compile Include="Models\EntitiesForView\FakturaForAllView.cs" />
     <Compile Include="Models\EntitiesForView\KontraktyForAllView.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="ViewModels\NowyTowarViewModel.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="ViewModels\WszyscyPracownicyViewModel.cs" />
+    <Compile Include="ViewModels\WszystkieCzasyPracyViewModel.cs" />
     <Compile Include="ViewModels\WszystkieWydatkiViewModel.cs" />
     <Compile Include="ViewModels\WszystkieKontraktyViewModel.cs" />
     <Compile Include="ViewModels\WszystkieSprzedazeViewModel.cs" />
@@ -189,6 +191,9 @@
     </Compile>
     <Compile Include="Views\WszyscyPracownicyView.xaml.cs">
       <DependentUpon>WszyscyPracownicyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WszystkieCzasyPracyView.xaml.cs">
+      <DependentUpon>WszystkieCzasyPracyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WszystkieWydatkiView.xaml.cs">
       <DependentUpon>WszystkieWydatkiView.xaml</DependentUpon>
@@ -286,6 +291,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\WszyscyPracownicyView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WszystkieCzasyPracyView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

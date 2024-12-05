@@ -86,6 +86,9 @@ namespace MVVMFirma.ViewModels
                 new CommandViewModel(
                     "Działy w firmie",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieDzialyViewModel()))),
+                new CommandViewModel(
+                    "Czas Pracy",
+                    new BaseCommand(() => this.CreateShowAll(new WszystkieCzasyPracyViewModel()))),
             };
         }
         #endregion
