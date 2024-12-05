@@ -58,6 +58,10 @@ namespace MVVMFirma.ViewModels
                     new BaseCommand(() => this.CreateView(new NowyTowarViewModel()))),
 
                 new CommandViewModel(
+                    "Materiały w projektach",
+                    new BaseCommand(() => this.CreateShowAll(new WszystkieProjectMaterialsViewModel()))),
+
+                new CommandViewModel(
                     "Lista Faktur",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieFakturyViewModel()))),
 
