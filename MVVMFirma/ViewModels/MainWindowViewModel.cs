@@ -36,13 +36,16 @@ namespace MVVMFirma.ViewModels
         {
             return new List<CommandViewModel>
             {
-                 new CommandViewModel(
+                 
+                new CommandViewModel(
                     "Lista Projektów",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieProjektyViewModel()))),
-                 new CommandViewModel(
+                 
+                new CommandViewModel(
                     "Lista Kontraktów",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieKontraktyViewModel()))),
-                 new CommandViewModel(
+                 
+                new CommandViewModel(
                     "Lista Zadań",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieZadaniaViewModel()))),
 
@@ -61,12 +64,19 @@ namespace MVVMFirma.ViewModels
                 new CommandViewModel(
                     "Dodaj Nową Fakturę",
                     new BaseCommand(() => this.CreateView(new NowaFakturaViewModel()))),
+                
                 new CommandViewModel(
-                    "Wykaz sprzedaży",
+                    "Wykaz Sprzedaży",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieSprzedazeViewModel()))),
+                
                 new CommandViewModel(
-                    "Lista wydatków",
+                    "Lista Wydatków",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieWydatkiViewModel()))),
+                
+                new CommandViewModel(
+                    "Lista Płatności",
+                    new BaseCommand(() => this.CreateShowAll(new WszystkiePlatnosciViewModel()))),
+                
                 new CommandViewModel(
                     "Lista Klientów",
                     new BaseCommand(() => this.CreateShowAll(new WszyscyKlienciViewModel()))),
@@ -86,6 +96,7 @@ namespace MVVMFirma.ViewModels
                 new CommandViewModel(
                     "Działy w firmie",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieDzialyViewModel()))),
+                
                 new CommandViewModel(
                     "Czas Pracy",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieCzasyPracyViewModel()))),

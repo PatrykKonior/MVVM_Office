@@ -30,6 +30,9 @@
     <DataTemplate DataType="{x:Type vm:WszystkieWydatkiViewModel}">
         <vw:WszystkieWydatkiView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:WszystkiePlatnosciViewModel}">
+        <vw:WszystkiePlatnosciView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:NowyKlientViewModel}">
         <vw:NowyKlientView/>
     </DataTemplate>
