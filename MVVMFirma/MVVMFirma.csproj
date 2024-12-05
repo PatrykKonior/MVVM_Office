@@ -78,6 +78,7 @@
     <Compile Include="Models\EntitiesForView\KontraktyForAllView.cs" />
     <Compile Include="Models\EntitiesForView\PlatnosciForAllView.cs" />
     <Compile Include="Models\EntitiesForView\ProjectsForAllView.cs" />
+    <Compile Include="Models\EntitiesForView\SaleItemsForAllView.cs" />
     <Compile Include="Models\EntitiesForView\SprzedazForAllView.cs" />
     <Compile Include="Models\EntitiesForView\WydatkiForAllView.cs" />
     <Compile Include="Models\EntitiesForView\ZadaniaForAllView.cs" />
@@ -160,6 +161,7 @@
     <Compile Include="ViewModels\NowyTowarViewModel.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="ViewModels\WszyscyPracownicyViewModel.cs" />
+    <Compile Include="ViewModels\WszystkieSaleItemsViewModel.cs" />
     <Compile Include="ViewModels\WszystkiePlatnosciViewModel.cs" />
     <Compile Include="ViewModels\WszystkieCzasyPracyViewModel.cs" />
     <Compile Include="ViewModels\WszystkieWydatkiViewModel.cs" />
@@ -199,6 +201,9 @@
     </Compile>
     <Compile Include="Views\WszystkiePlatnosciView.xaml.cs">
       <DependentUpon>WszystkiePlatnosciView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WszystkieSaleItemsView.xaml.cs">
+      <DependentUpon>WszystkieSaleItemsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WszystkieWydatkiView.xaml.cs">
       <DependentUpon>WszystkieWydatkiView.xaml</DependentUpon>
@@ -304,6 +309,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\WszystkiePlatnosciView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\WszystkieSaleItemsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
