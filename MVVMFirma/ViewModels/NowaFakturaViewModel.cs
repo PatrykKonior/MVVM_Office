@@ -21,16 +21,55 @@ namespace MVVMFirma.ViewModels
             : base("Nowa faktura")
         {
             item = new Invoices();
+            LoadData();
+            InvoiceDate = DateTime.Now; // Domyślnie ustawiona bieżąca data
+            PaymentDueDate = DateTime.Now.AddDays(14); // Domyślnie termin płatności to 14 dni
         }
         #endregion
-        #region Pole
-       public int InvoiceID
+        #region Properties
+
+        public int? SaleID
         {
-            get => item.InvoiceID;
+            get => item.SaleID;
             set
             {
-                item.InvoiceID = value;
-                OnPropertyChanged(() => InvoiceID);
+                item.SaleID = value;
+                OnPropertyChanged(() => SaleID);
+                OnPropertyChanged(() => SelectedSale);
+            }
+        }
+
+        public KeyAndValue SelectedSale
+        {
+            get => SalesItems.FirstOrDefault(s => s.Key == SaleID);
+            set
+            {
+                SaleID = value?.Key;
+                OnPropertyChanged(() => SelectedSale);
+            }
+        }
+
+        public int? ClientID
+        {
+            get => item.Sales?.ClientID;
+            set
+            {
+                if (item.Sales != null)
+                {
+                    item.Sales.ClientID = value;
+                    OnPropertyChanged(() => ClientID);
+                }
+                OnPropertyChanged(() => SelectedClient);
+            }
+        }
+
+        public KeyAndValue SelectedClient
+        {
+            get => ClientsItems.FirstOrDefault(c => c.Key == ClientID);
+            set
+            {
+                ClientID = value?.Key;
+                OnPropertyChanged(() => SelectedClient);
             }
         }
 
@@ -41,16 +80,6 @@ namespace MVVMFirma.ViewModels
             {
                 item.InvoiceDate = value;
                 OnPropertyChanged(() => InvoiceDate);
-            }
-        }
-
-        public int? SaleID
-        {
-            get => item.SaleID;
-            set
-            {
-                item.SaleID = value;
-                OnPropertyChanged(() => SaleID);
             }
         }
 
@@ -83,29 +112,31 @@ namespace MVVMFirma.ViewModels
                 OnPropertyChanged(() => TotalAmount);
             }
         }
-        #endregion
-        #region Properties
-        public IQueryable<KeyAndValue> SalesItems
-        {
-            get
-            {
-                return new SalesAdd(designOfficeEntities).GetSalesKeyAndValueItems();
-            }
-        }
-        public IQueryable<KeyAndValue> ClientsItems
-        {
-            get
-            {
-                return new ClientsAdd(designOfficeEntities).GetClientsKeyAndValueItems();
-            }
-        }
+
+        public ObservableCollection<KeyAndValue> SalesItems { get; set; }
+        public ObservableCollection<KeyAndValue> ClientsItems { get; set; }
+
         #endregion
         #region Helpers
+
+        private void LoadData()
+        {
+            SalesItems = new ObservableCollection<KeyAndValue>(new SalesAdd(designOfficeEntities).GetSalesKeyAndValueItems());
+            ClientsItems = new ObservableCollection<KeyAndValue>(new ClientsAdd(designOfficeEntities).GetClientsKeyAndValueItems());
+        }
+
         public override void Save()
         {
+            if (SaleID == null)
+            {
+                throw new InvalidOperationException("Sale must be selected.");
+            }
+
+            item.SaleID = SaleID;
             designOfficeEntities.Invoices.Add(item);
             designOfficeEntities.SaveChanges();
         }
+
         #endregion
 
 
