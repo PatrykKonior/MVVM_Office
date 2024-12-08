@@ -83,6 +83,7 @@ namespace MVVMFirma.ViewModels
                 OnPropertyChanged(() => TotalAmount);
             }
         }
+        #endregion
         #region Properties
         public IQueryable<KeyAndValue> SalesItems
         {

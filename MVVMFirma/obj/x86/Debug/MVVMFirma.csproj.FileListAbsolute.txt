@@ -220,3 +220,16 @@ C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\WszystkieProjectMaterialsView.baml
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\WszystkieProjectAssignmentsView.g.cs
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\WszystkieProjectAssignmentsView.baml
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.dll
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.Extras.dll
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.Platform.dll
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\System.Windows.Interactivity.dll
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.pdb
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.xml
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.Extras.pdb
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.Extras.xml
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.Platform.pdb
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.Platform.xml
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\Microsoft.Practices.ServiceLocation.xml

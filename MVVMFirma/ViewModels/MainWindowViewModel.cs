@@ -9,6 +9,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace MVVMFirma.ViewModels
 {
@@ -34,9 +35,10 @@ namespace MVVMFirma.ViewModels
         }
         private List<CommandViewModel> CreateCommands()
         {
+            Messenger.Default.Register<string>(this, open);
             return new List<CommandViewModel>
             {
-                 
+
                 new CommandViewModel(
                     "Lista Projektów",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieProjektyViewModel()))),
@@ -48,7 +50,7 @@ namespace MVVMFirma.ViewModels
                 new CommandViewModel(
                     "Lista Kontraktów",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieKontraktyViewModel()))),
-                 
+
                 new CommandViewModel(
                     "Lista Zadań",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieZadaniaViewModel()))),
@@ -72,7 +74,7 @@ namespace MVVMFirma.ViewModels
                 new CommandViewModel(
                     "Dodaj Nową Fakturę",
                     new BaseCommand(() => this.CreateView(new NowaFakturaViewModel()))),
-                
+
                 new CommandViewModel(
                     "Wykaz Sprzedaży",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieSprzedazeViewModel()))),
@@ -84,31 +86,31 @@ namespace MVVMFirma.ViewModels
                 new CommandViewModel(
                     "Lista Wydatków",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieWydatkiViewModel()))),
-                
+
                 new CommandViewModel(
                     "Lista Płatności",
                     new BaseCommand(() => this.CreateShowAll(new WszystkiePlatnosciViewModel()))),
-                
+
                 new CommandViewModel(
                     "Lista Klientów",
                     new BaseCommand(() => this.CreateShowAll(new WszyscyKlienciViewModel()))),
-                
+
                 new CommandViewModel(
                     "Dodaj Nowego Klienta",
                     new BaseCommand(() => this.CreateView(new NowyKlientViewModel()))),
-                
+
                 new CommandViewModel(
                     "Lista Pracowników",
                     new BaseCommand(() => this.CreateShowAll(new WszyscyPracownicyViewModel()))),
-                
+
                 new CommandViewModel(
                     "Dodaj Nowego Pracownika",
                     new BaseCommand(() => this.CreateView(new NowyPracownikViewModel()))),
-                
+
                 new CommandViewModel(
                     "Działy w firmie",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieDzialyViewModel()))),
-                
+
                 new CommandViewModel(
                     "Czas Pracy",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieCzasyPracyViewModel()))),
@@ -175,7 +177,18 @@ namespace MVVMFirma.ViewModels
             if (collectionView != null)
                 collectionView.MoveCurrentTo(workspace);
         }
+        private void open(string name)
+        {
+            if (name == "TowaryAdd")
+                CreateView(new NowyTowarViewModel());
+            if (name == "FakturyAdd")
+                CreateView(new NowaFakturaViewModel());
+            if (name == "KlienciAdd")
+                CreateView(new NowyKlientViewModel());
+            if (name == "PracownicyAdd")
+                CreateView(new NowyPracownikViewModel());
+
+        }
         #endregion
-        
     }
 }

@@ -9,6 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using MVVMFirma.ViewModel;
 using System;
 using System.Diagnostics;
 using System.Windows;

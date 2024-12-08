@@ -10,6 +10,7 @@ using System.Linq.Expressions;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Helper;
 using MVVMFirma.ViewModels;
+using GalaSoft.MvvmLight.Messaging;
 
 
 namespace MVVMFirma.ViewModels
@@ -20,17 +21,25 @@ namespace MVVMFirma.ViewModels
         protected readonly DesignOfficeEntities designOfficeEntities; // to jest pole, które reprezentuje bazę 2danych
         #endregion
 
-        #region LoadCommand
+        #region Command
         private BaseCommand _LoadCommand; // to jest komenda, która będzie wywoływać metodę Load pokazującą towary
-        #endregion
-
-        #region Properties
+        
         public ICommand LoadCommand // to jest właściwość, która udostępnia komendę ładującą towary
         {
             get
             {
                 if (_LoadCommand == null) _LoadCommand = new BaseCommand(() => Load());
                 return _LoadCommand;
+            }
+        }
+        private BaseCommand _AddCommand; // to jest komenda, która będzie wywoływać metodę Add wywołująca okno do dodawania i zostanie podpieta pod przycisk dodaj
+
+        public ICommand AddCommand // to jest właściwość, która udostępnia komendę ładującą towary
+        {
+            get
+            {
+                if (_AddCommand == null) _AddCommand = new BaseCommand(() => Add());
+                return _AddCommand;
             }
         }
         #endregion
@@ -63,6 +72,10 @@ namespace MVVMFirma.ViewModels
 
         #region Helpers
         public abstract void Load(); // to jest metoda, która pobiera towary z bazy danych
+        public void Add()
+        {
+            Messenger.Default.Send(DisplayName + "Add");
+        }
         #endregion
     }
 }

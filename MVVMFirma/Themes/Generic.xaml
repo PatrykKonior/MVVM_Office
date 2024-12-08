@@ -15,10 +15,10 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <ToolBar Grid.Row="0" Margin="0,2,0,2">
-                            <ToggleButton Content="DODAJ" Margin="0,2,0,2"/>
+                            <ToggleButton Content="DODAJ" Margin="0,2,0,2" Command="{Binding AddCommand}"/>
                             <ToggleButton Content="EDYTUJ" Margin="0,2,0,2"/>
                             <ToggleButton Content="USUN" Margin="0,2,0,2"/>
-                            <ToggleButton Content="ODSWIEZ" Margin="0,2,0,2"/>
+                            <ToggleButton Content="ODSWIEZ" Margin="0,2,0,2" Command="{Binding LoadCommand}"/>
                         </ToolBar>
                         <StackPanel Grid.Row="1" Background="Azure">
                             <Label>Tu bedzie sortowanie i filtrowanie</Label>
