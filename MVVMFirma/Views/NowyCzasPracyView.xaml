@@ -1,0 +1,50 @@
+﻿<local:JedenViewBase x:Class="MVVMFirma.Views.NowyCzasPracyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MVVMFirma.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
+        <StackPanel Margin="20">
+            <TextBlock Text="Dodaj Nowy Czas Pracy" FontSize="20" FontWeight="Bold" Foreground="DarkSlateGray" Margin="0,0,0,20"/>
+
+            <!-- Wybór pracownika -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Pracownik:" Width="150" VerticalAlignment="Center"/>
+                <ComboBox Width="300" ItemsSource="{Binding EmployeesItems}" SelectedItem="{Binding SelectedEmployee}" DisplayMemberPath="Value"/>
+            </StackPanel>
+
+            <!-- Wybór projektu -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Projekt:" Width="150" VerticalAlignment="Center"/>
+                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" SelectedItem="{Binding SelectedProject}" DisplayMemberPath="Value"/>
+            </StackPanel>
+
+            <!-- Data logowania -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Data:" Width="150" VerticalAlignment="Center"/>
+                <DatePicker Width="300" SelectedDate="{Binding LogDate}"/>
+            </StackPanel>
+
+            <!-- Godziny i stawka -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Godziny Pracy:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding HoursWorked}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Stawka godzinowa:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding HourlyRate}"/>
+            </StackPanel>
+
+            <!-- Łączna kwota -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Łączna Kwota:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding TotalAmount}" IsReadOnly="True"/>
+            </StackPanel>
+
+            
+        </StackPanel>
+    </Grid>
+</local:JedenViewBase>

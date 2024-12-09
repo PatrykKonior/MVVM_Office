@@ -112,6 +112,10 @@ namespace MVVMFirma.ViewModels
                     new BaseCommand(() => this.CreateShowAll(new WszystkieDzialyViewModel()))),
 
                 new CommandViewModel(
+                    "Dodaj Czas Pracy",
+                    new BaseCommand(() => this.CreateView(new NowyCzasPracyViewModel()))),
+
+                new CommandViewModel(
                     "Czas Pracy",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieCzasyPracyViewModel()))),
             };
@@ -187,6 +191,8 @@ namespace MVVMFirma.ViewModels
                 CreateView(new NowyKlientViewModel());
             if (name == "PracownicyAdd")
                 CreateView(new NowyPracownikViewModel());
+            if (name == "Czasy PracyAdd")
+                CreateView(new NowyCzasPracyViewModel());
 
         }
         #endregion

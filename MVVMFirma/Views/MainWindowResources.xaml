@@ -57,6 +57,9 @@
     <DataTemplate DataType="{x:Type vm:WszystkieDzialyViewModel}">
         <vw:WszystkieDzialyView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:NowyCzasPracyViewModel}">
+        <vw:NowyCzasPracyView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:WszystkieCzasyPracyViewModel}">
         <vw:WszystkieCzasyPracyView/>
     </DataTemplate>

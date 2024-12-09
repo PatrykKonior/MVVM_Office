@@ -233,3 +233,5 @@ C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debu
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\GalaSoft.MvvmLight.Platform.xml
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\NowyCzasPracyView.g.cs
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\NowyCzasPracyView.baml
