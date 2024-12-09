@@ -10,19 +10,14 @@
         <StackPanel Margin="20">
             <TextBlock Text="Dodaj Nową Fakturę" FontSize="20" FontWeight="Bold" Foreground="DarkSlateGray" Margin="0,0,0,20"/>
 
-            <!-- Wybór sprzedaży -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Powiązana Sprzedaż:" Width="150" VerticalAlignment="Center"/>
                 <ComboBox Width="300" ItemsSource="{Binding SalesItems}" SelectedItem="{Binding SelectedSale}" DisplayMemberPath="Value"/>
             </StackPanel>
-
-            <!-- Wybór klienta -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Powiązany Klient:" Width="150" VerticalAlignment="Center"/>
                 <ComboBox Width="300" ItemsSource="{Binding ClientsItems}" SelectedItem="{Binding SelectedClient}" DisplayMemberPath="Value"/>
             </StackPanel>
-
-            <!-- Dane faktury -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Data Faktury:" Width="150" VerticalAlignment="Center"/>
                 <DatePicker Width="300" SelectedDate="{Binding InvoiceDate}"/>

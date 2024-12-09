@@ -48,6 +48,10 @@ namespace MVVMFirma.ViewModels
                     new BaseCommand(() => this.CreateShowAll(new WszystkieProjectAssignmentsViewModel()))),
 
                 new CommandViewModel(
+                    "Dodaj Nowy Kontrakt",
+                    new BaseCommand(() => this.CreateView(new NowyKontraktViewModel()))),
+
+                new CommandViewModel(
                     "Lista Kontraktów",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieKontraktyViewModel()))),
 
@@ -199,6 +203,8 @@ namespace MVVMFirma.ViewModels
                 CreateView(new NowyCzasPracyViewModel());
             if (name == "WydatkiAdd")
                 CreateView(new NowyWydatekViewModel());
+            if (name == "KontraktyAdd")
+                CreateView(new NowyKontraktViewModel());
 
         }
         #endregion
