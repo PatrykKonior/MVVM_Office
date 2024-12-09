@@ -239,3 +239,5 @@ C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\NowyWydatekView.baml
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\NowyKontraktView.g.cs
 C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\NowyKontraktView.baml
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\NowaPlatnoscView.g.cs
+C:\Users\patry\OneDrive\Pulpit\FIRMA_DESKTOP\MVVMFirma_Konior\MVVMFirma\obj\x86\Debug\Views\NowaPlatnoscView.baml

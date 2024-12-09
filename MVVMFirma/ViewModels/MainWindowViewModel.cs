@@ -96,6 +96,10 @@ namespace MVVMFirma.ViewModels
                     new BaseCommand(() => this.CreateShowAll(new WszystkieWydatkiViewModel()))),
 
                 new CommandViewModel(
+                    "Dodaj Płatność",
+                    new BaseCommand(() => this.CreateView(new NowaPlatnoscViewModel()))),
+
+                new CommandViewModel(
                     "Lista Płatności",
                     new BaseCommand(() => this.CreateShowAll(new WszystkiePlatnosciViewModel()))),
 
@@ -205,6 +209,8 @@ namespace MVVMFirma.ViewModels
                 CreateView(new NowyWydatekViewModel());
             if (name == "KontraktyAdd")
                 CreateView(new NowyKontraktViewModel());
+            if (name == "Lista płatnościAdd")
+                CreateView(new NowaPlatnoscViewModel());
 
         }
         #endregion
