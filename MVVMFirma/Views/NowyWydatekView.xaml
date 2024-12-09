@@ -1,0 +1,46 @@
+﻿<local:JedenViewBase x:Class="MVVMFirma.Views.NowyWydatekView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MVVMFirma.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
+        <StackPanel Margin="20">
+            <TextBlock Text="Dodaj Nowy Wydatek" FontSize="20" FontWeight="Bold" Foreground="DarkSlateGray" Margin="0,0,0,20"/>
+
+            <!-- Wybór projektu -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Projekt:" Width="150" VerticalAlignment="Center"/>
+                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" SelectedItem="{Binding SelectedProject}" DisplayMemberPath="Value"/>
+            </StackPanel>
+
+            <!-- Data wydatku -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Data Wydatku:" Width="150" VerticalAlignment="Center"/>
+                <DatePicker Width="300" SelectedDate="{Binding ExpenseDate}"/>
+            </StackPanel>
+
+            <!-- Opis wydatku -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Opis Wydatku:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding ExpenseDescription}"/>
+            </StackPanel>
+
+            <!-- Kwoty -->
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Kwota Netto:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding NetAmount}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Kwota VAT:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding VATAmount}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Kwota Brutto:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding GrossAmount}" IsReadOnly="True"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</local:JedenViewBase>

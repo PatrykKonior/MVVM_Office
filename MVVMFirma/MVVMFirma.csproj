@@ -89,6 +89,7 @@
     <Compile Include="Helper\BaseCommand.cs" />
     <Compile Include="Models\EntitiesForAdd\ClientsAdd.cs" />
     <Compile Include="Models\EntitiesForAdd\DatabaseClass.cs" />
+    <Compile Include="Models\EntitiesForAdd\ExpensesAdd.cs" />
     <Compile Include="Models\EntitiesForAdd\SalesAdd.cs" />
     <Compile Include="Models\EntitiesForAdd\TimeLogsAdd.cs" />
     <Compile Include="Models\EntitiesForView\CzasPracyForAllView.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\JedenViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\NowyWydatekViewModel.cs" />
     <Compile Include="ViewModels\NowyCzasPracyViewModel.cs" />
     <Compile Include="ViewModels\NowaFakturaViewModel.cs" />
     <Compile Include="ViewModels\NowyKlientViewModel.cs" />
@@ -204,6 +206,9 @@
     <Compile Include="Views\JedenViewBase.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NowyWydatekView.xaml.cs">
+      <DependentUpon>NowyWydatekView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NowyCzasPracyView.xaml.cs">
       <DependentUpon>NowyCzasPracyView.xaml</DependentUpon>
@@ -315,6 +320,10 @@
     <Page Include="Views\MainWindowResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NowyWydatekView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NowyCzasPracyView.xaml">
       <Generator>MSBuild:Compile</Generator>
