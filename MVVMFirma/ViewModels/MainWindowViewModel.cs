@@ -84,6 +84,10 @@ namespace MVVMFirma.ViewModels
                     new BaseCommand(() => this.CreateShowAll(new WszystkieSprzedazeViewModel()))),
 
                 new CommandViewModel(
+                    "Dodaj sprzedany produkt",
+                    new BaseCommand(() => this.CreateView(new NowySaleItemViewModel()))),
+
+                new CommandViewModel(
                     "Wykaz Sprzedanych produktów",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieSaleItemsViewModel()))),
 
@@ -211,6 +215,8 @@ namespace MVVMFirma.ViewModels
                 CreateView(new NowyKontraktViewModel());
             if (name == "Lista płatnościAdd")
                 CreateView(new NowaPlatnoscViewModel());
+            if (name == "Lista sprzedanych produktówAdd")
+                CreateView(new NowySaleItemViewModel());
 
         }
         #endregion
