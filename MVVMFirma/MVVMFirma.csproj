@@ -91,7 +91,9 @@
     <Compile Include="Models\EntitiesForAdd\ContractsAdd.cs" />
     <Compile Include="Models\EntitiesForAdd\DatabaseClass.cs" />
     <Compile Include="Models\EntitiesForAdd\ExpensesAdd.cs" />
+    <Compile Include="Models\EntitiesForAdd\MaterialsAdd.cs" />
     <Compile Include="Models\EntitiesForAdd\PaymentsAdd.cs" />
+    <Compile Include="Models\EntitiesForAdd\ProjectsAdd.cs" />
     <Compile Include="Models\EntitiesForAdd\SaleItemsAdd.cs" />
     <Compile Include="Models\EntitiesForAdd\SalesAdd.cs" />
     <Compile Include="Models\EntitiesForAdd\TimeLogsAdd.cs" />
@@ -185,6 +187,7 @@
     <Compile Include="ViewModels\NowyKontraktViewModel.cs" />
     <Compile Include="ViewModels\NowySaleItemViewModel.cs" />
     <Compile Include="ViewModels\NowaSprzedazViewModel.cs" />
+    <Compile Include="ViewModels\NowyProjectMaterialViewModel.cs" />
     <Compile Include="ViewModels\NowyWydatekViewModel.cs" />
     <Compile Include="ViewModels\NowyCzasPracyViewModel.cs" />
     <Compile Include="ViewModels\NowaFakturaViewModel.cs" />
@@ -225,6 +228,9 @@
     </Compile>
     <Compile Include="Views\NowaSprzedazView.xaml.cs">
       <DependentUpon>NowaSprzedazView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NowyProjectMaterialView.xaml.cs">
+      <DependentUpon>NowyProjectMaterialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NowyWydatekView.xaml.cs">
       <DependentUpon>NowyWydatekView.xaml</DependentUpon>
@@ -353,6 +359,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NowaSprzedazView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NowyProjectMaterialView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
