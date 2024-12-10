@@ -6,6 +6,9 @@
     <DataTemplate DataType="{x:Type vm:WszystkieProjektyViewModel}">
         <vw:WszystkieProjektyView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:NowyProjectAssignmentsViewModel}">
+        <vw:NowyProjectAssignmentsView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:WszystkieProjectAssignmentsViewModel}">
         <vw:WszystkieProjectAssignmentsView/>
     </DataTemplate>

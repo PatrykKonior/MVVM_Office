@@ -44,7 +44,11 @@ namespace MVVMFirma.ViewModels
                     new BaseCommand(() => this.CreateShowAll(new WszystkieProjektyViewModel()))),
 
                 new CommandViewModel(
-                    "Przydział projektów",
+                    "Dodaj Nowy Przydział Projektu",
+                    new BaseCommand(() => this.CreateView(new NowyProjectAssignmentsViewModel()))),
+
+                new CommandViewModel(
+                    "Przydział Projektów",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieProjectAssignmentsViewModel()))),
 
                 new CommandViewModel(
@@ -241,6 +245,8 @@ namespace MVVMFirma.ViewModels
                 CreateView(new NoweZadanieViewModel());
             if (name == "Działy w biurzeAdd")
                 CreateView(new NowyDzialViewModel());
+            if (name == "Przydział projektówAdd")
+                CreateView(new NowyProjectAssignmentsViewModel());
 
         }
         #endregion
