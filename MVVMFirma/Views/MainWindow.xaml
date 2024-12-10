@@ -98,9 +98,32 @@
                 Header="MENU"
                 Background="#E6E6E6"
                 Style="{StaticResource MainHCCStyle}">
-                <StackPanel>
-                    <!-- Dynamicznie generowane komendy -->
-                    <ItemsControl ItemsSource="{Binding Path=Commands}" Margin="0">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <ScrollViewer.Resources>
+                        <!-- Styl dla pionowego paska przewijania -->
+                        <Style TargetType="ScrollBar">
+                            <Setter Property="Width" Value="1" />
+                            <!-- Ustawienie szerokości -->
+                            <Setter Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="LightSlateGray" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ScrollBar">
+                                        <Grid Background="Transparent">
+                                            <Track Name="PART_Track" IsDirectionReversed="True">
+                                                <Track.Thumb>
+                                                    <Thumb Background="LightSlateGray" />
+                                                </Track.Thumb>
+                                            </Track>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ScrollViewer.Resources>
+                    <StackPanel>
+                        <!-- Dynamicznie generowane komendy -->
+                        <ItemsControl ItemsSource="{Binding Path=Commands}" Margin="0">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Background="Transparent" CornerRadius="5" Margin="2" Padding="5">
@@ -185,7 +208,9 @@
                             <Button Content="Dodaj Klienta" Margin="5" Command="{Binding AddClientCommand}"/>
                         </StackPanel>
                     </Expander>-->
-                </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
             </HeaderedContentControl>
         </Border>
         <Border Grid.Row="2" Grid.Column="1">

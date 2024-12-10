@@ -184,6 +184,7 @@
     <Compile Include="ViewModels\NowaPlatnoscViewModel.cs" />
     <Compile Include="ViewModels\NowyKontraktViewModel.cs" />
     <Compile Include="ViewModels\NowySaleItemViewModel.cs" />
+    <Compile Include="ViewModels\NowaSprzedazViewModel.cs" />
     <Compile Include="ViewModels\NowyWydatekViewModel.cs" />
     <Compile Include="ViewModels\NowyCzasPracyViewModel.cs" />
     <Compile Include="ViewModels\NowaFakturaViewModel.cs" />
@@ -221,6 +222,9 @@
     </Compile>
     <Compile Include="Views\NowaPlatnoscView.xaml.cs">
       <DependentUpon>NowaPlatnoscView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NowaSprzedazView.xaml.cs">
+      <DependentUpon>NowaSprzedazView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NowyWydatekView.xaml.cs">
       <DependentUpon>NowyWydatekView.xaml</DependentUpon>
@@ -345,6 +349,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NowaPlatnoscView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\NowaSprzedazView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

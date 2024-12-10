@@ -30,6 +30,9 @@
     <DataTemplate DataType="{x:Type vm:NowaFakturaViewModel}">
         <vw:NowaFakturaView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:NowaSprzedazViewModel}">
+        <vw:NowaSprzedazView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:WszystkieSprzedazeViewModel}">
         <vw:WszystkieSprzedazeView/>
     </DataTemplate>

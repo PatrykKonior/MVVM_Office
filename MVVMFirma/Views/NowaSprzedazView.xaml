@@ -1,0 +1,40 @@
+﻿<local:JedenViewBase x:Class="MVVMFirma.Views.NowaSprzedazView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MVVMFirma.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="White">
+        <StackPanel Margin="20">
+            <!-- Nagłówek -->
+            <TextBlock Text="Dodaj Nową Sprzedaż" FontSize="20" FontWeight="Bold" Foreground="DarkSlateGray" Margin="0,0,0,20"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Klient:" Width="150" VerticalAlignment="Center"/>
+                <ComboBox Width="300" ItemsSource="{Binding ClientsItems}" SelectedItem="{Binding SelectedClient}" DisplayMemberPath="Value"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Data Sprzedaży:" Width="150" VerticalAlignment="Center"/>
+                <DatePicker Width="300" SelectedDate="{Binding SaleDate}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Kwota Netto:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding TotalNetAmount}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Kwota VAT:" Width="150" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding TotalVATAmount, StringFormat='{}{0:C}'}" Width="300"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Kwota Brutto:" Width="150" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding TotalGrossAmount, StringFormat='{}{0:C}'}" Width="300"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Status Sprzedaży:" Width="150" VerticalAlignment="Center"/>
+                <ComboBox Width="300" ItemsSource="{Binding SaleStatusList}" SelectedItem="{Binding SaleStatus}" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</local:JedenViewBase>

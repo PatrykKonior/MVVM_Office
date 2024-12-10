@@ -60,24 +60,29 @@ namespace MVVMFirma.ViewModels
                     new BaseCommand(() => this.CreateShowAll(new WszystkieZadaniaViewModel()))),
 
                 new CommandViewModel(
-                    "Towary",
-                    new BaseCommand(() => this.CreateShowAll(new WszystkieTowaryViewModel()))),
-
-                new CommandViewModel(
                     "Nowy Towar",
                     new BaseCommand(() => this.CreateView(new NowyTowarViewModel()))),
 
                 new CommandViewModel(
+                    "Towary",
+                    new BaseCommand(() => this.CreateShowAll(new WszystkieTowaryViewModel()))),
+
+                new CommandViewModel(
                     "Materiały w projektach",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieProjectMaterialsViewModel()))),
+
+
+                new CommandViewModel(
+                    "Dodaj Nową Fakturę",
+                    new BaseCommand(() => this.CreateView(new NowaFakturaViewModel()))),
 
                 new CommandViewModel(
                     "Lista Faktur",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieFakturyViewModel()))),
 
                 new CommandViewModel(
-                    "Dodaj Nową Fakturę",
-                    new BaseCommand(() => this.CreateView(new NowaFakturaViewModel()))),
+                    "Dodaj Nową Sprzedaż",
+                    new BaseCommand(() => this.CreateView(new NowaSprzedazViewModel()))),
 
                 new CommandViewModel(
                     "Wykaz Sprzedaży",
@@ -217,6 +222,8 @@ namespace MVVMFirma.ViewModels
                 CreateView(new NowaPlatnoscViewModel());
             if (name == "Lista sprzedanych produktówAdd")
                 CreateView(new NowySaleItemViewModel());
+            if (name == "Wykaz sprzedażyAdd")
+                CreateView(new NowaSprzedazViewModel());
 
         }
         #endregion
