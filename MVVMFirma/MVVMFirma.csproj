@@ -190,6 +190,7 @@
     <Compile Include="ViewModels\NowySaleItemViewModel.cs" />
     <Compile Include="ViewModels\NowaSprzedazViewModel.cs" />
     <Compile Include="ViewModels\NowyProjectMaterialViewModel.cs" />
+    <Compile Include="ViewModels\NowyDzialViewModel.cs" />
     <Compile Include="ViewModels\NowyWydatekViewModel.cs" />
     <Compile Include="ViewModels\NowyCzasPracyViewModel.cs" />
     <Compile Include="ViewModels\NowaFakturaViewModel.cs" />

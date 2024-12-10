@@ -136,6 +136,10 @@ namespace MVVMFirma.ViewModels
                     new BaseCommand(() => this.CreateView(new NowyPracownikViewModel()))),
 
                 new CommandViewModel(
+                    "Dodaj Nowy Dział",
+                    new BaseCommand(() => this.CreateView(new NowyDzialViewModel()))),
+
+                new CommandViewModel(
                     "Działy w firmie",
                     new BaseCommand(() => this.CreateShowAll(new WszystkieDzialyViewModel()))),
 
@@ -235,6 +239,8 @@ namespace MVVMFirma.ViewModels
                 CreateView(new NowyProjectMaterialViewModel());
             if (name == "ZadaniaAdd")
                 CreateView(new NoweZadanieViewModel());
+            if (name == "Działy w biurzeAdd")
+                CreateView(new NowyDzialViewModel());
 
         }
         #endregion

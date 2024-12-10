@@ -75,6 +75,9 @@
     <DataTemplate DataType="{x:Type vm:NowyPracownikViewModel}">
         <vw:NowyPracownikView/>
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:NowyDzialViewModel}">
+        <vw:NowyDzialView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:WszystkieDzialyViewModel}">
         <vw:WszystkieDzialyView/>
     </DataTemplate>
