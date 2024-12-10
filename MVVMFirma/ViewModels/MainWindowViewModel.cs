@@ -38,6 +38,9 @@ namespace MVVMFirma.ViewModels
             Messenger.Default.Register<string>(this, open);
             return new List<CommandViewModel>
             {
+                new CommandViewModel(
+                    "Nowy Projekt",
+                    new BaseCommand(() => this.CreateView(new NowyProjektViewModel()))),
 
                 new CommandViewModel(
                     "Lista Projektów",
@@ -247,6 +250,8 @@ namespace MVVMFirma.ViewModels
                 CreateView(new NowyDzialViewModel());
             if (name == "Przydział projektówAdd")
                 CreateView(new NowyProjectAssignmentsViewModel());
+            if (name == "ProjektyAdd")
+                CreateView(new NowyProjektViewModel());
 
         }
         #endregion

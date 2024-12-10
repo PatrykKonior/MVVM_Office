@@ -187,6 +187,7 @@
     <Compile Include="ViewModels\NowaPlatnoscViewModel.cs" />
     <Compile Include="ViewModels\NoweZadanieViewModel.cs" />
     <Compile Include="ViewModels\NowyKontraktViewModel.cs" />
+    <Compile Include="ViewModels\NowyProjektViewModel.cs" />
     <Compile Include="ViewModels\NowyProjectAssignmentsViewModel.cs" />
     <Compile Include="ViewModels\NowySaleItemViewModel.cs" />
     <Compile Include="ViewModels\NowaSprzedazViewModel.cs" />
@@ -220,6 +221,9 @@
     <Compile Include="Views\JedenViewBase.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NowyProjektView.xaml.cs">
+      <DependentUpon>NowyProjektView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NowyProjectAssignmentsView.xaml.cs">
       <DependentUpon>NowyProjectAssignmentsView.xaml</DependentUpon>
@@ -355,6 +359,10 @@
     <Page Include="Views\MainWindowResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NowyProjektView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\NowyProjectAssignmentsView.xaml">
       <Generator>MSBuild:Compile</Generator>

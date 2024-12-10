@@ -3,6 +3,9 @@
                     xmlns:vm="clr-namespace:MVVMFirma.ViewModels"
                     xmlns:vw="clr-namespace:MVVMFirma.Views"
                     >
+    <DataTemplate DataType="{x:Type vm:NowyProjektViewModel}">
+        <vw:NowyProjektView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:WszystkieProjektyViewModel}">
         <vw:WszystkieProjektyView/>
     </DataTemplate>

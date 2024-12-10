@@ -1,0 +1,51 @@
+﻿<local:JedenViewBase x:Class="MVVMFirma.Views.NowyProjektView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MVVMFirma.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Background="White">
+        <StackPanel Margin="20">
+            <TextBlock Text="Dodaj Nowy Projekt" FontSize="20" FontWeight="Bold" Foreground="DarkSlateGray" Margin="0,0,0,20"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Klient:" Width="150" VerticalAlignment="Center"/>
+                <ComboBox Width="300" ItemsSource="{Binding ClientsItems}" SelectedItem="{Binding SelectedClient}" DisplayMemberPath="Value"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Menedżer:" Width="150" VerticalAlignment="Center"/>
+                <ComboBox Width="300" ItemsSource="{Binding ManagersItems}" SelectedItem="{Binding SelectedManager}" DisplayMemberPath="Value"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Nazwa projektu:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding ProjectName}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Typ projektu:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding ProjectType}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Data rozpoczęcia:" Width="150" VerticalAlignment="Center"/>
+                <DatePicker Width="300" SelectedDate="{Binding ProjectStartDate}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Data zakończenia:" Width="150" VerticalAlignment="Center"/>
+                <DatePicker Width="300" SelectedDate="{Binding ProjectEndDate}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Budżet projektu:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding ProjectBudget}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Stawka VAT:" Width="150" VerticalAlignment="Center"/>
+                <TextBox Width="300" Text="{Binding VATRate}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="Status projektu:" Width="150" VerticalAlignment="Center"/>
+                <ComboBox Width="300" ItemsSource="{Binding ProjectStatusList}" SelectedItem="{Binding ProjectStatus}"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</local:JedenViewBase>
