@@ -24,19 +24,77 @@ namespace MVVMFirma.ViewModels
         // tu decydujemy po czym sortowac 
         public override List<string> GetComboboxSortList()
         {
-            return null;
+            return new List<string>
+            {
+                "Nazwa",
+                "Opis",
+                "Cena",
+                "Stawka VAT"
+            };
         }
         // tu decydujemy jak sortowac
         public override void Sort()
-        { }
+        {
+            switch (SortField)
+            {
+                case "Nazwa":
+                    List = new ObservableCollection<Materials>(List.OrderBy(m => m.MaterialName));
+                    break;
+                case "Opis":
+                    List = new ObservableCollection<Materials>(List.OrderBy(m => m.MaterialDescription));
+                    break;
+                case "Cena":
+                    List = new ObservableCollection<Materials>(List.OrderBy(m => m.UnitPrice));
+                    break;
+                case "Stawka VAT":
+                    List = new ObservableCollection<Materials>(List.OrderBy(m => m.VATRate));
+                    break;
+                default:
+                    break;
+            }
+        }
         // tu decydujemy po czym filtrowac
         public override List<string> GetComboboxFindList()
-        { 
-            return null;
+        {
+            return new List<string>
+            {
+                "Nazwa",
+                "Opis",
+                "Cena",
+                "Stawka VAT"
+            };
         }
         // tu decydujemy jak filtrowac
         public override void Find()
-        { }
+        {
+            if (string.IsNullOrWhiteSpace(FindTextBox)) return;
+
+            switch (FindField)
+            {
+                case "Nazwa":
+                    List = new ObservableCollection<Materials>(List.Where(m => m.MaterialName != null &&
+                        m.MaterialName.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+                case "Opis":
+                    List = new ObservableCollection<Materials>(List.Where(m => m.MaterialDescription != null &&
+                        m.MaterialDescription.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+                case "Cena":
+                    if (decimal.TryParse(FindTextBox, out var unitPrice))
+                    {
+                        List = new ObservableCollection<Materials>(List.Where(m => m.UnitPrice == unitPrice));
+                    }
+                    break;
+                case "Stawka VAT":
+                    if (decimal.TryParse(FindTextBox, out var vatRate))
+                    {
+                        List = new ObservableCollection<Materials>(List.Where(m => m.VATRate == vatRate));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         #endregion
 
         #region Helpers
