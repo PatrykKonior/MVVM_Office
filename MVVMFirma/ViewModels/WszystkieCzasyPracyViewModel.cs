@@ -24,19 +24,144 @@ namespace MVVMFirma.ViewModels
         // tu decydujemy po czym sortowac 
         public override List<string> GetComboboxSortList()
         {
-            return null;
+            return new List<string>
+            {
+                "Imię pracownika",
+                "Nazwisko pracownika",
+                "Nazwa projektu",
+                "Typ projektu",
+                "Data rejestracji",
+                "Przepracowane godziny",
+                "Stawka godzinowa",
+                "Kwota całkowita"
+            };
         }
         // tu decydujemy jak sortowac
         public override void Sort()
-        { }
+        {
+            switch (SortField)
+            {
+                case "Imię pracownika":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.OrderBy(c => c.EmployeesFirstName));
+                    break;
+                case "Nazwisko pracownika":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.OrderBy(c => c.EmployeesLastName));
+                    break;
+                case "Nazwa projektu":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.OrderBy(c => c.ProjectsName));
+                    break;
+                case "Typ projektu":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.OrderBy(c => c.ProjectsType));
+                    break;
+                case "Data rejestracji":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.OrderBy(c => c.LogDate));
+                    break;
+                case "Przepracowane godziny":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.OrderBy(c => c.HoursWorked));
+                    break;
+                case "Stawka godzinowa":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.OrderBy(c => c.HourlyRate));
+                    break;
+                case "Kwota całkowita":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.OrderBy(c => c.TotalAmount));
+                    break;
+                default:
+                    break;
+            }
+        }
         // tu decydujemy po czym filtrowac
         public override List<string> GetComboboxFindList()
         {
-            return null;
+            return new List<string>
+            {
+                "Imię pracownika",
+                "Nazwisko pracownika",
+                "Nazwa projektu",
+                "Typ projektu",
+                "Data rejestracji",
+                "Przepracowane godziny",
+                "Stawka godzinowa",
+                "Kwota całkowita"
+            };
         }
         // tu decydujemy jak filtrowac
         public override void Find()
-        { }
+        {
+            if (string.IsNullOrWhiteSpace(FindTextBox)) return;
+
+            switch (FindField)
+            {
+                case "Imię pracownika":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.Where(c => c.EmployeesFirstName != null &&
+                        c.EmployeesFirstName.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+
+                case "Nazwisko pracownika":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.Where(c => c.EmployeesLastName != null &&
+                        c.EmployeesLastName.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+
+                case "Nazwa projektu":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.Where(c => c.ProjectsName != null &&
+                        c.ProjectsName.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+
+                case "Typ projektu":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.Where(c => c.ProjectsType != null &&
+                        c.ProjectsType.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+
+                case "Data rejestracji":
+                    List = new ObservableCollection<CzasPracyForAllView>(List.Where(c =>
+                    {
+                        if (c.LogDate == null) return false;
+
+                        if (DateTime.TryParse(FindTextBox, out var exactDate))
+                        {
+                            return c.LogDate == exactDate;
+                        }
+                        else if (int.TryParse(FindTextBox, out var year))
+                        {
+                            return c.LogDate.Value.Year == year;
+                        }
+                        else if (DateTime.TryParseExact(FindTextBox, "MM-dd", null, System.Globalization.DateTimeStyles.None, out var monthDay))
+                        {
+                            return c.LogDate.Value.Month == monthDay.Month && c.LogDate.Value.Day == monthDay.Day;
+                        }
+                        return false;
+                    }));
+                    break;
+
+                case "Przepracowane godziny":
+                case "Stawka godzinowa":
+                case "Kwota całkowita":
+                    Func<CzasPracyForAllView, decimal?> field = null;
+
+                    if (FindField == "Przepracowane godziny")
+                    {
+                        field = c => c.HoursWorked;
+                    }
+                    else if (FindField == "Stawka godzinowa")
+                    {
+                        field = c => c.HourlyRate;
+                    }
+                    else if (FindField == "Kwota całkowita")
+                    {
+                        field = c => c.TotalAmount;
+                    }
+
+                    if (field != null)
+                    {
+                        List = new ObservableCollection<CzasPracyForAllView>(List.Where(c =>
+                            field(c) != null &&
+                            field(c).Value.ToString("F2").StartsWith(FindTextBox, StringComparison.OrdinalIgnoreCase)));
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
         #endregion
 
         #region Helpers
