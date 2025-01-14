@@ -24,19 +24,145 @@ namespace MVVMFirma.ViewModels
         // tu decydujemy po czym sortowac 
         public override List<string> GetComboboxSortList()
         {
-            return null;
+            return new List<string>
+            {
+                "Nazwa projektu",
+                "Typ projektu",
+                "Data rozpoczęcia",
+                "Data zakończenia",
+                "Budżet projektu",
+                "Stawka VAT",
+                "Status projektu",
+                "Nazwa klienta",
+                "NIP klienta",
+                "REGON klienta"
+            };
         }
         // tu decydujemy jak sortowac
         public override void Sort()
-        { }
+        {
+            switch (SortField)
+            {
+                case "Nazwa projektu":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.ProjectName));
+                    break;
+                case "Typ projektu":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.ProjectType));
+                    break;
+                case "Data rozpoczęcia":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.ProjectStartDate));
+                    break;
+                case "Data zakończenia":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.ProjectEndDate));
+                    break;
+                case "Budżet projektu":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.ProjectBudget));
+                    break;
+                case "Stawka VAT":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.VATRate));
+                    break;
+                case "Status projektu":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.ProjectStatus));
+                    break;
+                case "Nazwa klienta":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.ClientsCompanyName));
+                    break;
+                case "NIP klienta":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.ClientsNIP));
+                    break;
+                case "REGON klienta":
+                    List = new ObservableCollection<ProjectsForAllView>(List.OrderBy(p => p.ClientsRegon));
+                    break;
+                default:
+                    break;
+            }
+        }
         // tu decydujemy po czym filtrowac
         public override List<string> GetComboboxFindList()
         {
-            return null;
+            return new List<string>
+            {
+                "Nazwa projektu",
+                "Typ projektu",
+                "Data rozpoczęcia",
+                "Data zakończenia",
+                "Budżet projektu",
+                "Status projektu",
+                "Nazwa klienta",
+                "NIP klienta",
+                "REGON klienta"
+            };
         }
         // tu decydujemy jak filtrowac
         public override void Find()
-        { }
+        {
+            if (string.IsNullOrWhiteSpace(FindTextBox)) return;
+
+            switch (FindField)
+            {
+                case "Nazwa projektu":
+                    List = new ObservableCollection<ProjectsForAllView>(List.Where(p => p.ProjectName != null &&
+                        p.ProjectName.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+
+                case "Typ projektu":
+                    List = new ObservableCollection<ProjectsForAllView>(List.Where(p => p.ProjectType != null &&
+                        p.ProjectType.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+
+                case "Data rozpoczęcia":
+                case "Data zakończenia":
+                    List = new ObservableCollection<ProjectsForAllView>(List.Where(p =>
+                    {
+                        var date = FindField == "Data rozpoczęcia" ? p.ProjectStartDate : p.ProjectEndDate;
+                        if (date == null) return false;
+
+                        if (DateTime.TryParse(FindTextBox, out var exactDate))
+                        {
+                            return date == exactDate;
+                        }
+                        else if (int.TryParse(FindTextBox, out var year))
+                        {
+                            return date.Value.Year == year;
+                        }
+                        else if (DateTime.TryParseExact(FindTextBox, "MM-dd", null, System.Globalization.DateTimeStyles.None, out var monthDay))
+                        {
+                            return date.Value.Month == monthDay.Month && date.Value.Day == monthDay.Day;
+                        }
+                        return false;
+                    }));
+                    break;
+
+                case "Budżet projektu":
+                    List = new ObservableCollection<ProjectsForAllView>(List.Where(p =>
+                        p.ProjectBudget != null &&
+                        p.ProjectBudget.ToString().StartsWith(FindTextBox, StringComparison.OrdinalIgnoreCase)));
+                    break;
+
+                case "Status projektu":
+                    List = new ObservableCollection<ProjectsForAllView>(List.Where(p => p.ProjectStatus != null &&
+                        p.ProjectStatus.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+
+                case "Nazwa klienta":
+                    List = new ObservableCollection<ProjectsForAllView>(List.Where(p => p.ClientsCompanyName != null &&
+                        p.ClientsCompanyName.IndexOf(FindTextBox, StringComparison.OrdinalIgnoreCase) >= 0));
+                    break;
+
+                case "NIP klienta":
+                    List = new ObservableCollection<ProjectsForAllView>(List.Where(p => p.ClientsNIP != null &&
+                        p.ClientsNIP.StartsWith(FindTextBox)));
+                    break;
+
+                case "REGON klienta":
+                    List = new ObservableCollection<ProjectsForAllView>(List.Where(p => p.ClientsRegon != null &&
+                        p.ClientsRegon.StartsWith(FindTextBox)));
+                    break;
+
+                default:
+                    break;
+            }
+        }
         #endregion
 
         #region Helpers
