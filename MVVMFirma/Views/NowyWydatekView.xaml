@@ -12,27 +12,27 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Projekt:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" SelectedItem="{Binding SelectedProject}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" SelectedItem="{Binding SelectedProject, ValidatesOnDataErrors=True}" DisplayMemberPath="Value"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Data Wydatku:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding ExpenseDate}"/>
+                <DatePicker Width="300" SelectedDate="{Binding ExpenseDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Opis Wydatku:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding ExpenseDescription}"/>
+                <TextBox Width="300" Text="{Binding ExpenseDescription, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Kwota Netto:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding NetAmount}"/>
+                <TextBox Width="300" Text="{Binding NetAmount, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Kwota VAT:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding VATAmount}"/>
+                <TextBox Width="300" Text="{Binding VATAmount, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Kwota Brutto:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding GrossAmount}" IsReadOnly="True"/>
+                <TextBox Width="300" Text="{Binding GrossAmount, ValidatesOnDataErrors=True}" IsReadOnly="True"/>
             </StackPanel>
         </StackPanel>
     </Grid>

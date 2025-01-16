@@ -180,6 +180,9 @@
     <Compile Include="Models\Entities\TimeLogs.cs">
       <DependentUpon>ModelDesignOffice.tt</DependentUpon>
     </Compile>
+    <Compile Include="Validators\DateValidator.cs" />
+    <Compile Include="Validators\DecimalValidator.cs" />
+    <Compile Include="Validators\StringValidator.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\JedenViewModel.cs" />
