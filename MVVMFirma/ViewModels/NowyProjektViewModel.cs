@@ -1,14 +1,21 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections;
+using System.ComponentModel;
 using System.Linq;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
+using MVVMFirma.Validators;
+using System.Windows;
+using System.Collections.Generic;
 
 namespace MVVMFirma.ViewModels
 {
-    public class NowyProjektViewModel : JedenViewModel<Projects>
+    public class NowyProjektViewModel : JedenViewModel<Projects>, INotifyDataErrorInfo
     {
+        private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
         #region Constructor
         public NowyProjektViewModel() : base("Nowy Projekt")
         {
@@ -17,6 +24,76 @@ namespace MVVMFirma.ViewModels
             ProjectStartDate = DateTime.Now; // Domyślna data rozpoczęcia projektu
         }
         #endregion
+
+        #region Validators
+
+        public bool HasErrors => _validationErrors.Any();
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _validationErrors.ContainsKey(propertyName) ? _validationErrors[propertyName] : null;
+        }
+
+        private void ValidateProperty(string propertyName)
+        {
+            var errors = new List<string>();
+
+            switch (propertyName)
+            {
+                case nameof(ClientID):
+                    if (!ClientID.HasValue)
+                        errors.Add("Klient jest wymagany.");
+                    break;
+                case nameof(ManagerID):
+                    if (!ManagerID.HasValue)
+                        errors.Add("Menedżer jest wymagany.");
+                    break;
+                case nameof(ProjectName):
+                    errors.AddRange(StringValidator.ValidateRequired(ProjectName, "Nazwa projektu"));
+                    errors.AddRange(StringValidator.ValidateMaxLength(ProjectName, 255, "Nazwa projektu"));
+                    break;
+                case nameof(ProjectType):
+                    errors.AddRange(StringValidator.ValidateRequired(ProjectType, "Typ projektu"));
+                    break;
+                case nameof(ProjectStartDate):
+                    errors.AddRange(DateValidator.ValidateNotInFuture(ProjectStartDate, "Data rozpoczęcia"));
+                    break;
+                case nameof(ProjectEndDate):
+                    if (ProjectEndDate < ProjectStartDate)
+                        errors.Add("Data zakończenia nie może być wcześniejsza niż data rozpoczęcia.");
+                    break;
+                case nameof(ProjectBudget):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(ProjectBudget, "Budżet projektu"));
+                    break;
+                case nameof(VATRate):
+                    if (!VATRate.HasValue)
+                        errors.Add("Stawka VAT jest wymagana.");
+                    else if (!(VATRate.Value == 0 || VATRate.Value == 5 || VATRate.Value == 8 || VATRate.Value == 23))
+                        errors.Add("Stawka VAT musi wynosić 0%, 5%, 8% lub 23%.");
+                    break;
+                case nameof(ProjectStatus):
+                    errors.AddRange(StringValidator.ValidateRequired(ProjectStatus, "Status projektu"));
+                    break;
+            }
+
+            if (errors.Any())
+                _validationErrors[propertyName] = errors;
+            else
+                _validationErrors.Remove(propertyName);
+
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(() => HasErrors);
+        }
+
+        #endregion
+
 
         #region Properties
         public int? ClientID
@@ -27,6 +104,7 @@ namespace MVVMFirma.ViewModels
                 item.ClientID = value;
                 OnPropertyChanged(() => ClientID);
                 OnPropertyChanged(() => SelectedClient);
+                ValidateProperty(nameof(ClientID));
             }
         }
 
@@ -48,6 +126,7 @@ namespace MVVMFirma.ViewModels
                 item.ManagerID = value;
                 OnPropertyChanged(() => ManagerID);
                 OnPropertyChanged(() => SelectedManager);
+                ValidateProperty(nameof(ManagerID));
             }
         }
 
@@ -68,6 +147,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.ProjectName = value;
                 OnPropertyChanged(() => ProjectName);
+                ValidateProperty(nameof(ProjectName));
             }
         }
 
@@ -78,6 +158,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.ProjectType = value;
                 OnPropertyChanged(() => ProjectType);
+                ValidateProperty(nameof(ProjectType));
             }
         }
 
@@ -88,6 +169,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.ProjectStartDate = value;
                 OnPropertyChanged(() => ProjectStartDate);
+                ValidateProperty(nameof(ProjectStartDate));
             }
         }
 
@@ -98,6 +180,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.ProjectEndDate = value;
                 OnPropertyChanged(() => ProjectEndDate);
+                ValidateProperty(nameof(ProjectEndDate));
             }
         }
 
@@ -108,6 +191,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.ProjectBudget = value;
                 OnPropertyChanged(() => ProjectBudget);
+                ValidateProperty(nameof(ProjectBudget));
             }
         }
 
@@ -118,6 +202,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.VATRate = value;
                 OnPropertyChanged(() => VATRate);
+                ValidateProperty(nameof(VATRate));
             }
         }
 
@@ -128,6 +213,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.ProjectStatus = value;
                 OnPropertyChanged(() => ProjectStatus);
+                ValidateProperty(nameof(ProjectStatus));
             }
         }
 
@@ -154,6 +240,13 @@ namespace MVVMFirma.ViewModels
 
         public override void Save()
         {
+            if (HasErrors)
+            {
+                // Wyświetl komunikat w interfejsie użytkownika
+                MessageBox.Show("Nie można zapisać, ponieważ istnieją błędy walidacji.", "Błąd walidacji", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             designOfficeEntities.Projects.Add(item);
             designOfficeEntities.SaveChanges();
         }

@@ -17,14 +17,25 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        
-        <Label Grid.Column="0" Grid.Row="0" Margin="0,8,0,8" Content="Nazwa Materiału"></Label>
-        <TextBox Grid.Column="1" Grid.Row="0" Margin="0,8,0,8" Text="{Binding Path=MaterialName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Grid.Column="0" Grid.Row="1" Margin="0,8,0,8" Content="Opis Materiału"></Label>
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="0,8,0,8" Text="{Binding Path=MaterialDescription, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Grid.Column="0" Grid.Row="2" Margin="0,8,0,8" Content="Cena jednostkowa"></Label>
-        <TextBox Grid.Column="1" Grid.Row="2" Margin="0,8,0,8" Text="{Binding Path=UnitPrice, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Grid.Column="0" Grid.Row="3" Margin="0,8,0,8" Content="Stawka VAT"></Label>
-        <TextBox Grid.Column="1" Grid.Row="3" Margin="0,8,0,8" Text="{Binding Path=VATRate, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="0" Margin="0,8,0,8" Content="Nazwa Materiału"/>
+        <TextBox Grid.Column="1" Grid.Row="0" Margin="0,8,0,8" 
+                 Text="{Binding MaterialName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+
+        <Label Grid.Column="0" Grid.Row="1" Margin="0,8,0,8" Content="Opis Materiału"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Margin="0,8,0,8" 
+                 Text="{Binding MaterialDescription, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+
+        <Label Grid.Column="0" Grid.Row="2" Margin="0,8,0,8" Content="Cena jednostkowa"/>
+        <TextBox Grid.Column="1" Grid.Row="2" Margin="0,8,0,8" 
+                 Text="{Binding UnitPrice, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+
+        <Label Grid.Column="0" Grid.Row="3" Margin="0,8,0,8" Content="Stawka VAT"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="0,8,0,8" 
+                 Text="{Binding VATRate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
     </Grid>
 </local:JedenViewBase>

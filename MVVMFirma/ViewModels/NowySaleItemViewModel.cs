@@ -1,20 +1,82 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections;
+using System.ComponentModel;
 using System.Linq;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
+using MVVMFirma.Validators;
+using System.Windows;
+using System.Collections.Generic;
 
 namespace MVVMFirma.ViewModels
 {
-    public class NowySaleItemViewModel : JedenViewModel<SaleItems>
+    public class NowySaleItemViewModel : JedenViewModel<SaleItems>, INotifyDataErrorInfo
     {
+        private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
         #region Constructor
 
         public NowySaleItemViewModel() : base("Nowy Element Sprzedaży")
         {
             item = new SaleItems();
             LoadData();
+        }
+
+        #endregion
+
+        #region Validators
+
+        public bool HasErrors => _validationErrors.Any();
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _validationErrors.ContainsKey(propertyName) ? _validationErrors[propertyName] : null;
+        }
+
+        private void ValidateProperty(string propertyName)
+        {
+            var errors = new List<string>();
+
+            switch (propertyName)
+            {
+                case nameof(SaleID):
+                    if (!SaleID.HasValue)
+                        errors.Add("Sprzedaż jest wymagana.");
+                    break;
+                case nameof(Description):
+                    errors.AddRange(StringValidator.ValidateRequired(Description, "Opis produktu"));
+                    errors.AddRange(StringValidator.ValidateMaxLength(Description, 255, "Opis produktu"));
+                    break;
+                case nameof(Quantity):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(Quantity, "Ilość"));
+                    break;
+                case nameof(UnitPriceNet):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(UnitPriceNet, "Cena jednostkowa netto"));
+                    break;
+                case nameof(VATRate):
+                    if (!VATRate.HasValue)
+                        errors.Add("Stawka VAT jest wymagana.");
+                    else if (!(VATRate.Value == 0 || VATRate.Value == 5 || VATRate.Value == 8 || VATRate.Value == 23))
+                        errors.Add("Stawka VAT musi wynosić 0%, 5%, 8% lub 23%.");
+                    break;
+            }
+
+            if (errors.Any())
+                _validationErrors[propertyName] = errors;
+            else
+                _validationErrors.Remove(propertyName);
+
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(() => HasErrors);
         }
 
         #endregion
@@ -29,6 +91,7 @@ namespace MVVMFirma.ViewModels
                 item.SaleID = value;
                 OnPropertyChanged(() => SaleID);
                 OnPropertyChanged(() => SelectedSale);
+                ValidateProperty(nameof(SaleID));
             }
         }
 
@@ -49,6 +112,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.Description = value;
                 OnPropertyChanged(() => Description);
+                ValidateProperty(nameof(Description));
             }
         }
 
@@ -60,6 +124,7 @@ namespace MVVMFirma.ViewModels
                 item.Quantity = value;
                 CalculateAmounts();
                 OnPropertyChanged(() => Quantity);
+                ValidateProperty(nameof(Quantity));
             }
         }
 
@@ -71,6 +136,7 @@ namespace MVVMFirma.ViewModels
                 item.UnitPriceNet = value;
                 CalculateAmounts();
                 OnPropertyChanged(() => UnitPriceNet);
+                ValidateProperty(nameof(UnitPriceNet));
             }
         }
 
@@ -82,6 +148,7 @@ namespace MVVMFirma.ViewModels
                 item.VATRate = value;
                 CalculateAmounts();
                 OnPropertyChanged(() => VATRate);
+                ValidateProperty(nameof(VATRate));
             }
         }
 
@@ -139,6 +206,13 @@ namespace MVVMFirma.ViewModels
 
         public override void Save()
         {
+            if(HasErrors)
+            {
+                // Wyświetl komunikat w interfejsie użytkownika
+                MessageBox.Show("Nie można zapisać, ponieważ istnieją błędy walidacji.", "Błąd walidacji", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             item.NetAmount = NetAmount;
             item.VATAmount = VATAmount;
             item.GrossAmount = GrossAmount;

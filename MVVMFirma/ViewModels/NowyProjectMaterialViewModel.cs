@@ -1,19 +1,70 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
+using MVVMFirma.Validators;
+using System.Collections;
+using System.Windows;
 
 namespace MVVMFirma.ViewModels
 {
-    public class NowyProjectMaterialViewModel : JedenViewModel<ProjectMaterials>
+    public class NowyProjectMaterialViewModel : JedenViewModel<ProjectMaterials>, INotifyDataErrorInfo
     {
+        private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
         #region Constructor
         public NowyProjectMaterialViewModel() : base("Nowy materiał w projekcie")
         {
             item = new ProjectMaterials();
             LoadData();
+        }
+        #endregion
+
+        #region Validators
+        public bool HasErrors => _validationErrors.Any();
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _validationErrors.ContainsKey(propertyName) ? _validationErrors[propertyName] : null;
+        }
+
+        private void ValidateProperty(string propertyName)
+        {
+            List<string> errors = new List<string>();
+
+            switch (propertyName)
+            {
+                case nameof(ProjectID):
+                    errors.AddRange(StringValidator.ValidateRequired(ProjectID?.ToString(), "Projekt"));
+                    break;
+                case nameof(MaterialID):
+                    errors.AddRange(StringValidator.ValidateRequired(MaterialID?.ToString(), "Materiał"));
+                    break;
+                case nameof(Quantity):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(Quantity, "Ilość"));
+                    break;
+                case nameof(UnitPrice):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(UnitPrice, "Cena Jednostkowa"));
+                    break;
+            }
+
+            if (errors.Any())
+                _validationErrors[propertyName] = errors;
+            else
+                _validationErrors.Remove(propertyName);
+
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(() => HasErrors);
         }
         #endregion
 
@@ -27,6 +78,7 @@ namespace MVVMFirma.ViewModels
                 item.ProjectID = value;
                 OnPropertyChanged(() => ProjectID);
                 OnPropertyChanged(() => SelectedProject);
+                ValidateProperty(nameof(ProjectID));
             }
         }
 
@@ -49,6 +101,7 @@ namespace MVVMFirma.ViewModels
                 item.MaterialID = value;
                 OnPropertyChanged(() => MaterialID);
                 OnPropertyChanged(() => SelectedMaterial);
+                ValidateProperty(nameof(MaterialID));
             }
         }
 
@@ -70,6 +123,7 @@ namespace MVVMFirma.ViewModels
                 item.Quantity = value;
                 CalculateVATAndTotal();
                 OnPropertyChanged(() => Quantity);
+                ValidateProperty(nameof(Quantity));
             }
         }
 
@@ -81,6 +135,7 @@ namespace MVVMFirma.ViewModels
                 item.UnitPrice = value;
                 CalculateVATAndTotal();
                 OnPropertyChanged(() => UnitPrice);
+                ValidateProperty(nameof(UnitPrice));
             }
         }
 
@@ -124,6 +179,13 @@ namespace MVVMFirma.ViewModels
 
         public override void Save()
         {
+            if (HasErrors)
+            {
+                // Wyświetl komunikat w interfejsie użytkownika
+                MessageBox.Show("Nie można zapisać, ponieważ istnieją błędy walidacji.", "Błąd walidacji", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             designOfficeEntities.ProjectMaterials.Add(item);
             designOfficeEntities.SaveChanges();
         }

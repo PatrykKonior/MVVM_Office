@@ -12,19 +12,23 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Projekt:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" SelectedItem="{Binding SelectedProject}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" 
+                          SelectedItem="{Binding SelectedProject, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                          DisplayMemberPath="Value"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Pracownik:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding EmployeesItems}" SelectedItem="{Binding SelectedEmployee}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding EmployeesItems}" 
+                          SelectedItem="{Binding SelectedEmployee, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                          DisplayMemberPath="Value"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Rola:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding Role}" />
+                <TextBox Width="300" Text="{Binding Role, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Data Przydziału:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding AssignmentDate}" />
+                <DatePicker Width="300" SelectedDate="{Binding AssignmentDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </StackPanel>
     </Grid>

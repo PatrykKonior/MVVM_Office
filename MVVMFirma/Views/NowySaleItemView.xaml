@@ -12,23 +12,23 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Sprzedaż:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding SalesItems}" SelectedItem="{Binding SelectedSale}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding SalesItems}" SelectedItem="{Binding SelectedSale, ValidatesOnDataErrors=True}" DisplayMemberPath="Value"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Opis produktu:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding Description}"/>
+                <TextBox Width="300" Text="{Binding Description, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Ilość:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding Quantity}"/>
+                <TextBox Width="300" Text="{Binding Quantity, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Cena jednostkowa netto:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding UnitPriceNet}"/>
+                <TextBox Width="300" Text="{Binding UnitPriceNet, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Stawka VAT:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding VATRate}"/>
+                <TextBox Width="300" Text="{Binding VATRate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Kwota netto:" Width="150" VerticalAlignment="Center"/>

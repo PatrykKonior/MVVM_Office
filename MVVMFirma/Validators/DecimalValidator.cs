@@ -31,5 +31,13 @@ namespace MVVMFirma.Validators
                 errors.Add($"{fieldName} nie może być większe niż {limitFieldName}.");
             return errors;
         }
+
+        public static List<string> ValidateInRange(decimal? value, decimal min, decimal max, string fieldName)
+        {
+            var errors = new List<string>();
+            if (value == null || value < min || value > max)
+                errors.Add($"{fieldName} musi być w zakresie od {min} do {max}.");
+            return errors;
+        }
     }
 }
