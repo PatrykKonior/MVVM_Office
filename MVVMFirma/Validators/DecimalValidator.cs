@@ -39,5 +39,15 @@ namespace MVVMFirma.Validators
                 errors.Add($"{fieldName} musi być w zakresie od {min} do {max}.");
             return errors;
         }
+        public static List<string> ValidateInSet(decimal? value, decimal[] validValues, string fieldName)
+        {
+            var errors = new List<string>();
+            if (value == null || !validValues.Contains(value.Value))
+            {
+                var validValuesString = string.Join(", ", validValues);
+                errors.Add($"{fieldName} musi być jedną z następujących wartości: {validValuesString}.");
+            }
+            return errors;
+        }
     }
 }

@@ -12,42 +12,55 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Nazwa Zadania:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding TaskName}"/>
+                <TextBox Width="300" Text="{Binding TaskName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Opis Zadania:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding TaskDescription}"/>
+                <TextBox Width="300" Text="{Binding TaskDescription, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Projekt:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" SelectedItem="{Binding SelectedProject}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" 
+                          SelectedItem="{Binding SelectedProject, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                          DisplayMemberPath="Value"
+                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Pracownik:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding EmployeesItems}" SelectedItem="{Binding SelectedEmployee}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding EmployeesItems}" 
+                          SelectedItem="{Binding SelectedEmployee, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                          DisplayMemberPath="Value" 
+                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Data Rozpoczęcia:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding TaskStartDate}"/>
+                <DatePicker Width="300" SelectedDate="{Binding TaskStartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                            ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Data Zakończenia:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding TaskEndDate}"/>
+                <DatePicker Width="300" SelectedDate="{Binding TaskEndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                            ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Szacowane Godziny:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding EstimatedHours}"/>
+                <TextBox Width="300" Text="{Binding EstimatedHours, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Status Zadania:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding TaskStatusList}" SelectedItem="{Binding TaskStatus}"/>
+                <ComboBox Width="300" ItemsSource="{Binding TaskStatusList}" 
+                          SelectedItem="{Binding TaskStatus, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
         </StackPanel>
     </Grid>

@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
 using System.Linq;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
+using MVVMFirma.Validators;
 
 namespace MVVMFirma.ViewModels
 {
-    public class NoweZadanieViewModel : JedenViewModel<Tasks>
+    public class NoweZadanieViewModel : JedenViewModel<Tasks>, INotifyDataErrorInfo
     {
+        private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
         #region Constructor
         public NoweZadanieViewModel() : base("Nowe Zadanie")
         {
@@ -24,6 +30,74 @@ namespace MVVMFirma.ViewModels
         }
         #endregion
 
+        #region Validators
+        public bool HasErrors => _validationErrors.Any();
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _validationErrors.ContainsKey(propertyName) ? _validationErrors[propertyName] : null;
+        }
+
+        private void ValidateProperty(string propertyName)
+        {
+            var errors = new List<string>();
+
+            switch (propertyName)
+            {
+                case nameof(TaskName):
+                    errors.AddRange(StringValidator.ValidateRequired(TaskName, "Nazwa Zadania"));
+                    errors.AddRange(StringValidator.ValidateMaxLength(TaskName, 255, "Nazwa Zadania"));
+                    break;
+
+                case nameof(TaskDescription):
+                    errors.AddRange(StringValidator.ValidateRequired(TaskDescription, "Opis Zadania"));
+                    errors.AddRange(StringValidator.ValidateMaxLength(TaskDescription, 1000, "Opis Zadania"));
+                    break;
+
+                case nameof(ProjectID):
+                    errors.AddRange(StringValidator.ValidateRequired(ProjectID?.ToString(), "Projekt"));
+                    break;
+
+                case nameof(AssignedEmployeeID):
+                    errors.AddRange(StringValidator.ValidateRequired(AssignedEmployeeID?.ToString(), "Pracownik"));
+                    break;
+
+                case nameof(TaskStartDate):
+                    errors.AddRange(DateValidator.ValidateNotInFuture(TaskStartDate, "Data Rozpoczęcia"));
+                    break;
+
+                case nameof(TaskEndDate):
+                    if (TaskStartDate.HasValue && TaskEndDate < TaskStartDate)
+                        errors.Add("Data Zakończenia nie może być wcześniejsza niż Data Rozpoczęcia.");
+                    errors.AddRange(DateValidator.ValidateNotInFuture(TaskEndDate, "Data Zakończenia"));
+                    break;
+
+                case nameof(EstimatedHours):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(EstimatedHours, "Szacowane Godziny"));
+                    break;
+
+                case nameof(TaskStatus):
+                    errors.AddRange(StringValidator.ValidateRequired(TaskStatus, "Status Zadania"));
+                    break;
+            }
+
+            if (errors.Any())
+                _validationErrors[propertyName] = errors;
+            else
+                _validationErrors.Remove(propertyName);
+
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(() => HasErrors);
+        }
+        #endregion
+
         #region Properties
         public int? ProjectID
         {
@@ -33,6 +107,7 @@ namespace MVVMFirma.ViewModels
                 item.ProjectID = value;
                 OnPropertyChanged(() => ProjectID);
                 OnPropertyChanged(() => SelectedProject);
+                ValidateProperty(nameof(ProjectID));
             }
         }
 
@@ -54,6 +129,7 @@ namespace MVVMFirma.ViewModels
                 item.AssignedEmployeeID = value;
                 OnPropertyChanged(() => AssignedEmployeeID);
                 OnPropertyChanged(() => SelectedEmployee);
+                ValidateProperty(nameof(AssignedEmployeeID));
             }
         }
 
@@ -74,6 +150,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.TaskStartDate = value;
                 OnPropertyChanged(() => TaskStartDate);
+                ValidateProperty(nameof(TaskStartDate));
             }
         }
 
@@ -84,6 +161,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.TaskEndDate = value;
                 OnPropertyChanged(() => TaskEndDate);
+                ValidateProperty(nameof(TaskEndDate));
             }
         }
 
@@ -94,6 +172,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.EstimatedHours = value;
                 OnPropertyChanged(() => EstimatedHours);
+                ValidateProperty(nameof(EstimatedHours));
             }
         }
 
@@ -104,6 +183,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.TaskName = value;
                 OnPropertyChanged(() => TaskName);
+                ValidateProperty(nameof(TaskName));
             }
         }
 
@@ -114,6 +194,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.TaskDescription = value;
                 OnPropertyChanged(() => TaskDescription);
+                ValidateProperty(nameof(TaskDescription));
             }
         }
 
@@ -124,6 +205,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.TaskStatus = value;
                 OnPropertyChanged(() => TaskStatus);
+                ValidateProperty(nameof(TaskStatus));
             }
         }
 
@@ -144,6 +226,12 @@ namespace MVVMFirma.ViewModels
 
         public override void Save()
         {
+            if (HasErrors)
+            {
+                System.Windows.MessageBox.Show("Nie można zapisać, ponieważ istnieją błędy walidacji.", "Błąd walidacji", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                return;
+            }
+
             designOfficeEntities.Tasks.Add(item);
             designOfficeEntities.SaveChanges();
         }

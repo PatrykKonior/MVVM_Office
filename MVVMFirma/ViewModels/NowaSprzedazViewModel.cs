@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
 using System.Linq;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
+using MVVMFirma.Validators;
 
 namespace MVVMFirma.ViewModels
 {
-    public class NowaSprzedazViewModel : JedenViewModel<Sales>
+    public class NowaSprzedazViewModel : JedenViewModel<Sales>, INotifyDataErrorInfo
     {
+        private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
         #region Constructor
         public NowaSprzedazViewModel() : base("Nowa Sprzedaż")
         {
@@ -24,6 +30,51 @@ namespace MVVMFirma.ViewModels
         }
         #endregion
 
+        #region Validators
+        public bool HasErrors => _validationErrors.Any();
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _validationErrors.ContainsKey(propertyName) ? _validationErrors[propertyName] : null;
+        }
+
+        private void ValidateProperty(string propertyName)
+        {
+            List<string> errors = new List<string>();
+
+            switch (propertyName)
+            {
+                case nameof(SelectedClient):
+                    errors.AddRange(StringValidator.ValidateRequired(ClientID?.ToString(), "Klient"));
+                    break;
+                case nameof(SaleDate):
+                    errors.AddRange(DateValidator.ValidateNotInFuture(SaleDate, "Data Sprzedaży"));
+                    break;
+                case nameof(TotalNetAmount):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(TotalNetAmount, "Kwota Netto"));
+                    break;
+                case nameof(SaleStatus):
+                    errors.AddRange(StringValidator.ValidateRequired(SaleStatus, "Status Sprzedaży"));
+                    break;
+            }
+
+            if (errors.Any())
+                _validationErrors[propertyName] = errors;
+            else
+                _validationErrors.Remove(propertyName);
+
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(() => HasErrors);
+        }
+        #endregion
+
         #region Properties
         public int? ClientID
         {
@@ -33,6 +84,7 @@ namespace MVVMFirma.ViewModels
                 item.ClientID = value;
                 OnPropertyChanged(() => ClientID);
                 OnPropertyChanged(() => SelectedClient);
+                ValidateProperty(nameof(SelectedClient));
             }
         }
 
@@ -43,6 +95,7 @@ namespace MVVMFirma.ViewModels
             {
                 ClientID = value?.Key;
                 OnPropertyChanged(() => SelectedClient);
+                ValidateProperty(nameof(SelectedClient));
             }
         }
 
@@ -53,6 +106,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.SaleDate = value;
                 OnPropertyChanged(() => SaleDate);
+                ValidateProperty(nameof(SaleDate));
             }
         }
 
@@ -63,6 +117,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.SaleStatus = value;
                 OnPropertyChanged(() => SaleStatus);
+                ValidateProperty(nameof(SaleStatus));
             }
         }
 
@@ -74,6 +129,7 @@ namespace MVVMFirma.ViewModels
                 item.TotalNetAmount = value;
                 CalculateAmounts();
                 OnPropertyChanged(() => TotalNetAmount);
+                ValidateProperty(nameof(TotalNetAmount));
             }
         }
 
@@ -122,6 +178,12 @@ namespace MVVMFirma.ViewModels
 
         public override void Save()
         {
+            if (HasErrors)
+            {
+                System.Windows.MessageBox.Show("Nie można zapisać, ponieważ istnieją błędy walidacji.", "Błąd walidacji", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                return;
+            }
+
             designOfficeEntities.Sales.Add(item);
             designOfficeEntities.SaveChanges();
         }

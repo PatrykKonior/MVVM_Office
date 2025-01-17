@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
+using MVVMFirma.Validators;
+using System.ComponentModel;
 
 namespace MVVMFirma.ViewModels
 {
-    public class NowyKontraktViewModel : JedenViewModel<Contracts>
+    public class NowyKontraktViewModel : JedenViewModel<Contracts>, INotifyDataErrorInfo
     {
+        private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
         #region Constructor
 
         public NowyKontraktViewModel() : base("Nowy Kontrakt")
@@ -16,6 +22,59 @@ namespace MVVMFirma.ViewModels
             item = new Contracts();
             LoadData();
             ContractDate = DateTime.Now; // Domyślna data kontraktu
+        }
+
+        #endregion
+
+        #region Validators
+
+        public bool HasErrors => _validationErrors.Any();
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _validationErrors.ContainsKey(propertyName) ? _validationErrors[propertyName] : null;
+        }
+
+        private void ValidateProperty(string propertyName)
+        {
+            List<string> errors = new List<string>();
+
+            switch (propertyName)
+            {
+                case nameof(ProjectID):
+                    errors.AddRange(StringValidator.ValidateRequired(ProjectID?.ToString(), "Projekt"));
+                    break;
+                case nameof(ContractDate):
+                    errors.AddRange(DateValidator.ValidateNotInFuture(ContractDate, "Data Kontraktu"));
+                    break;
+                case nameof(ContractValueNet):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(ContractValueNet, "Kwota Netto"));
+                    break;
+                case nameof(VATRate):
+                    errors.AddRange(DecimalValidator.ValidateInSet(VATRate, new[] { 0m, 5m, 8m, 23m }, "VAT"));
+                    break;
+                case nameof(ClientSignatureDate):
+                    errors.AddRange(DateValidator.ValidateNotInFuture(ClientSignatureDate, "Data podpisu klienta"));
+                    break;
+                case nameof(CompanySignatureDate):
+                    if (ClientSignatureDate.HasValue && CompanySignatureDate < ClientSignatureDate)
+                        errors.Add("Data podpisu firmy nie może być wcześniejsza niż data podpisu klienta.");
+                    break;
+            }
+
+            if (errors.Any())
+                _validationErrors[propertyName] = errors;
+            else
+                _validationErrors.Remove(propertyName);
+
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(() => HasErrors);
         }
 
         #endregion
@@ -30,6 +89,7 @@ namespace MVVMFirma.ViewModels
                 item.ProjectID = value;
                 OnPropertyChanged(() => ProjectID);
                 OnPropertyChanged(() => SelectedProject);
+                ValidateProperty(nameof(ProjectID));
             }
         }
 
@@ -50,6 +110,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.ContractDate = value;
                 OnPropertyChanged(() => ContractDate);
+                ValidateProperty(nameof(ContractDate));
             }
         }
 
@@ -61,6 +122,7 @@ namespace MVVMFirma.ViewModels
                 item.ContractValueNet = value;
                 OnPropertyChanged(() => ContractValueNet);
                 OnPropertyChanged(() => ContractValueGross);
+                ValidateProperty(nameof(ContractValueNet));
             }
         }
 
@@ -72,6 +134,7 @@ namespace MVVMFirma.ViewModels
                 item.VATRate = value;
                 OnPropertyChanged(() => VATRate);
                 OnPropertyChanged(() => ContractValueGross);
+                ValidateProperty(nameof(VATRate));
             }
         }
 
@@ -92,6 +155,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.ClientSignatureDate = value;
                 OnPropertyChanged(() => ClientSignatureDate);
+                ValidateProperty(nameof(CompanySignatureDate));
             }
         }
 
@@ -102,6 +166,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.CompanySignatureDate = value;
                 OnPropertyChanged(() => CompanySignatureDate);
+                ValidateProperty(nameof(CompanySignatureDate));
             }
         }
 
@@ -128,6 +193,13 @@ namespace MVVMFirma.ViewModels
 
         public override void Save()
         {
+            if (HasErrors)
+            {
+                // Display validation error
+                System.Windows.MessageBox.Show("Nie można zapisać, ponieważ istnieją błędy walidacji.", "Błąd walidacji", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                return;
+            }
+
             // Przeliczanie wartości brutto przed zapisaniem
             item.ContractValueGross = ContractValueNet * (1 + VATRate / 100);
 

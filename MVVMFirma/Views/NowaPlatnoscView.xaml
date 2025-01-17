@@ -12,19 +12,29 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Faktura:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding InvoicesItems}" SelectedItem="{Binding SelectedInvoice}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding InvoicesItems}" 
+                          SelectedItem="{Binding SelectedInvoice, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                          DisplayMemberPath="Value"
+                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Data Płatności:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding PaymentDate}"/>
+                <DatePicker Width="300" SelectedDate="{Binding PaymentDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                            ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Kwota:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding PaymentAmount, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox Width="300" Text="{Binding PaymentAmount, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Metoda Płatności:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding PaymentMethods}" SelectedItem="{Binding PaymentMethod}"/>
+                <ComboBox Width="300" ItemsSource="{Binding PaymentMethods}" 
+                          SelectedItem="{Binding PaymentMethod, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
         </StackPanel>
     </Grid>

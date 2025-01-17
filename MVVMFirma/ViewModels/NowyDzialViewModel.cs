@@ -1,19 +1,66 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
+using System.ComponentModel;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
+using MVVMFirma.Validators;
 
 namespace MVVMFirma.ViewModels
 {
-    public class NowyDzialViewModel : JedenViewModel<Departments>
+    public class NowyDzialViewModel : JedenViewModel<Departments>, INotifyDataErrorInfo
     {
+        private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
         #region Constructor
         public NowyDzialViewModel() : base("Nowy Dział")
         {
             item = new Departments();
             LoadData();
+        }
+        #endregion
+
+        #region Validators
+        public bool HasErrors => _validationErrors.Any();
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _validationErrors.ContainsKey(propertyName) ? _validationErrors[propertyName] : null;
+        }
+
+        private void ValidateProperty(string propertyName)
+        {
+            List<string> errors = new List<string>();
+
+            switch (propertyName)
+            {
+                case nameof(DepartmentName):
+                    errors.AddRange(StringValidator.ValidateRequired(DepartmentName, "Nazwa Działu"));
+                    errors.AddRange(StringValidator.ValidateMaxLength(DepartmentName, 255, "Nazwa Działu"));
+                    break;
+                case nameof(ManagerID):
+                    if (!ManagerID.HasValue)
+                        errors.Add("Menedżer jest wymagany.");
+                    break;
+            }
+
+            if (errors.Any())
+                _validationErrors[propertyName] = errors;
+            else
+                _validationErrors.Remove(propertyName);
+
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(() => HasErrors);
         }
         #endregion
 
@@ -25,6 +72,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.DepartmentName = value;
                 OnPropertyChanged(() => DepartmentName);
+                ValidateProperty(nameof(DepartmentName));
             }
         }
 
@@ -36,6 +84,7 @@ namespace MVVMFirma.ViewModels
                 item.ManagerID = value;
                 OnPropertyChanged(() => ManagerID);
                 OnPropertyChanged(() => SelectedManager);
+                ValidateProperty(nameof(ManagerID));
             }
         }
 
@@ -61,6 +110,12 @@ namespace MVVMFirma.ViewModels
 
         public override void Save()
         {
+            if (HasErrors)
+            {
+                System.Windows.MessageBox.Show("Nie można zapisać, ponieważ istnieją błędy walidacji.", "Błąd walidacji", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                return;
+            }
+
             designOfficeEntities.Departments.Add(item);
             designOfficeEntities.SaveChanges();
         }

@@ -12,23 +12,27 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Pracownik:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding EmployeesItems}" SelectedItem="{Binding SelectedEmployee}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding EmployeesItems}" 
+                          SelectedItem="{Binding SelectedEmployee, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                          DisplayMemberPath="Value"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Projekt:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" SelectedItem="{Binding SelectedProject}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" 
+                          SelectedItem="{Binding SelectedProject, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                          DisplayMemberPath="Value"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Data:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding LogDate}"/>
+                <DatePicker Width="300" SelectedDate="{Binding LogDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Godziny Pracy:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding HoursWorked}"/>
+                <TextBox Width="300" Text="{Binding HoursWorked, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Stawka godzinowa:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding HourlyRate}"/>
+                <TextBox Width="300" Text="{Binding HourlyRate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Łączna Kwota:" Width="150" VerticalAlignment="Center"/>

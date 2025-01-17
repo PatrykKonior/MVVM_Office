@@ -6,31 +6,36 @@
              xmlns:local="clr-namespace:MVVMFirma.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="White">
+    <Grid Background="White" Margin="0,0,0,-79">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        
-        <Label Grid.Column="0" Grid.Row="0" Margin="0,8,0,8" Content="Nazwa Klienta"></Label>
-        <TextBox Grid.Column="1" Grid.Row="0" Margin="0,8,0,8" Text="{Binding Path=CompanyName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Grid.Column="0" Grid.Row="1" Margin="0,8,0,8" Content="NIP"></Label>
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="0,8,0,8" Text="{Binding Path=NIP, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Grid.Column="0" Grid.Row="2" Margin="0,8,0,8" Content="REGON"></Label>
-        <TextBox Grid.Column="1" Grid.Row="2" Margin="0,8,0,8" Text="{Binding Path=Regon, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Grid.Column="0" Grid.Row="3" Margin="0,8,0,8" Content="Numer Telefonu"></Label>
-        <TextBox Grid.Column="1" Grid.Row="3" Margin="0,8,0,8" Text="{Binding Path=PhoneNumber, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Grid.Column="0" Grid.Row="4" Margin="0,8,0,8" Content="E-mail"></Label>
-        <TextBox Grid.Column="1" Grid.Row="4" Margin="0,8,0,8" Text="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-        <Label Grid.Column="0" Grid.Row="5" Margin="0,8,0,8" Content="Osoba odp. za kontakt"></Label>
-        <TextBox Grid.Column="1" Grid.Row="5" Margin="0,8,0,8" Text="{Binding Path=ContactPersonName, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Label Grid.Column="0" Grid.Row="0" Margin="0,8,0,8" Content="Nazwa Klienta" />
+        <TextBox Grid.Column="1" Grid.Row="0" Margin="0,8,0,8" Text="{Binding CompanyName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+        <Label Grid.Column="0" Grid.Row="1" Margin="0,8,0,8" Content="NIP" />
+        <TextBox Grid.Column="1" Grid.Row="1" Margin="0,8,0,8" Text="{Binding NIP, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+        <Label Grid.Column="0" Grid.Row="2" Margin="0,8,0,8" Content="REGON" />
+        <TextBox Grid.Column="1" Grid.Row="2" Margin="0,8,0,8" Text="{Binding Regon, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+        <Label Grid.Column="0" Grid.Row="3" Margin="0,8,0,8" Content="Numer Telefonu" />
+        <TextBox Grid.Column="1" Grid.Row="3" Margin="0,8,0,8" Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+        <Label Grid.Column="0" Grid.Row="4" Margin="0,8,0,8" Content="E-mail" />
+        <TextBox Grid.Column="1" Grid.Row="4" Margin="0,8,0,8" Text="{Binding Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+
+        <Label Grid.Column="0" Grid.Row="5" Margin="0,8,0,8" Content="Osoba odp. za kontakt" />
+        <TextBox Grid.Column="1" Grid.Row="5" Margin="0,8,0,8" Text="{Binding ContactPersonName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
     </Grid>
 </local:JedenViewBase>

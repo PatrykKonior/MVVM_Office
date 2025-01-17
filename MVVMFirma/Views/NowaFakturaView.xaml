@@ -12,27 +12,42 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Powiązana Sprzedaż:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding SalesItems}" SelectedItem="{Binding SelectedSale}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding SalesItems}" 
+                          SelectedItem="{Binding SelectedSale, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                          DisplayMemberPath="Value"
+                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Powiązany Klient:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ClientsItems}" SelectedItem="{Binding SelectedClient}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding ClientsItems}" 
+                          SelectedItem="{Binding SelectedClient, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                          DisplayMemberPath="Value"
+                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Data Faktury:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding InvoiceDate}"/>
+                <DatePicker Width="300" SelectedDate="{Binding InvoiceDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                            ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Termin Płatności:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding PaymentDueDate}"/>
+                <DatePicker Width="300" SelectedDate="{Binding PaymentDueDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                            ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Status Faktury:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding InvoiceStatus}"/>
+                <TextBox Width="300" Text="{Binding InvoiceStatus, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Łączna Kwota:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding TotalAmount}"/>
+                <TextBox Width="300" Text="{Binding TotalAmount, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
         </StackPanel>
     </Grid>

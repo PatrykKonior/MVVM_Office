@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Collections;
+using System.ComponentModel;
 using System.Linq;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
+using MVVMFirma.Validators;
 
 namespace MVVMFirma.ViewModels
 {
-    public class NowyCzasPracyViewModel : JedenViewModel<TimeLogs>
+    public class NowyCzasPracyViewModel : JedenViewModel<TimeLogs>, INotifyDataErrorInfo
     {
+        private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
         #region Constructor
 
         public NowyCzasPracyViewModel() : base("Nowy czas pracy")
@@ -16,6 +22,58 @@ namespace MVVMFirma.ViewModels
             item = new TimeLogs();
             LoadData();
             LogDate = DateTime.Now;
+        }
+
+        #endregion
+
+        #region Validators
+
+        public bool HasErrors => _validationErrors.Any();
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public IEnumerable GetErrors(string propertyName)
+        {
+            return _validationErrors.ContainsKey(propertyName) ? _validationErrors[propertyName] : null;
+        }
+
+        private void ValidateProperty(string propertyName)
+        {
+            List<string> errors = new List<string>();
+
+            switch (propertyName)
+            {
+                case nameof(EmployeeID):
+                    if (!EmployeeID.HasValue)
+                        errors.Add("Pracownik jest wymagany.");
+                    break;
+                case nameof(ProjectID):
+                    if (!ProjectID.HasValue)
+                        errors.Add("Projekt jest wymagany.");
+                    break;
+                case nameof(LogDate):
+                    errors.AddRange(DateValidator.ValidateNotInFuture(LogDate, "Data"));
+                    break;
+                case nameof(HoursWorked):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(HoursWorked, "Godziny Pracy"));
+                    break;
+                case nameof(HourlyRate):
+                    errors.AddRange(DecimalValidator.ValidateGreaterThanZero(HourlyRate, "Stawka godzinowa"));
+                    break;
+            }
+
+            if (errors.Any())
+                _validationErrors[propertyName] = errors;
+            else
+                _validationErrors.Remove(propertyName);
+
+            OnErrorsChanged(propertyName);
+        }
+
+        private void OnErrorsChanged(string propertyName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            OnPropertyChanged(() => HasErrors);
         }
 
         #endregion
@@ -30,6 +88,7 @@ namespace MVVMFirma.ViewModels
                 item.EmployeeID = value;
                 OnPropertyChanged(() => EmployeeID);
                 OnPropertyChanged(() => SelectedEmployee);
+                ValidateProperty(nameof(EmployeeID));
             }
         }
 
@@ -51,6 +110,7 @@ namespace MVVMFirma.ViewModels
                 item.ProjectID = value;
                 OnPropertyChanged(() => ProjectID);
                 OnPropertyChanged(() => SelectedProject);
+                ValidateProperty(nameof(ProjectID));
             }
         }
 
@@ -71,6 +131,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.LogDate = value;
                 OnPropertyChanged(() => LogDate);
+                ValidateProperty(nameof(LogDate));
             }
         }
 
@@ -81,6 +142,7 @@ namespace MVVMFirma.ViewModels
             {
                 item.HoursWorked = value;
                 OnPropertyChanged(() => HoursWorked);
+                ValidateProperty(nameof(HoursWorked));
             }
         }
 
@@ -92,6 +154,7 @@ namespace MVVMFirma.ViewModels
                 item.HourlyRate = value;
                 OnPropertyChanged(() => HourlyRate);
                 OnPropertyChanged(() => TotalAmount);
+                ValidateProperty(nameof(HourlyRate));
             }
         }
 
@@ -138,6 +201,12 @@ namespace MVVMFirma.ViewModels
 
         public override void Save()
         {
+            if (HasErrors)
+            {
+                System.Windows.MessageBox.Show("Nie można zapisać, ponieważ istnieją błędy walidacji.", "Błąd walidacji", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
+                return;
+            }
+
             item.TotalAmount = HoursWorked * HourlyRate;
 
             designOfficeEntities.TimeLogs.Add(item);

@@ -13,27 +13,39 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Klient:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ClientsItems}" SelectedItem="{Binding SelectedClient}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding ClientsItems}" 
+                          SelectedItem="{Binding SelectedClient, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                          DisplayMemberPath="Value" 
+                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Data Sprzedaży:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding SaleDate}"/>
+                <DatePicker Width="300" SelectedDate="{Binding SaleDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                            ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Kwota Netto:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding TotalNetAmount}"/>
+                <TextBox Width="300" Text="{Binding TotalNetAmount, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Kwota VAT:" Width="150" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding TotalVATAmount, StringFormat='{}{0:C}'}" Width="300"/>
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Kwota Brutto:" Width="150" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding TotalGrossAmount, StringFormat='{}{0:C}'}" Width="300"/>
             </StackPanel>
+
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Status Sprzedaży:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding SaleStatusList}" SelectedItem="{Binding SaleStatus}" />
+                <ComboBox Width="300" ItemsSource="{Binding SaleStatusList}" 
+                          SelectedItem="{Binding SaleStatus, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
             </StackPanel>
         </StackPanel>
     </Grid>

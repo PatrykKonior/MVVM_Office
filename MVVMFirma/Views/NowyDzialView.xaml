@@ -12,12 +12,14 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Nazwa Działu:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding DepartmentName}" />
+                <TextBox Width="300" Text="{Binding DepartmentName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Menedżer:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ManagersItems}" SelectedItem="{Binding SelectedManager}" DisplayMemberPath="Value"/>
+                <ComboBox Width="300" ItemsSource="{Binding ManagersItems}" 
+                          SelectedItem="{Binding SelectedManager}" 
+                          DisplayMemberPath="Value"/>
             </StackPanel>
         </StackPanel>
     </Grid>
