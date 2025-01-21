@@ -1,0 +1,70 @@
+﻿<local:JedenViewBase x:Class="MVVMFirma.Views.AnalizaPrzychodowIWydatkowView"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+                     xmlns:local="clr-namespace:MVVMFirma.Views"
+                     mc:Ignorable="d" 
+                     d:DesignHeight="800"
+                     d:DesignWidth="800">
+    <Grid Background="#232625">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Nagłówek -->
+        <TextBlock Text="Analiza Przychodów i Wydatków" 
+                   FontSize="20" 
+                   FontWeight="Bold" 
+                   Foreground="#A4A69C" 
+                   HorizontalAlignment="Center" 
+                   Margin="10" 
+                   Grid.Row="0" Grid.ColumnSpan="2"/>
+
+        <!-- Wykres Przychodów i Wydatków -->
+        <lvc:CartesianChart Grid.Row="1" Grid.Column="0" Margin="10" Background="WhiteSmoke">
+            <lvc:CartesianChart.Series>
+                <lvc:ColumnSeries Title="Przychody" Values="{Binding Revenues}" Fill="#4C594F"/>
+                <lvc:ColumnSeries Title="Wydatki" Values="{Binding Expenses}" Fill="#BFBFB8"/>
+            </lvc:CartesianChart.Series>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Miesiące" Labels="{Binding Months}" Foreground="Black"/>
+            </lvc:CartesianChart.AxisX>
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Kwota (PLN)" Foreground="Black"/>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
+
+        <!-- Wykres Kołowy -->
+        <lvc:PieChart Grid.Row="1" Grid.Column="1" Margin="10" Background="WhiteSmoke">
+            <lvc:PieChart.Series>
+                <lvc:PieSeries Title="Klient A" Values="{Binding ClientARevenue}" Fill="#4C594F"/>
+                <lvc:PieSeries Title="Klient B" Values="{Binding ClientBRevenue}" Fill="#A4A69C"/>
+                <lvc:PieSeries Title="Inni Klienci" Values="{Binding OtherClientsRevenue}" Fill="#BFBFB8"/>
+            </lvc:PieChart.Series>
+        </lvc:PieChart>
+
+        <!-- Szczegółowe Rekordy -->
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
+            <TextBlock Text="Szczegółowe Rekordy" FontSize="16" FontWeight="Bold" Foreground="#A4A69C" Margin="5"/>
+            <ListBox ItemsSource="{Binding DetailedRecords}" Background="WhiteSmoke" Foreground="Black">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Date}" Width="150"/>
+                            <TextBlock Text="{Binding Description}" Width="400"/>
+                            <TextBlock Text="{Binding Amount}" Width="100" HorizontalAlignment="Right"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+    </Grid>
+</local:JedenViewBase>
