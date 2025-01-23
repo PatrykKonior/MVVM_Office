@@ -14,10 +14,10 @@ namespace MVVMFirma.Models.BusinessLogic
         {
             var rawData = db.Expenses
                 .Where(e => e.ExpenseDate >= startDate && e.ExpenseDate <= endDate)
-                .GroupBy(e => e.ExpenseDate.Value.Month)
+                .GroupBy(e => new { Year = e.ExpenseDate.Value.Year, Month = e.ExpenseDate.Value.Month })
                 .Select(g => new
                 {
-                    Key = g.Key,
+                    Key = g.Key.Month,
                     TotalNetAmount = g.Sum(e => e.NetAmount ?? 0)
                 })
                 .ToList();

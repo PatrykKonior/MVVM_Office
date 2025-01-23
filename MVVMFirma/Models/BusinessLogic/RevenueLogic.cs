@@ -14,14 +14,14 @@ namespace MVVMFirma.Models.BusinessLogic
         {
             var rawData = db.Sales
                 .Where(s => s.SaleDate >= startDate && s.SaleDate <= endDate)
-                .GroupBy(s => s.SaleDate.Value.Month)
+                .GroupBy(s => new { Year = s.SaleDate.Value.Year, Month = s.SaleDate.Value.Month })
                 .Select(g => new
                 {
-                    Key = g.Key,
+                    Key = g.Key.Month,
                     TotalNetAmount = g.Sum(s => s.TotalNetAmount ?? 0)
                 })
                 .ToList();
-
+            
             if (!rawData.Any())
             {
                 Console.WriteLine("Brak danych przychodów dla zakresu dat.");

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using LiveCharts;
 using MVVMFirma.Models.BusinessLogic;
 using MVVMFirma.Models.Entities;
@@ -17,9 +18,9 @@ namespace MVVMFirma.ViewModels
         public string[] Months { get; private set; }
         public ObservableCollection<DetailedRecord> DetailedRecords { get; private set; }
 
-        public bool HasData => Revenues.Any() || Expenses.Any(); // Czy dane są dostępne
-        public bool HasRevenues => Revenues.Any(); // Czy są dane o przychodach
-        public bool HasExpenses => Expenses.Any(); // Czy są dane o wydatkach
+        public bool HasData => Revenues.Any() || Expenses.Any();
+
+        public ICommand LoadDataCommand { get; }
 
         public AnalizaPrzychodowIWydatkowViewModel()
             : base("Analiza Przychodów i Wydatków")
@@ -28,7 +29,9 @@ namespace MVVMFirma.ViewModels
             EndDate = DateTime.Now;
 
             DetailedRecords = new ObservableCollection<DetailedRecord>();
-            LoadData();
+            LoadDataCommand = new RelayCommand(LoadData);
+
+            LoadData(); // Załaduj dane przy inicjalizacji
         }
 
         private void LoadData()
@@ -38,25 +41,23 @@ namespace MVVMFirma.ViewModels
                 var revenueLogic = new RevenueLogic(db);
                 var expenseLogic = new ExpenseLogic(db);
 
-                // Pobranie danych
+                // Pobranie danych z logiki biznesowej
                 var revenueData = revenueLogic.GetRevenueByDateRange(StartDate, EndDate);
                 var expenseData = expenseLogic.GetExpensesByDateRange(StartDate, EndDate);
 
-                // Przetwarzanie danych do wykresów
                 Revenues = new ChartValues<double>(
                     revenueData.Select(r => double.Parse(r.Value, System.Globalization.CultureInfo.InvariantCulture))
                 );
                 Expenses = new ChartValues<double>(
                     expenseData.Select(e => double.Parse(e.Value, System.Globalization.CultureInfo.InvariantCulture))
                 );
-                Months = revenueData.Select(r => GetMonthName(r.Key)).ToArray();
+                Months = revenueData.Select(r => $"{GetMonthName(r.Key)} {StartDate.Year}").ToArray();
 
-                // Szczegółowe rekordy
+                // Wypełnianie szczegółowych rekordów
                 DetailedRecords.Clear();
-
                 foreach (var record in revenueData.Select(r => new DetailedRecord
                          {
-                             Date = $"Miesiąc {r.Key}",
+                             Date = $"{r.Key:00}.{StartDate.Year}",
                              Description = "Przychody",
                              Amount = double.Parse(r.Value, System.Globalization.CultureInfo.InvariantCulture)
                          }))
@@ -66,7 +67,7 @@ namespace MVVMFirma.ViewModels
 
                 foreach (var record in expenseData.Select(e => new DetailedRecord
                          {
-                             Date = $"Miesiąc {e.Key}",
+                             Date = $"{e.Key:00}.{StartDate.Year}",
                              Description = "Wydatki",
                              Amount = double.Parse(e.Value, System.Globalization.CultureInfo.InvariantCulture)
                          }))
@@ -81,8 +82,6 @@ namespace MVVMFirma.ViewModels
             OnPropertyChanged(() => Months);
             OnPropertyChanged(() => DetailedRecords);
             OnPropertyChanged(() => HasData);
-            OnPropertyChanged(() => HasRevenues);
-            OnPropertyChanged(() => HasExpenses);
         }
 
         private string GetMonthName(int month)

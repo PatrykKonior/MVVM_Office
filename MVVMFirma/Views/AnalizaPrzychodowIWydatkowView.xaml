@@ -73,10 +73,10 @@
                     Background="#4C594F" 
                     Foreground="White" 
                     Padding="8,4" 
+                    Width="120"
                     Margin="20,0" 
                     BorderThickness="0" 
-                    Cursor="Hand"
-                    HorizontalAlignment="Center">
+                    Cursor="Hand">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" 
