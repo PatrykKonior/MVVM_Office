@@ -6,25 +6,25 @@ using MVVMFirma.Models.EntitiesForView;
 
 namespace MVVMFirma.Models.BusinessLogic
 {
-    public class RevenueLogic : DatabaseClass
+    public class ExpenseLogic : DatabaseClass
     {
-        public RevenueLogic(DesignOfficeEntities db) : base(db) { }
+        public ExpenseLogic(DesignOfficeEntities db) : base(db) { }
 
-        public List<KeyAndValue> GetRevenueByDateRange(DateTime startDate, DateTime endDate)
+        public List<KeyAndValue> GetExpensesByDateRange(DateTime startDate, DateTime endDate)
         {
-            var rawData = db.Sales
-                .Where(s => s.SaleDate >= startDate && s.SaleDate <= endDate)
-                .GroupBy(s => s.SaleDate.Value.Month)
+            var rawData = db.Expenses
+                .Where(e => e.ExpenseDate >= startDate && e.ExpenseDate <= endDate)
+                .GroupBy(e => e.ExpenseDate.Value.Month)
                 .Select(g => new
                 {
                     Key = g.Key,
-                    TotalNetAmount = g.Sum(s => s.TotalNetAmount ?? 0)
+                    TotalNetAmount = g.Sum(e => e.NetAmount ?? 0)
                 })
                 .ToList();
 
             if (!rawData.Any())
             {
-                Console.WriteLine("Brak danych przychodów dla zakresu dat.");
+                Console.WriteLine("Brak danych wydatków dla zakresu dat.");
                 return new List<KeyAndValue>(); // Zwracamy pustą listę
             }
 
@@ -35,16 +35,21 @@ namespace MVVMFirma.Models.BusinessLogic
             }).ToList();
         }
 
-        public List<KeyAndValue> GetAllRevenue()
+        public List<KeyAndValue> GetAllExpenses()
         {
-            var rawData = db.Sales
-                .GroupBy(s => s.SaleDate.Value.Month)
+            var rawData = db.Expenses
+                .GroupBy(e => e.ExpenseDate.Value.Month)
                 .Select(g => new
                 {
                     Key = g.Key,
-                    TotalNetAmount = g.Sum(s => s.TotalNetAmount ?? 0) // Suma netto jako decimal
+                    TotalNetAmount = g.Sum(e => e.NetAmount ?? 0) // Suma netto jako decimal
                 })
                 .ToList();
+            
+            if (!rawData.Any())
+            {
+                Console.WriteLine("Brak danych przychodów dla zakresu dat.");
+            }
 
             return rawData.Select(g => new KeyAndValue
             {

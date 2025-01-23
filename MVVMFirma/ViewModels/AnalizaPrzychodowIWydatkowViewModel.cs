@@ -1,72 +1,98 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LiveCharts;
-using LiveCharts.Wpf;
 using System.Collections.ObjectModel;
+using System.Linq;
+using LiveCharts;
+using MVVMFirma.Models.BusinessLogic;
 using MVVMFirma.Models.Entities;
 
 namespace MVVMFirma.ViewModels
 {
     public class AnalizaPrzychodowIWydatkowViewModel : JedenViewModel<object>
     {
-        #region Properties
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
-        public ChartValues<double> Revenues { get; set; }
-        public ChartValues<double> Expenses { get; set; }
-        public string[] Months { get; set; }
-        public ChartValues<double> ClientARevenue { get; set; }
-        public ChartValues<double> ClientBRevenue { get; set; }
-        public ChartValues<double> OtherClientsRevenue { get; set; }
-        public ObservableCollection<DetailedRecord> DetailedRecords { get; set; }
+        public ChartValues<double> Revenues { get; private set; }
+        public ChartValues<double> Expenses { get; private set; }
+        public string[] Months { get; private set; }
+        public ObservableCollection<DetailedRecord> DetailedRecords { get; private set; }
 
-        #endregion
-
-        #region Constructor
+        public bool HasData => Revenues.Any() || Expenses.Any(); // Czy dane są dostępne
+        public bool HasRevenues => Revenues.Any(); // Czy są dane o przychodach
+        public bool HasExpenses => Expenses.Any(); // Czy są dane o wydatkach
 
         public AnalizaPrzychodowIWydatkowViewModel()
             : base("Analiza Przychodów i Wydatków")
         {
-            InitializeMockData();
+            StartDate = DateTime.Now.AddMonths(-6);
+            EndDate = DateTime.Now;
+
+            DetailedRecords = new ObservableCollection<DetailedRecord>();
+            LoadData();
         }
 
-        #endregion
-
-        #region Methods
-
-        private void InitializeMockData()
+        private void LoadData()
         {
-            // Dane do wykresów
-            Revenues = new ChartValues<double> { 10000, 15000, 20000, 25000 };
-            Expenses = new ChartValues<double> { 5000, 7000, 9000, 11000 };
-            Months = new[] { "Styczeń", "Luty", "Marzec", "Kwiecień" };
-
-            ClientARevenue = new ChartValues<double> { 15000 };
-            ClientBRevenue = new ChartValues<double> { 10000 };
-            OtherClientsRevenue = new ChartValues<double> { 5000 };
-
-            // Dane szczegółowe
-            DetailedRecords = new ObservableCollection<DetailedRecord>
+            using (var db = new DesignOfficeEntities())
             {
-                new DetailedRecord { Date = "01-01-2025", Description = "Sprzedaż A", Amount = 10000 },
-                new DetailedRecord { Date = "01-02-2025", Description = "Sprzedaż B", Amount = 15000 },
-                new DetailedRecord { Date = "01-03-2025", Description = "Sprzedaż C", Amount = 20000 },
-            };
+                var revenueLogic = new RevenueLogic(db);
+                var expenseLogic = new ExpenseLogic(db);
+
+                // Pobranie danych
+                var revenueData = revenueLogic.GetRevenueByDateRange(StartDate, EndDate);
+                var expenseData = expenseLogic.GetExpensesByDateRange(StartDate, EndDate);
+
+                // Przetwarzanie danych do wykresów
+                Revenues = new ChartValues<double>(
+                    revenueData.Select(r => double.Parse(r.Value, System.Globalization.CultureInfo.InvariantCulture))
+                );
+                Expenses = new ChartValues<double>(
+                    expenseData.Select(e => double.Parse(e.Value, System.Globalization.CultureInfo.InvariantCulture))
+                );
+                Months = revenueData.Select(r => GetMonthName(r.Key)).ToArray();
+
+                // Szczegółowe rekordy
+                DetailedRecords.Clear();
+
+                foreach (var record in revenueData.Select(r => new DetailedRecord
+                         {
+                             Date = $"Miesiąc {r.Key}",
+                             Description = "Przychody",
+                             Amount = double.Parse(r.Value, System.Globalization.CultureInfo.InvariantCulture)
+                         }))
+                {
+                    DetailedRecords.Add(record);
+                }
+
+                foreach (var record in expenseData.Select(e => new DetailedRecord
+                         {
+                             Date = $"Miesiąc {e.Key}",
+                             Description = "Wydatki",
+                             Amount = double.Parse(e.Value, System.Globalization.CultureInfo.InvariantCulture)
+                         }))
+                {
+                    DetailedRecords.Add(record);
+                }
+            }
+
+            // Aktualizacja widoku
+            OnPropertyChanged(() => Revenues);
+            OnPropertyChanged(() => Expenses);
+            OnPropertyChanged(() => Months);
+            OnPropertyChanged(() => DetailedRecords);
+            OnPropertyChanged(() => HasData);
+            OnPropertyChanged(() => HasRevenues);
+            OnPropertyChanged(() => HasExpenses);
         }
 
-        public override void Save()
+        private string GetMonthName(int month)
         {
-            // Funkcja zapisu. Jeśli później będą dane do zapisania w bazie danych, 
-            // można tutaj je zapisać, np. designOfficeEntities.SaveChanges().
-            // Na razie logika zapisu może być pusta:
+            var culture = System.Globalization.CultureInfo.CurrentCulture;
+            return culture.DateTimeFormat.GetMonthName(month);
         }
 
-        #endregion
+        public override void Save() { }
     }
-
-    #region Helper Class
 
     public class DetailedRecord
     {
@@ -74,6 +100,4 @@ namespace MVVMFirma.ViewModels
         public string Description { get; set; }
         public double Amount { get; set; }
     }
-
-    #endregion
 }

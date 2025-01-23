@@ -8,63 +8,171 @@
                      mc:Ignorable="d" 
                      d:DesignHeight="800"
                      d:DesignWidth="800">
-    <Grid Background="#232625">
+
+    <Grid Background="#F4F4F4">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <!-- Nagłówek -->
         <TextBlock Text="Analiza Przychodów i Wydatków" 
-                   FontSize="20" 
+                   FontSize="32" 
                    FontWeight="Bold" 
-                   Foreground="#A4A69C" 
+                   Foreground="#232625" 
                    HorizontalAlignment="Center" 
                    Margin="10" 
                    Grid.Row="0" Grid.ColumnSpan="2"/>
 
-        <!-- Wykres Przychodów i Wydatków -->
-        <lvc:CartesianChart Grid.Row="1" Grid.Column="0" Margin="10" Background="WhiteSmoke">
-            <lvc:CartesianChart.Series>
-                <lvc:ColumnSeries Title="Przychody" Values="{Binding Revenues}" Fill="#4C594F"/>
-                <lvc:ColumnSeries Title="Wydatki" Values="{Binding Expenses}" Fill="#BFBFB8"/>
-            </lvc:CartesianChart.Series>
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Miesiące" Labels="{Binding Months}" Foreground="Black"/>
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Kwota (PLN)" Foreground="Black"/>
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
+        <!-- Wybór zakresu dat i przycisk -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="20">
+            <TextBlock Text="Od:" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       Foreground="#232625" 
+                       VerticalAlignment="Center" 
+                       Margin="5,0"/>
+            <DatePicker SelectedDate="{Binding StartDate}" Width="200" Margin="10,0">
+                <DatePicker.Style>
+                    <Style TargetType="DatePicker">
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="Padding" Value="5" />
+                        <Setter Property="Background" Value="#FFFFFF" />
+                        <Setter Property="BorderBrush" Value="#A4A69C" />
+                        <Setter Property="BorderThickness" Value="1" />
+                    </Style>
+                </DatePicker.Style>
+            </DatePicker>
+            <TextBlock Text="Do:" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       Foreground="#232625" 
+                       VerticalAlignment="Center" 
+                       Margin="10,0"/>
+            <DatePicker SelectedDate="{Binding EndDate}" Width="200" Margin="10,0">
+                <DatePicker.Style>
+                    <Style TargetType="DatePicker">
+                        <Setter Property="FontSize" Value="14" />
+                        <Setter Property="Padding" Value="5" />
+                        <Setter Property="Background" Value="#FFFFFF" />
+                        <Setter Property="BorderBrush" Value="#A4A69C" />
+                        <Setter Property="BorderThickness" Value="1" />
+                    </Style>
+                </DatePicker.Style>
+            </DatePicker>
+            <Button Content="Zastosuj" 
+                    Command="{Binding LoadDataCommand}" 
+                    FontSize="16" 
+                    FontWeight="Bold" 
+                    Background="#4C594F" 
+                    Foreground="White" 
+                    Padding="8,4" 
+                    Margin="20,0" 
+                    BorderThickness="0" 
+                    Cursor="Hand"
+                    HorizontalAlignment="Center">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="8" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
 
-        <!-- Wykres Kołowy -->
-        <lvc:PieChart Grid.Row="1" Grid.Column="1" Margin="10" Background="WhiteSmoke">
-            <lvc:PieChart.Series>
-                <lvc:PieSeries Title="Klient A" Values="{Binding ClientARevenue}" Fill="#4C594F"/>
-                <lvc:PieSeries Title="Klient B" Values="{Binding ClientBRevenue}" Fill="#A4A69C"/>
-                <lvc:PieSeries Title="Inni Klienci" Values="{Binding OtherClientsRevenue}" Fill="#BFBFB8"/>
-            </lvc:PieChart.Series>
-        </lvc:PieChart>
+        </StackPanel>
+
+        <!-- Komunikat o braku danych -->
+<TextBlock Text="Brak danych dla wybranego zakresu czasu."
+           FontSize="20"
+           FontWeight="Bold"
+           Foreground="Gray"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Center"
+           Grid.Row="2" Grid.ColumnSpan="2">
+    <TextBlock.Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasData}" Value="False">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </TextBlock.Style>
+</TextBlock>
+
+<!-- Wykres Przychodów i Wydatków -->
+<lvc:CartesianChart Grid.Row="2" Grid.Column="0" Margin="10" Background="WhiteSmoke">
+    <lvc:CartesianChart.Style>
+        <Style TargetType="lvc:CartesianChart">
+            <Setter Property="Visibility" Value="Visible" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasData}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </lvc:CartesianChart.Style>
+    <lvc:CartesianChart.Series>
+        <lvc:ColumnSeries Title="Przychody" Values="{Binding Revenues}" Fill="#4C594F" />
+        <lvc:ColumnSeries Title="Wydatki" Values="{Binding Expenses}" Fill="#A4A69C" />
+    </lvc:CartesianChart.Series>
+    <lvc:CartesianChart.AxisX>
+        <lvc:Axis Title="Miesiące" Labels="{Binding Months}" Foreground="#232625" />
+    </lvc:CartesianChart.AxisX>
+    <lvc:CartesianChart.AxisY>
+        <lvc:Axis Title="Kwota (PLN)" Foreground="#232625" />
+    </lvc:CartesianChart.AxisY>
+</lvc:CartesianChart>
+
+<!-- Wykres Kołowy -->
+<lvc:PieChart Grid.Row="2" Grid.Column="1" Margin="10" Background="WhiteSmoke">
+    <lvc:PieChart.Style>
+        <Style TargetType="lvc:PieChart">
+            <Setter Property="Visibility" Value="Visible" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasData}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </lvc:PieChart.Style>
+    <lvc:PieChart.Series>
+        <lvc:PieSeries Title="Przychody" Values="{Binding Revenues}" Fill="#4C594F" />
+        <lvc:PieSeries Title="Wydatki" Values="{Binding Expenses}" Fill="#A4A69C" />
+    </lvc:PieChart.Series>
+</lvc:PieChart>
+
 
         <!-- Szczegółowe Rekordy -->
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
-            <TextBlock Text="Szczegółowe Rekordy" FontSize="16" FontWeight="Bold" Foreground="#A4A69C" Margin="5"/>
-            <ListBox ItemsSource="{Binding DetailedRecords}" Background="WhiteSmoke" Foreground="Black">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Date}" Width="150"/>
-                            <TextBlock Text="{Binding Description}" Width="400"/>
-                            <TextBlock Text="{Binding Amount}" Width="100" HorizontalAlignment="Right"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
+            <TextBlock Text="Szczegółowe Rekordy" 
+                       FontSize="18" 
+                       FontWeight="Bold" 
+                       Foreground="#232625" 
+                       Margin="5"/>
+            <DataGrid ItemsSource="{Binding DetailedRecords}" 
+                      AutoGenerateColumns="False" 
+                      IsReadOnly="True" 
+                      Background="WhiteSmoke" 
+                      Foreground="#232625">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Data" Binding="{Binding Date}" Width="*" />
+                    <DataGridTextColumn Header="Opis" Binding="{Binding Description}" Width="2*" />
+                    <DataGridTextColumn Header="Kwota (PLN)" Binding="{Binding Amount}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
         </StackPanel>
     </Grid>
 </local:JedenViewBase>
