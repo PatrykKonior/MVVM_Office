@@ -96,7 +96,9 @@
     <Compile Include="Helper\BaseCommand.cs" />
     <Compile Include="Helper\RelayCommand.cs" />
     <Compile Include="Models\BusinessLogic\DatabaseClass.cs" />
+    <Compile Include="Models\BusinessLogic\EmployeesLogic.cs" />
     <Compile Include="Models\BusinessLogic\ExpenseLogic.cs" />
+    <Compile Include="Models\BusinessLogic\ProjectsLogic.cs" />
     <Compile Include="Models\BusinessLogic\RevenueLogic.cs" />
     <Compile Include="Models\EntitiesForAdd\ClientsAdd.cs" />
     <Compile Include="Models\EntitiesForAdd\ContractsAdd.cs" />
@@ -195,6 +197,7 @@
     <Compile Include="Validators\DecimalValidator.cs" />
     <Compile Include="Validators\StringValidator.cs" />
     <Compile Include="ViewModels\AnalizaPrzychodowIWydatkowViewModel.cs" />
+    <Compile Include="ViewModels\AnalizaPrzychodowProjektowViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\JedenViewModel.cs" />
@@ -235,6 +238,9 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Views\AnalizaPrzychodowIWydatkowView.xaml.cs">
       <DependentUpon>AnalizaPrzychodowIWydatkowView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AnalizaPrzychodowProjektowView.xaml.cs">
+      <DependentUpon>AnalizaPrzychodowProjektowView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\JedenViewBase.cs" />
     <Compile Include="Views\MainWindow.xaml.cs">
@@ -374,6 +380,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AnalizaPrzychodowProjektowView.xaml" />
     <Page Include="Views\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
