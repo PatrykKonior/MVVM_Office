@@ -13,6 +13,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -61,38 +63,51 @@
                     Command="{Binding LoadDataCommand}"
                     FontSize="16"
                     FontWeight="Bold"
-                    Background="#4C594F"
-                    Foreground="White"
                     Padding="8,4"
                     Margin="20,0"
                     Width="150"
-                    BorderThickness="0"
                     Cursor="Hand"
                     HorizontalAlignment="Center">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                CornerRadius="8"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#4C594F" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="BorderBrush" Value="#4C594F" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" 
+                                            CornerRadius="8"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}">
+                                        <ContentPresenter HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#6A7F6D" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
             </Button>
+
         </StackPanel>
 
         <!-- Komunikat o braku danych -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="20">
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="20">
 
             <TextBlock Text="Brak danych dla wybranego miesiąca i roku."
                        FontSize="20"
                        FontWeight="Bold"
                        Foreground="Gray"
                        HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       Visibility="Collapsed">
+                       VerticalAlignment="Center">
                 <TextBlock.Style>
                     <Style TargetType="TextBlock">
                         <Setter Property="Visibility" Value="Collapsed" />
@@ -105,16 +120,40 @@
                 </TextBlock.Style>
             </TextBlock>
         </StackPanel>
+        
+        <!-- Nagłówek dla wykresu kołowego -->
+        <TextBlock Text="Przychody projektów"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#232625"
+                   HorizontalAlignment="Center"
+                   Margin="10"
+                   Grid.Row="3"
+                   Grid.Column="0" />
 
         <!-- Wykres kołowy -->
-        <lvc:PieChart Grid.Row="2" Grid.Column="0" Margin="10" Background="WhiteSmoke" Visibility="{Binding HasData}">
+        <lvc:PieChart Grid.Row="4" Grid.Column="0" Margin="10" Background="WhiteSmoke" Visibility="{Binding HasData}">
             <lvc:PieChart.Series>
-                <lvc:PieSeries Title="{Binding ProjectNames}" Values="{Binding ProjectRevenues}" Fill="#4C594F" />
+                <lvc:PieSeries 
+                    Title="{Binding ProjectNames}" 
+                    Values="{Binding ProjectRevenues}" 
+                    Fill="#4C594F" 
+                    LabelPoint="{Binding PieLabelFormatter}" />
             </lvc:PieChart.Series>
         </lvc:PieChart>
+        
+        <!-- Nagłówek dla wykresu słupkowego -->
+        <TextBlock Text="Projekty przypisane do pracowników"
+                   FontSize="20"
+                   FontWeight="Bold"
+                   Foreground="#232625"
+                   HorizontalAlignment="Center"
+                   Margin="10"
+                   Grid.Row="3"
+                   Grid.Column="1" />
 
         <!-- Wykres kolumnowy -->
-        <lvc:CartesianChart Grid.Row="2" Grid.Column="1" Margin="10" Background="WhiteSmoke" Visibility="{Binding HasData}">
+        <lvc:CartesianChart Grid.Row="4" Grid.Column="1" Margin="10" Background="WhiteSmoke" Visibility="{Binding HasData}">
             <lvc:CartesianChart.Series>
                 <lvc:ColumnSeries Title="Liczba projektów" Values="{Binding EmployeeProjectCounts}" Fill="#A4A69C" />
             </lvc:CartesianChart.Series>
@@ -127,7 +166,7 @@
         </lvc:CartesianChart>
 
         <!-- Szczegółowe rekordy -->
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="10">
             <TextBlock Text="Szczegółowe dane projektów"
                        FontSize="18"
                        FontWeight="Bold"
@@ -143,7 +182,20 @@
                     <DataGridTextColumn Header="Klient" Binding="{Binding ClientsCompanyName}" Width="*" />
                     <DataGridTextColumn Header="Typ projektu" Binding="{Binding ProjectType}" Width="*" />
                     <DataGridTextColumn Header="Budżet (PLN)" Binding="{Binding ProjectBudget}" Width="*" />
-                    <DataGridTextColumn Header="Menadżer" Binding="{Binding EmployeesFirstName}" Width="*" />
+                    <DataGridTemplateColumn Header="Menadżer" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} {1}">
+                                            <Binding Path="EmployeesFirstName" />
+                                            <Binding Path="EmployeesLastName" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

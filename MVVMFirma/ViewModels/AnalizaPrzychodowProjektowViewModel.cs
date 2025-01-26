@@ -8,6 +8,7 @@ using MVVMFirma.Helper;
 using MVVMFirma.Models.BusinessLogic;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForView;
+using LiveCharts.Defaults;
 
 namespace MVVMFirma.ViewModels
 {
@@ -45,6 +46,7 @@ namespace MVVMFirma.ViewModels
         // Dane do wykresów
         public ChartValues<double> ProjectRevenues { get; private set; }
         public string[] ProjectNames { get; private set; }
+        public string[] ProjectTooltips { get; private set; }
 
         public ChartValues<int> EmployeeProjectCounts { get; private set; }
         public string[] EmployeeNames { get; private set; }
@@ -53,13 +55,16 @@ namespace MVVMFirma.ViewModels
         public string SummaryText { get; private set; }
 
         // Widoczność danych
-        public bool HasData => ProjectRevenues.Any() || EmployeeProjectCounts.Any();
+        public bool HasData =>
+            (ProjectRevenues != null && ProjectRevenues.Any()) ||
+            (EmployeeProjectCounts != null && EmployeeProjectCounts.Any());
 
         // Komenda do załadowania danych
         public ICommand LoadDataCommand { get; }
 
         public ObservableCollection<ProjectsForAllView> ProjectDetails { get; private set; }
         
+        public Func<ChartPoint, string> PieLabelFormatter { get; private set; }
 
         public AnalizaPrzychodowProjektowViewModel()
             : base("Analiza Przychodów wg Projektów")
@@ -74,7 +79,17 @@ namespace MVVMFirma.ViewModels
             ProjectRevenues = new ChartValues<double>();
             EmployeeProjectCounts = new ChartValues<int>();
             ProjectDetails = new ObservableCollection<ProjectsForAllView>();
-
+            
+            PieLabelFormatter = point =>
+            {
+                var index = (int)point.X;
+                if (index >= 0 && index < ProjectTooltips.Length)
+                {
+                    return ProjectTooltips[index];
+                }
+                return "Nieznany projekt";
+            };
+            
             LoadDataCommand = new RelayCommand(LoadData);
 
             LoadData(); // Wstępne ładowanie danych
@@ -89,17 +104,33 @@ namespace MVVMFirma.ViewModels
 
                 // Pobierz dane dla wykresu kołowego (przychody projektów)
                 var projectData = projectsLogic.GetProjectRevenuesByMonth(SelectedMonth, SelectedYear);
+                var totalRevenue = projectData.Sum(p => double.Parse(p.Value, System.Globalization.CultureInfo.InvariantCulture));
+
+                // Ustaw dane dla przychodów
                 ProjectRevenues = new ChartValues<double>(
                     projectData.Select(p => double.Parse(p.Value, System.Globalization.CultureInfo.InvariantCulture))
                 );
-                ProjectNames = projectData.Select(p => p.Value.Split(':').First()).ToArray();
+                
+                // Nazwy projektów — konwersja klucza na string
+                ProjectNames = projectData.Select(p => $"Projekt {p.Key}").ToArray();
 
+                // Tooltipy dla wykresu kołowego
+                ProjectTooltips = projectData.Select(p =>
+                {
+                    var projectName = $"Projekt {p.Key}";
+                    var revenue = double.Parse(p.Value, System.Globalization.CultureInfo.InvariantCulture);
+                    var percentage = totalRevenue > 0 ? (revenue / totalRevenue) * 100 : 0;
+                    return $"{projectName}\nKwota: {revenue:F2} PLN";
+                }).ToArray();
+                
                 // Pobierz dane dla wykresu kolumnowego (liczba projektów przypisanych pracownikom)
                 var employeeData = employeesLogic.GetProjectsCountByEmployee(SelectedMonth, SelectedYear);
                 EmployeeProjectCounts = new ChartValues<int>(
                     employeeData.Select(e => int.Parse(e.Value))
                 );
-                EmployeeNames = employeeData.Select(e => e.Value.Split(':').First()).ToArray();
+                EmployeeNames = employeeData.Select(e =>
+                    $"{e.Key}: {db.Employees.Where(emp => emp.EmployeeID == e.Key).Select(emp => emp.FirstName + " " + emp.LastName).FirstOrDefault() ?? "Nieznany"}"
+                ).ToArray();
 
                 // Pobierz szczegółowe dane projektów
                 var projectDetails = projectsLogic.GetProjectDetailsByMonth(SelectedMonth, SelectedYear);
@@ -116,11 +147,12 @@ namespace MVVMFirma.ViewModels
             // Aktualizacja widoku
             OnPropertyChanged(() => ProjectRevenues);
             OnPropertyChanged(() => ProjectNames);
+            OnPropertyChanged(() => ProjectTooltips);
             OnPropertyChanged(() => EmployeeProjectCounts);
             OnPropertyChanged(() => EmployeeNames);
             OnPropertyChanged(() => ProjectDetails);
-            OnPropertyChanged(() => SummaryText);
             OnPropertyChanged(() => HasData);
+            OnPropertyChanged(() => SummaryText);
         }
 
         private string GenerateSummary(IEnumerable<KeyAndValue> projectData, IEnumerable<KeyAndValue> employeeData)

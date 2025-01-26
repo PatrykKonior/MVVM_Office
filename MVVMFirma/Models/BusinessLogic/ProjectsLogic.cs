@@ -91,7 +91,7 @@ namespace MVVMFirma.Models.BusinessLogic
                 VATRate = p.VATRate,
                 ProjectStatus = p.ProjectStatus,
                 EmployeesFirstName = p.Employees != null ? p.Employees.FirstName : "Brak danych",
-                EmployeesLastName = p.Employees != null ? p.Employees.LastName : "Brak danych"
+                EmployeesLastName = p.Employees != null ? p.Employees.LastName : " ",
             })
             .ToList();
     }
