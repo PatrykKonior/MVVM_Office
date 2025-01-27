@@ -163,6 +163,9 @@ namespace MVVMFirma.ViewModels
                 new CommandViewModel(
                     "Analiza Projektów",
                     new BaseCommand(() => this.CreateView(new AnalizaPrzychodowProjektowViewModel()))),
+                new CommandViewModel(
+                    "Monitorowanie Deadlinów",
+                    new BaseCommand(() => this.CreateView(new AnalizaTerminowViewModel()))),
 
             };
         }

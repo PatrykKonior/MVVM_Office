@@ -99,6 +99,9 @@
     <DataTemplate DataType="{x:Type vm:AnalizaPrzychodowProjektowViewModel}">
         <vw:AnalizaPrzychodowProjektowView />
     </DataTemplate>
+    <DataTemplate DataType="{x:Type vm:AnalizaTerminowViewModel}">
+        <vw:AnalizaTerminowView />
+    </DataTemplate>
 
     <Style x:Key="MainHCCStyle" TargetType="{x:Type HeaderedContentControl}">
         <Setter Property="HeaderTemplate">

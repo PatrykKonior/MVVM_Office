@@ -1,0 +1,124 @@
+﻿<local:JedenViewBase x:Class="MVVMFirma.Views.AnalizaTerminowView"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+                     xmlns:local="clr-namespace:MVVMFirma.Views"
+                     mc:Ignorable="d"
+                     d:DesignHeight="800"
+                     d:DesignWidth="1000">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Background="#F4F4F4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Nagłówek -->
+            <TextBlock Text="Analiza Terminów Zadań i Projektów"
+                       FontSize="32"
+                       FontWeight="Bold"
+                       Foreground="#232625"
+                       HorizontalAlignment="Center"
+                       Margin="20"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="2" />
+
+            <!-- Lewa kolumna - Zadania -->
+            <StackPanel Grid.Row="1" Grid.Column="0" Margin="20">
+                <!-- Nagłówek sekcji -->
+                <TextBlock Text="Zadania"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#232625"
+                           Margin="0,0,0,10" />
+
+                <!-- Wykres kołowy -->
+                <lvc:PieChart Margin="0,0,0,20" Height="300" Background="WhiteSmoke"
+                              Visibility="{Binding HasTaskData}">
+                    <lvc:PieChart.Series>
+                        <lvc:PieSeries Title="Zakończone" 
+                                       Values="{Binding TaskStatusCounts}"
+                                       Fill="#4C594F"
+                                       PushOut="0"/>
+                        <lvc:PieSeries Title="W trakcie" 
+                                       Values="{Binding TaskStatusCounts}"
+                                       Fill="#A4A69C"
+                                       PushOut="0"/>
+                    </lvc:PieChart.Series>
+                </lvc:PieChart>
+
+                <!-- Lista zadań -->
+                <TextBlock Text="Lista zadań (według terminów)" 
+                           FontSize="18" 
+                           FontWeight="Bold" 
+                           Foreground="#232625" 
+                           Margin="0,10,0,10" />
+                <DataGrid ItemsSource="{Binding OrderedTasks}"
+                          AutoGenerateColumns="False"
+                          Background="WhiteSmoke"
+                          Foreground="#232625">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nazwa zadania" Binding="{Binding TaskName}" Width="*" />
+                        <DataGridTextColumn Header="Projekt" Binding="{Binding ProjectName}" Width="*" />
+                        <DataGridTextColumn Header="Status" Binding="{Binding TaskStatus}" Width="*" />
+                        <DataGridTextColumn Header="Deadline"
+                                            Binding="{Binding TaskEndDate, StringFormat='{}{0:yyyy-MM-dd}'}"
+                                            Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+
+            <!-- Prawa kolumna - Projekty -->
+            <StackPanel Grid.Row="1" Grid.Column="1" Margin="20">
+                <!-- Nagłówek sekcji -->
+                <TextBlock Text="Projekty"
+                           FontSize="24"
+                           FontWeight="Bold"
+                           Foreground="#232625"
+                           Margin="0,0,0,10" />
+
+                <!-- Wykres kołowy -->
+                <lvc:PieChart Margin="0,0,0,20" Height="300" Background="WhiteSmoke"
+                              Visibility="{Binding HasProjectData}">
+                    <lvc:PieChart.Series>
+                        <lvc:PieSeries Title="Zakończone" 
+                                       Values="{Binding ProjectStatusCounts}"
+                                       Fill="#4C594F"
+                                       PushOut="0"/>
+                        <lvc:PieSeries Title="W trakcie" 
+                                       Values="{Binding ProjectStatusCounts}"
+                                       Fill="#A4A69C"
+                                       PushOut="0"/>
+                    </lvc:PieChart.Series>
+                </lvc:PieChart>
+
+                <!-- Lista projektów -->
+                <TextBlock Text="Lista projektów (według terminów)" 
+                           FontSize="18" 
+                           FontWeight="Bold" 
+                           Foreground="#232625" 
+                           Margin="0,10,0,10" />
+                <DataGrid ItemsSource="{Binding OrderedProjects}"
+                          AutoGenerateColumns="False"
+                          Background="WhiteSmoke"
+                          Foreground="#232625">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nazwa projektu" Binding="{Binding ProjectName}" Width="*" />
+                        <DataGridTextColumn Header="Typ projektu" Binding="{Binding ProjectType}" Width="*" />
+                        <DataGridTextColumn Header="Status" Binding="{Binding ProjectStatus}" Width="*" />
+                        <DataGridTextColumn Header="Deadline"
+                                            Binding="{Binding ProjectEndDate, StringFormat='{}{0:yyyy-MM-dd}'}"
+                                            Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer> 
+</local:JedenViewBase>
