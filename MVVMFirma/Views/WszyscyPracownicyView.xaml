@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid Background="White">
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}">
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}" SelectedItem="{Binding SelectedEmployee}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID Pracownika" IsReadOnly="True" Binding="{Binding EmployeeID}"/>
                 <DataGridTextColumn Header="Imię" IsReadOnly="True" Binding="{Binding FirstName}"/>

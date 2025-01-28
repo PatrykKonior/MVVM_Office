@@ -7,12 +7,39 @@ using System.Windows.Documents;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Helper;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
+using MVVMFirma.Models.EntitiesForView;
 
 namespace MVVMFirma.ViewModels
 {
     public class WszyscyPracownicyViewModel : WszystkieViewModel<Employees>
     {
+        #region Modal
+        
+        private Employees _selectedEmployee;
 
+        public Employees SelectedEmployee
+        {
+            get => _selectedEmployee;
+            set
+            {
+                _selectedEmployee = value;
+                OnPropertyChanged(() => SelectedEmployee);
+
+                // Gdy zaznaczono nowego pracownika, wysyłamy dane przez Messengera
+                if (_selectedEmployee != null)
+                {
+                    Messenger.Default.Send(new KeyAndValue
+                    {
+                        Key = _selectedEmployee.EmployeeID,
+                        Value = _selectedEmployee.FirstName + " " + _selectedEmployee.LastName
+                    }, "SelectedEmployee");
+                }
+            }
+        }
+        
+        #endregion
+        
         #region Constructor
         public WszyscyPracownicyViewModel()
             :base("Pracownicy")
@@ -144,6 +171,7 @@ namespace MVVMFirma.ViewModels
         #endregion
 
         #region Helpers
+        
         public override void Load()
         {
             List = new ObservableCollection<Employees>

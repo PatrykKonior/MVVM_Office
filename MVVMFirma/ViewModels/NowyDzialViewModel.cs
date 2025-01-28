@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.ComponentModel;
+using System.Windows.Input;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
 using MVVMFirma.Validators;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace MVVMFirma.ViewModels
 {
@@ -15,11 +17,30 @@ namespace MVVMFirma.ViewModels
     {
         private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
 
+        #region Modal
+
+        public string SelectedManagerFullName
+        {
+            get
+            {
+                var manager = ManagersItems.FirstOrDefault(m => m.Key == ManagerID);
+                return manager != null ? manager.Value : "Nie wybrano menadżera";
+            }
+        }
+
+        public ICommand ShowAllEmployeesCommand { get; }
+
+        #endregion
+
         #region Constructor
         public NowyDzialViewModel() : base("Nowy Dział")
         {
             item = new Departments();
             LoadData();
+            
+            //nowe rzeczy
+            ShowAllEmployeesCommand = new RelayCommand(ShowAllEmployees);
+            Messenger.Default.Register<KeyAndValue>(this, "SelectedEmployee", GetSelectedManager);
         }
         #endregion
 
@@ -65,6 +86,21 @@ namespace MVVMFirma.ViewModels
         #endregion
 
         #region Properties
+        
+        private void ShowAllEmployees()
+        {
+            Messenger.Default.Send("PracownicyAll");
+        }
+
+        private void GetSelectedManager(KeyAndValue selectedEmployee)
+        {
+            if (selectedEmployee != null)
+            {
+                ManagerID = selectedEmployee.Key;
+                OnPropertyChanged(() => SelectedManagerFullName);
+            }
+        }
+        
         public string DepartmentName
         {
             get => item.DepartmentName;

@@ -17,9 +17,16 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Menedżer:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ManagersItems}" 
-                          SelectedItem="{Binding SelectedManager}" 
-                          DisplayMemberPath="Value"/>
+                <TextBox Width="300" 
+                         IsReadOnly="True" 
+                         Text="{Binding SelectedManagerFullName, Mode=OneWay}" 
+                         Margin="0,0,10,0"/>
+                <Button Content="Wybierz Menedżera"
+                        Command="{Binding ShowAllEmployeesCommand}" 
+                        Width="150" 
+                        Background="#4C594F" 
+                        Foreground="White" 
+                        Cursor="Hand"/>
             </StackPanel>
         </StackPanel>
     </Grid>
