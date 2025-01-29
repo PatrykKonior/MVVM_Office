@@ -13,10 +13,16 @@
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
                 <TextBlock Text="Klient:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ClientsItems}" 
-                          SelectedItem="{Binding SelectedClient, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                          DisplayMemberPath="Value" 
-                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
+                <TextBox Width="300" 
+                         IsReadOnly="True" 
+                         Text="{Binding SelectedClientFullName, Mode=OneWay}" 
+                         Margin="0,0,10,0"/>
+                <Button Content="Wybierz Klienta"
+                        Command="{Binding ShowAllClientsCommand}" 
+                        Width="150" 
+                        Background="#4C594F" 
+                        Foreground="White" 
+                        Cursor="Hand"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" Margin="0,0,0,10">

@@ -7,11 +7,38 @@ using System.Windows.Documents;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Helper;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
+using MVVMFirma.Models.EntitiesForView;
 
 namespace MVVMFirma.ViewModels
 {
     public class WszyscyKlienciViewModel : WszystkieViewModel<Clients>
     {
+        #region Modal
+
+        private Clients _selectedClient;
+        public Clients SelectedClient
+        {
+            get => _selectedClient;
+            set
+            {
+                _selectedClient = value;
+                OnPropertyChanged(() => SelectedClient);
+
+                // Wysłanie wybranego klienta przez Messengera
+                if (_selectedClient != null)
+                {
+                    Messenger.Default.Send(new KeyAndValue
+                    {
+                        Key = _selectedClient.ClientID,
+                        Value = _selectedClient.CompanyName
+                    }, "SelectedClient");
+                }
+            }
+        }
+
+
+        #endregion
 
         #region Constructor
         public WszyscyKlienciViewModel()

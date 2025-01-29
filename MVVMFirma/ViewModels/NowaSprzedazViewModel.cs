@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
@@ -14,6 +16,21 @@ namespace MVVMFirma.ViewModels
     public class NowaSprzedazViewModel : JedenViewModel<Sales>, INotifyDataErrorInfo
     {
         private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
+        #region Modal
+
+        public string SelectedClientFullName
+        {
+            get
+            {
+                var client = ClientsItems.FirstOrDefault(c => c.Key == ClientID);
+                return client != null ? client.Value : "Nie wybrano klienta";
+            }
+        }
+
+        public ICommand ShowAllClientsCommand { get; }
+        
+        #endregion
 
         #region Constructor
         public NowaSprzedazViewModel() : base("Nowa Sprzedaż")
@@ -27,6 +44,9 @@ namespace MVVMFirma.ViewModels
                 "W trakcie",
                 "Anulowana"
             };
+            // Obsługa wyboru klienta
+            ShowAllClientsCommand = new RelayCommand(ShowAllClients);
+            Messenger.Default.Register<KeyAndValue>(this, "SelectedClient", GetSelectedClient);
         }
         #endregion
 
@@ -76,6 +96,21 @@ namespace MVVMFirma.ViewModels
         #endregion
 
         #region Properties
+        
+        private void ShowAllClients()
+        {
+            Messenger.Default.Send("KlienciAll");
+        }
+
+        private void GetSelectedClient(KeyAndValue selectedClient)
+        {
+            if (selectedClient != null)
+            {
+                ClientID = selectedClient.Key;
+                OnPropertyChanged(() => SelectedClientFullName);
+            }
+        }
+        
         public int? ClientID
         {
             get => item.ClientID;
