@@ -9,6 +9,8 @@ using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
 using MVVMFirma.Validators;
 using System.Windows;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace MVVMFirma.ViewModels
 {
@@ -16,13 +18,32 @@ namespace MVVMFirma.ViewModels
     {
         private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
 
+        #region Modal
+        
+        public string SelectedProjectFullName
+        {
+            get
+            {
+                var project = ProjectsItems.FirstOrDefault(p => p.Key == ProjectID);
+                return project != null ? $"{project.Value}" : "Nie wybrano projektu";
+            }
+        }
+
+        public ICommand ShowAllProjectsCommand { get; }
+
+        #endregion
+
         #region Constructor
 
         public NowyWydatekViewModel() : base("Nowy Wydatek")
         {
             item = new Expenses();
             LoadData();
-            ExpenseDate = DateTime.Now; 
+            ExpenseDate = DateTime.Now;
+            
+            // Obsługa wyboru projektu
+            ShowAllProjectsCommand = new RelayCommand(ShowAllProjects);
+            Messenger.Default.Register<KeyAndValue>(this, "SelectedProject", GetSelectedProject);
         }
 
         #endregion
@@ -82,6 +103,20 @@ namespace MVVMFirma.ViewModels
         #endregion
 
         #region Properties
+        
+        private void ShowAllProjects()
+        {
+            Messenger.Default.Send("ProjektyAll");
+        }
+
+        private void GetSelectedProject(KeyAndValue selectedProject)
+        {
+            if (selectedProject != null)
+            {
+                ProjectID = selectedProject.Key;
+                OnPropertyChanged(() => SelectedProjectFullName);
+            }
+        }
 
         public int? ProjectID
         {

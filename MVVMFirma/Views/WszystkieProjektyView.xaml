@@ -8,7 +8,8 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="AntiqueWhite">
         <Grid Background="white">
-            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}">
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}"
+                      SelectedItem="{Binding SelectedProject, Mode=TwoWay}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID Projektu" Binding="{Binding ProjectID}" Width="100"/>
                     <DataGridTextColumn Header="Nazwa Projektu" Binding="{Binding ProjectName}" Width="200"/>

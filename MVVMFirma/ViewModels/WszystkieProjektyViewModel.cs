@@ -7,12 +7,38 @@ using MVVMFirma.Models.Entities;
 using MVVMFirma.Helper;
 using System.Windows.Input;
 using System.Windows.Documents;
+using GalaSoft.MvvmLight.Messaging;
 using MVVMFirma.Models.EntitiesForView;
 
 namespace MVVMFirma.ViewModels
 {
     public class WszystkieProjektyViewModel:WszystkieViewModel<ProjectsForAllView>
     {
+        #region Modal
+
+        private ProjectsForAllView _selectedProject;
+        public ProjectsForAllView SelectedProject
+        {
+            get => _selectedProject;
+            set
+            {
+                _selectedProject = value;
+                OnPropertyChanged(() => SelectedProject);
+
+                // Wysłanie wybranego projektu przez Messengera
+                if (_selectedProject != null)
+                {
+                    Messenger.Default.Send(new KeyAndValue
+                    {
+                        Key = _selectedProject.ProjectID,
+                        Value = $"{_selectedProject.ProjectName} ({_selectedProject.ProjectType})"
+                    }, "SelectedProject");
+                }
+            }
+        }
+
+        #endregion
+        
         #region Constructor
         public WszystkieProjektyViewModel()
             : base("Projekty")

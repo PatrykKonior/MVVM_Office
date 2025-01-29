@@ -264,6 +264,8 @@ namespace MVVMFirma.ViewModels
                 CreateView(new NowyProjektViewModel());
             if (name == "PracownicyAll")
                 CreateShowAll(new WszyscyPracownicyViewModel());
+            if (name == "ProjektyAll")
+                CreateShowAll(new WszystkieProjektyViewModel());
 
         }
         #endregion
