@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
 using MVVMFirma.Models.Entities;
 using MVVMFirma.Models.EntitiesForAdd;
 using MVVMFirma.Models.EntitiesForView;
@@ -14,6 +16,32 @@ namespace MVVMFirma.ViewModels
     public class NoweZadanieViewModel : JedenViewModel<Tasks>, INotifyDataErrorInfo
     {
         private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
+
+        #region Modal
+
+        public string SelectedProjectFullName
+        {
+            get
+            {
+                var project = ProjectsItems.FirstOrDefault(p => p.Key == ProjectID);
+                return project != null ? project.Value : "Nie wybrano projektu";
+            }
+        }
+
+        public string SelectedEmployeeFullName
+        {
+            get
+            {
+                var employee = EmployeesItems.FirstOrDefault(e => e.Key == AssignedEmployeeID);
+                return employee != null ? employee.Value : "Nie wybrano pracownika";
+            }
+        }
+
+        public ICommand ShowAllProjectsCommand { get; }
+        public ICommand ShowAllEmployeesCommand { get; }
+
+
+        #endregion
 
         #region Constructor
         public NoweZadanieViewModel() : base("Nowe Zadanie")
@@ -27,6 +55,11 @@ namespace MVVMFirma.ViewModels
                 "W trakcie",
                 "Anulowane"
             };
+            ShowAllProjectsCommand = new RelayCommand(ShowAllProjects);
+            ShowAllEmployeesCommand = new RelayCommand(ShowAllEmployees);
+
+            Messenger.Default.Register<KeyAndValue>(this, "SelectedProject", GetSelectedProject);
+            Messenger.Default.Register<KeyAndValue>(this, "SelectedEmployee", GetSelectedEmployee);
         }
         #endregion
 
@@ -99,6 +132,34 @@ namespace MVVMFirma.ViewModels
         #endregion
 
         #region Properties
+        private void ShowAllProjects()
+        {
+            Messenger.Default.Send("ProjektyAll");
+        }
+
+        private void ShowAllEmployees()
+        {
+            Messenger.Default.Send("PracownicyAll");
+        }
+
+        private void GetSelectedProject(KeyAndValue selectedProject)
+        {
+            if (selectedProject != null)
+            {
+                ProjectID = selectedProject.Key;
+                OnPropertyChanged(() => SelectedProjectFullName);
+            }
+        }
+
+        private void GetSelectedEmployee(KeyAndValue selectedEmployee)
+        {
+            if (selectedEmployee != null)
+            {
+                AssignedEmployeeID = selectedEmployee.Key;
+                OnPropertyChanged(() => SelectedEmployeeFullName);
+            }
+        }
+        
         public int? ProjectID
         {
             get => item.ProjectID;
