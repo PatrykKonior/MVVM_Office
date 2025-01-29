@@ -9,6 +9,8 @@ using MVVMFirma.Models.EntitiesForView;
 using MVVMFirma.Validators;
 using System.Windows;
 using System.Collections.Generic;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace MVVMFirma.ViewModels
 {
@@ -16,12 +18,45 @@ namespace MVVMFirma.ViewModels
     {
         private readonly Dictionary<string, List<string>> _validationErrors = new Dictionary<string, List<string>>();
 
+        #region Modal
+
+        public string SelectedClientFullName
+        {
+            get
+            {
+                var client = ClientsItems.FirstOrDefault(c => c.Key == ClientID);
+                return client != null ? client.Value : "Nie wybrano klienta";
+            }
+        }
+
+        public string SelectedManagerFullName
+        {
+            get
+            {
+                var manager = ManagersItems.FirstOrDefault(m => m.Key == ManagerID);
+                return manager != null ? manager.Value : "Nie wybrano menadżera";
+            }
+        }
+
+        public ICommand ShowAllClientsCommand { get; }
+        public ICommand ShowAllEmployeesCommand { get; }
+
+        #endregion
+
         #region Constructor
         public NowyProjektViewModel() : base("Nowy Projekt")
         {
             item = new Projects();
             LoadData();
             ProjectStartDate = DateTime.Now; // Domyślna data rozpoczęcia projektu
+            
+            // Obsługa wyboru klienta i menadżera
+            ShowAllClientsCommand = new RelayCommand(ShowAllClients);
+            ShowAllEmployeesCommand = new RelayCommand(ShowAllEmployees);
+    
+            Messenger.Default.Register<KeyAndValue>(this, "SelectedClient", GetSelectedClient);
+            Messenger.Default.Register<KeyAndValue>(this, "SelectedEmployee", GetSelectedManager);
+            
         }
         #endregion
 
@@ -96,6 +131,34 @@ namespace MVVMFirma.ViewModels
 
 
         #region Properties
+        private void ShowAllClients()
+        {
+            Messenger.Default.Send("KlienciAll");
+        }
+
+        private void ShowAllEmployees()
+        {
+            Messenger.Default.Send("PracownicyAll");
+        }
+
+        private void GetSelectedClient(KeyAndValue selectedClient)
+        {
+            if (selectedClient != null)
+            {
+                ClientID = selectedClient.Key;
+                OnPropertyChanged(() => SelectedClientFullName);
+            }
+        }
+
+        private void GetSelectedManager(KeyAndValue selectedEmployee)
+        {
+            if (selectedEmployee != null)
+            {
+                ManagerID = selectedEmployee.Key;
+                OnPropertyChanged(() => SelectedManagerFullName);
+            }
+        }
+        
         public int? ClientID
         {
             get => item.ClientID;
