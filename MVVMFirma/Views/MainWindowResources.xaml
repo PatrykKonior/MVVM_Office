@@ -3,6 +3,9 @@
                     xmlns:vm="clr-namespace:MVVMFirma.ViewModels"
                     xmlns:vw="clr-namespace:MVVMFirma.Views"
                     >
+    <DataTemplate DataType="{x:Type vm:StartPageViewModel}">
+        <vw:StartPageView/>
+    </DataTemplate>
     <DataTemplate DataType="{x:Type vm:NowyProjektViewModel}">
         <vw:NowyProjektView/>
     </DataTemplate>
@@ -107,25 +110,22 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Border BorderBrush="LightGray" BorderThickness="1"
-                            CornerRadius="6" Margin="4" Padding="6"
-                            SnapsToDevicePixels="True">
-                        <!-- Subtelny gradient Fluent -->
-                        <Border.Background>
-                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="#9E9E9E" Offset="0.0"/>
-                                <GradientStop Color="#424242" Offset="1.0"/>
-                            </LinearGradientBrush>
-                        </Border.Background>
-                        <TextBlock FontSize="14"
-                                   FontWeight="SemiBold"
-                                   Foreground="White"
-                                   HorizontalAlignment="Center"
+                    <Border BorderBrush="#73704F" 
+                            BorderThickness="0,0,0,1" 
+                            Padding="10,5" 
+                            Background="{DynamicResource FluentHeaderBackground}">
+
+                        <TextBlock FontSize="16"
+                                   FontWeight="Medium"
+                                   Foreground="#73704F"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Center"
                                    Text="{TemplateBinding Content}" />
                     </Border>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
+        
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
@@ -155,9 +155,9 @@
   -->
     <Style x:Key="MainBorderStyle" TargetType="{x:Type Border}">
         <Setter Property="Background" Value="WhiteSmoke" />
-        <Setter Property="BorderBrush" Value="LightGray" />
+        <Setter Property="BorderBrush" Value="#73704F" />
         <Setter Property="BorderThickness" Value="1" />
-        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="CornerRadius" Value="12" />
         <Setter Property="SnapsToDevicePixels" Value="True" />
     </Style>
 
@@ -217,40 +217,49 @@
   a tab item with a close button.
   -->
     <DataTemplate x:Key="ClosableTabItemTemplate">
-        <DockPanel Width="120">
+        <DockPanel Width="170">
+            <!-- Nowoczesny przycisk zamykania -->
             <Button 
-        Command="{Binding Path=CloseCommand}"
-        Content="X"
-        Cursor="Hand"
-        DockPanel.Dock="Right"
-        Focusable="False"
-        FontFamily="Courier" 
-        FontSize="9"
-        FontWeight="Bold"  
-        Margin="0,1,0,0"
-        Padding="0"
-        VerticalContentAlignment="Bottom"
-        Width="16" Height="16" 
-        />
+                Command="{Binding Path=CloseCommand}"
+                Cursor="Hand"
+                DockPanel.Dock="Right"
+                Focusable="False"
+                Width="20" Height="20"
+                Background="#9D9A83"
+                BorderBrush="Transparent"
+                Padding="3">
+
+                <!-- Ikona zamknięcia -->
+                <TextBlock Text="✖"
+                           Foreground="Gray"
+                           FontSize="10"
+                           FontWeight="Bold"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+            </Button>
+
+            <!-- Tytuł zakładki -->
             <ContentPresenter 
-        Content="{Binding Path=DisplayName}" 
-        VerticalAlignment="Center" 
-        />
+                Content="{Binding Path=DisplayName}" 
+                VerticalAlignment="Center"
+                Margin="5,0,0,0"/>
         </DockPanel>
     </DataTemplate>
+
 
     <!--
   This template explains how to render the 'Workspace' content area in the main window.
   -->
     <DataTemplate x:Key="WorkspacesTemplate">
         <TabControl 
-      IsSynchronizedWithCurrentItem="True" 
-      ItemsSource="{Binding}" 
-      ItemTemplate="{StaticResource ClosableTabItemTemplate}"
-      Margin="4"
-      />
+          IsSynchronizedWithCurrentItem="True" 
+          ItemsSource="{Binding}" 
+          ItemTemplate="{StaticResource ClosableTabItemTemplate}"
+          Margin="4"
+          BorderBrush="#73704F" 
+          BorderThickness="1"
+          />
     </DataTemplate>
-    
     
     <!-- STYL DO WALIDACJI -->
     <Style TargetType="TextBox">
@@ -305,6 +314,7 @@
         </Style.Triggers>
     </Style>
     
+    <!-- Styl dla menu bocznego -->
     <Style x:Key="FluentHoverEffect" TargetType="Border">
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="BorderBrush" Value="Transparent"/>
@@ -339,5 +349,61 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <!-- Styl dla button z widoku startowego -->
+    
+    <Style x:Key="FluentButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="#73704F"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Padding" Value="15"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" BlurRadius="5" Opacity="0.3"/>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#FA8072" Offset="0.0"/> <!-- Lekki czerwony -->
+                            <GradientStop Color="#E81123" Offset="1.0"/> <!-- Mocniejszy czerwony -->
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="#A80000"/> <!-- Głębszy odcień przy kliknięciu -->
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
+    <SolidColorBrush x:Key="FluentCardBackground" Color="#F8F8F8"/>
+    <Style x:Key="FluentCardStyle" TargetType="Border">
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#F0F0F0" Offset="0.0"/>
+                    <GradientStop Color="#E0E0E0" Offset="1.0"/>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CornerRadius" Value="12"/>
+        <Setter Property="Padding" Value="20"/>
+        <Setter Property="Effect">
+            <Setter.Value>
+                <DropShadowEffect Color="Black" BlurRadius="8" Opacity="0.2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>

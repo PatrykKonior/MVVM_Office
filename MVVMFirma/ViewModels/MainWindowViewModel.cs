@@ -180,6 +180,7 @@ namespace MVVMFirma.ViewModels
                 {
                     _Workspaces = new ObservableCollection<WorkspaceViewModel>();
                     _Workspaces.CollectionChanged += this.OnWorkspacesChanged;
+                    _Workspaces.Add(new StartPageViewModel(this));
                 }
                 return _Workspaces;
             }
@@ -204,14 +205,14 @@ namespace MVVMFirma.ViewModels
         #endregion // Workspaces
 
         #region Private Helpers
-        private void CreateView(WorkspaceViewModel nowy)
+        public void CreateView(WorkspaceViewModel nowy)
         {
             NowyTowarViewModel workspace = new NowyTowarViewModel();
             this.Workspaces.Add(nowy);
             this.SetActiveWorkspace(nowy);
         }
 
-        private void CreateShowAll(WorkspaceViewModel model)
+        public void CreateShowAll(WorkspaceViewModel model)
         {
             var workspace = this.Workspaces.FirstOrDefault(vm => vm.GetType() == model.GetType());
             if (workspace == null)

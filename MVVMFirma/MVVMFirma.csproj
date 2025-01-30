@@ -238,6 +238,7 @@
     <Compile Include="ViewModels\NowyKlientViewModel.cs" />
     <Compile Include="ViewModels\NowyPracownikViewModel.cs" />
     <Compile Include="ViewModels\NowyTowarViewModel.cs" />
+    <Compile Include="ViewModels\StartPageViewModel.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="ViewModels\WszyscyPracownicyViewModel.cs" />
     <Compile Include="ViewModels\WszystkieProjectMaterialsViewModel.cs" />
@@ -314,6 +315,9 @@
     </Compile>
     <Compile Include="Views\NowyTowarView.xaml.cs">
       <DependentUpon>NowyTowarView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StartPageView.xaml.cs">
+      <DependentUpon>StartPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WszyscyPracownicyView.xaml.cs">
       <DependentUpon>WszyscyPracownicyView.xaml</DependentUpon>
@@ -474,6 +478,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\StartPageView.xaml" />
     <Page Include="Views\WszyscyPracownicyView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

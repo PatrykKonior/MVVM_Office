@@ -17,125 +17,103 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="35" />
         </Grid.RowDefinitions>
+        
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
-      Background="#1F1F1F" 
-      Foreground="#EAEAEA"
-      FontSize="12"
-      FontWeight="SemiBold">
+          Background="#E0E0E0" 
+          Foreground="#424242"
+          FontSize="12"
+          FontWeight="SemiBold"
+          Margin="5,0,5,2">
 
-    <Menu.Resources>
-        <!-- Styl dla MenuItem -->
-        <Style TargetType="MenuItem">
-            <Setter Property="Padding" Value="10,5"/>  
-            <Setter Property="Margin" Value="5,0"/>
-            <Setter Property="Foreground" Value="#EAEAEA"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="Background" Value="Transparent"/>
-            
-            <!-- Efekt hover i kliknięcia -->
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#333333"/>  
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#555555"/>  
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            <Menu.Resources>
+                <!-- Styl dla wszystkich rozwijanych menu (submenu) -->
+                <Style TargetType="ContextMenu">
+                    <Setter Property="Background" Value="#1F1F1F"/>
+                    <Setter Property="BorderBrush" Value="#333333"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="Padding" Value="1"/>
+                    <Setter Property="Foreground" Value="#424242"/> 
+                </Style>
 
-        <!-- Separator w stylu Fluent -->
-        <Style TargetType="Separator">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Separator">
-                        <Border Background="#EAEAEA"
-                                Height="1"
-                                Margin="8,2"
-                                Opacity="0.7"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                <!-- Styl dla MenuItem -->
+                <Style TargetType="MenuItem">
+                    <Setter Property="Padding" Value="10,3"/>  
+                    <Setter Property="Margin" Value="5,0"/>
+                    <Setter Property="Foreground" Value="#424242"/>
+                    <Setter Property="FontSize" Value="11"/>
+                    <Setter Property="FontWeight" Value="SemiBold"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    
+                    <!-- Efekt hover i kliknięcia -->
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#333333"/>  
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="#555555"/>  
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
 
-        <!-- Styl dla submenu (ContextMenu) -->
-        <Style TargetType="ContextMenu">
-            <Setter Property="Background" Value="#1F1F1F"/>
-            <Setter Property="BorderBrush" Value="#333333"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="2"/>
-            <Setter Property="Foreground" Value="#EAEAEA"/>
-        </Style>
-    </Menu.Resources>
+                <!-- Separator w stylu Fluent -->
+                <Style TargetType="Separator">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Separator">
+                                <Border Background="#424242"
+                                        Height="1"
+                                        Margin="10,2"
+                                        Opacity="0.7"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Menu.Resources>
 
-    <!-- Struktura menu -->
-    <MenuItem Header="_Plik">
-        <MenuItem Header="Nowy" />
-        <MenuItem Header="Zapisz" />
-        <MenuItem Header="Zamknij" />
-    </MenuItem>
+            <!-- Struktura menu -->
+            <MenuItem Header="_Plik">
+                <MenuItem Header="Nowy" />
+                <MenuItem Header="Zapisz" />
+                <MenuItem Header="Zamknij" />
+            </MenuItem>
 
-    <MenuItem Header="_Ewidencja Biura">
-        <MenuItem Header="Towary">
-            <MenuItem.ContextMenu>
-                <ContextMenu Style="{StaticResource {x:Type ContextMenu}}">
+            <MenuItem Header="_Ewidencja Biura">
+                <MenuItem Header="Towary">
                     <MenuItem Header="Wszystkie Towary" />
                     <MenuItem Header="Dodaj Nowy Towar" />
                     <MenuItem Header="Materiały" />
-                </ContextMenu>
-            </MenuItem.ContextMenu>
-        </MenuItem>
-
-        <MenuItem Header="Projekty">
-            <MenuItem.ContextMenu>
-                <ContextMenu Style="{StaticResource {x:Type ContextMenu}}">
+                </MenuItem>
+                <MenuItem Header="Projekty">
                     <MenuItem Header="Wszystkie Projekty" />
                     <MenuItem Header="Dodaj Nowy Projekt" />
                     <MenuItem Header="Zadania" />
-                </ContextMenu>
-            </MenuItem.ContextMenu>
-        </MenuItem>
-
-        <MenuItem Header="Sprzedaż">
-            <MenuItem.ContextMenu>
-                <ContextMenu Style="{StaticResource {x:Type ContextMenu}}">
+                </MenuItem>
+                <MenuItem Header="Sprzedaż">
                     <MenuItem Header="Lista Sprzedaży" />
                     <MenuItem Header="Dodaj Nową Sprzedaż" />
                     <MenuItem Header="Faktury" />
-                </ContextMenu>
-            </MenuItem.ContextMenu>
-        </MenuItem>
-
-        <MenuItem Header="Pracownicy">
-            <MenuItem.ContextMenu>
-                <ContextMenu Style="{StaticResource {x:Type ContextMenu}}">
+                </MenuItem>
+                <MenuItem Header="Pracownicy">
                     <MenuItem Header="Lista Pracowników" />
                     <MenuItem Header="Dodaj Pracownika" />
                     <MenuItem Header="Działy" />
-                </ContextMenu>
-            </MenuItem.ContextMenu>
-        </MenuItem>
-
-        <MenuItem Header="Klienci">
-            <MenuItem.ContextMenu>
-                <ContextMenu Style="{StaticResource {x:Type ContextMenu}}">
+                </MenuItem>
+                <MenuItem Header="Klienci">
                     <MenuItem Header="Lista Klientów" />
                     <MenuItem Header="Dodaj Klienta" />
-                </ContextMenu>
-            </MenuItem.ContextMenu>
-        </MenuItem>
-    </MenuItem>
+                </MenuItem>
+            </MenuItem>
 
-    <MenuItem Header="_Program">
-        <MenuItem Header="O Programie" />
-        <MenuItem Header="Wyjdź" />
-    </MenuItem>
-</Menu>
-
+            <MenuItem Header="_Program">
+                <MenuItem Header="O Programie" />
+                <MenuItem Header="Wyjdź" />
+            </MenuItem>
+        </Menu>
+        
         <!-- Left Menu with Expander -->
         <Border Grid.Row="1" Grid.Column="0"
         Background="{DynamicResource FluentBackground}"
-        CornerRadius="12"
+        CornerRadius="6"
         Padding="5"
         Effect="{StaticResource FluentShadowEffect}">
             <HeaderedContentControl
@@ -197,12 +175,12 @@
 
         <Border Grid.Row="1" Grid.Column="1"
                 Background="#F0F0F0"
-                CornerRadius="12"
+                CornerRadius="6"
                 Padding="10"
                 Effect="{StaticResource FluentShadowEffect}"
                 BorderBrush="#DDDDDD"
                 BorderThickness="1"
-                Margin="10,0,10,0"> <!-- Odsunięcie od menu bocznego -->
+                Margin="10,0,10,0">
             <HeaderedContentControl
                 Header="WORKSPACE"
                 Content="{Binding Path=Workspaces}"
@@ -224,14 +202,14 @@
                 <!-- Aktualna godzina (odświeżana na żywo) -->
                 <StatusBarItem>
                     <TextBlock Name="ClockTextBlock"
-                               Foreground="#444444"
+                               Foreground="#3F4027"
                                FontSize="12"
                                FontWeight="Bold"
                                Margin="55,0"/>
                 </StatusBarItem>
 
                 <!-- Separator Fluent -->
-                <Border Background="#D0D0D0"
+                <Border Background="#A6A37C"
                         Width="1"
                         Height="18"
                         Margin="35,0"
@@ -240,14 +218,14 @@
                 <!-- Nazwa zalogowanego użytkownika -->
                 <StatusBarItem>
                     <TextBlock Text="Zalogowany użytkownik: Patryk Konior"
-                               Foreground="#444444"
+                               Foreground="#3F4027"
                                FontSize="12"
                                FontWeight="Bold"
                                Margin="20,0"/>
                 </StatusBarItem>
 
                 <!-- Separator Fluent -->
-                <Border Background="#D0D0D0"
+                <Border Background="#A6A37C"
                         Width="1"
                         Height="18"
                         Margin="20,0"
@@ -256,13 +234,13 @@
                 <!-- Informacja o biurze -->
                 <StatusBarItem>
                     <TextBlock Text="Aplikacja wewnętrzna dla firmy: Biuro Projektowe - Patryk Konior"
-                               Foreground="#666666"
+                               Foreground="#3F4027"
                                FontSize="12"
                                Margin="40,0"/>
                 </StatusBarItem>
                 
                 <!-- Separator Fluent -->
-                <Border Background="#D0D0D0"
+                <Border Background="#A6A37C"
                         Width="1"
                         Height="18"
                         Margin="40,0"
@@ -271,7 +249,7 @@
                 <!-- Informacja o biurze -->
                 <StatusBarItem>
                     <TextBlock Text="© 2025 Patryk Konior. All rights reserved."
-                               Foreground="#666666"
+                               Foreground="#3F4027"
                                FontSize="12"
                                Margin="80,0"/>
                 </StatusBarItem>

@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="MVVMFirma.Views.StartPageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="#EEEEEE">
+
+    <!-- 📌 Definiujemy style lokalnie -->
+    <UserControl.Resources>
+
+        <!-- 🟩 Tło karty -->
+        <SolidColorBrush x:Key="FluentCardBackground" Color="#F8F8F8"/>
+
+        <!-- 🌟 Cień dla Fluent Design -->
+        <DropShadowEffect x:Key="FluentShadowEffect" Color="#424242" Opacity="0.3" BlurRadius="8"/>
+
+        <!-- 🎨 Styl dla kart (FluentCardStyle) -->
+        <Style x:Key="FluentCardStyle" TargetType="Border">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#F0F0F0" Offset="0.0"/>
+                        <GradientStop Color="#E0E0E0" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Effect" Value="{StaticResource FluentShadowEffect}"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <!-- 🟦 Styl dla przycisków (FluentButtonStyle) -->
+        <Style x:Key="FluentButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#73704F"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="5" Opacity="0.3"/>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#FA8072" Offset="0.0"/> <!-- Lekki czerwony -->
+                                <GradientStop Color="#E81123" Offset="1.0"/> <!-- Mocniejszy czerwony -->
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <SolidColorBrush Color="#A80000"/> <!-- Głębszy odcień przy kliknięciu -->
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+
+    <!-- 📌 UI -->
+    <Grid Margin="20">
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto">
+
+            <!-- 🟢 Nagłówek -->
+            <TextBlock Text="Wybierz co nowego chcesz dodać:"
+                       FontSize="18" FontWeight="Bold" Foreground="#73704F"
+                       HorizontalAlignment="Center" Margin="0,10"/>
+
+            <!-- 🔄 Sekcja 1: Karuzela przycisków -->
+            <Border Style="{StaticResource FluentCardStyle}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Horizontal">
+                        <ItemsControl ItemsSource="{Binding NewItemsCommands}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding Name}" Command="{Binding Command}" Style="{StaticResource FluentButtonStyle}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- 🟢 Nagłówek 2 -->
+            <TextBlock Text="Zobacz tabele ze wszystkimi elementami:"
+                       FontSize="18" FontWeight="Bold" Foreground="#73704F"
+                       HorizontalAlignment="Center" Margin="0,10"/>
+
+            <!-- 🔄 Sekcja 2: Lista tabel -->
+            <Border Style="{StaticResource FluentCardStyle}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto">
+                    <StackPanel Orientation="Horizontal">
+                        <ItemsControl ItemsSource="{Binding AllItemsCommands}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding Name}" Command="{Binding Command}" Style="{StaticResource FluentButtonStyle}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <!-- 🟢 Nagłówek 3 -->
+            <TextBlock Text="Widoki biznesowe:"
+                       FontSize="18" FontWeight="Bold" Foreground="#73704F"
+                       HorizontalAlignment="Center" Margin="0,10"/>
+
+            <!-- 🔲 Sekcja 3: Widoki biznesowe -->
+            <Border Style="{StaticResource FluentCardStyle}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <ItemsControl ItemsSource="{Binding BusinessViewsCommands}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding Name}" Command="{Binding Command}" Style="{StaticResource FluentButtonStyle}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+    </Grid>
+</UserControl>
