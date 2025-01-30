@@ -107,21 +107,21 @@
         <Setter Property="HeaderTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <Border BorderBrush="Gray" BorderThickness="2" CornerRadius="8" Margin="6" Padding="8" SnapsToDevicePixels="True">
-                        <!-- Gradient w tle -->
+                    <Border BorderBrush="LightGray" BorderThickness="1"
+                            CornerRadius="6" Margin="4" Padding="6"
+                            SnapsToDevicePixels="True">
+                        <!-- Subtelny gradient Fluent -->
                         <Border.Background>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="DarkSlateGray" Offset="0.0"/>
-                                <GradientStop Color="LightSlateGray" Offset="1.0"/>
+                                <GradientStop Color="#9E9E9E" Offset="0.0"/>
+                                <GradientStop Color="#424242" Offset="1.0"/>
                             </LinearGradientBrush>
                         </Border.Background>
-                        <!-- Tekst nagłówka -->
-                        <TextBlock 
-                            FontSize="16"
-                            FontWeight="Bold"
-                            Foreground="White" 
-                            HorizontalAlignment="Center"  
-                            Text="{TemplateBinding Content}" />
+                        <TextBlock FontSize="14"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   Text="{TemplateBinding Content}" />
                     </Border>
                 </DataTemplate>
             </Setter.Value>
@@ -165,20 +165,27 @@
   This template explains how to render the list of commands on the left
   side in the main window (the 'Control Panel' area).
   -->
+    <!-- Efekt Fluent Design -->
+    <SolidColorBrush x:Key="FluentBackground" Color="#EEEEEE"/> <!-- Jasne tło -->
+    
+    <DropShadowEffect x:Key="FluentShadowEffect" Color="#424242" Opacity="0.4" BlurRadius="10"/>
+    
     <DataTemplate x:Key="CommandsTemplate">
         <ItemsControl IsTabStop="False" ItemsSource="{Binding}" Margin="10">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Border Background="Transparent" Margin="0,5" CornerRadius="5">
-                        <TextBlock VerticalAlignment="Center" FontSize="14" FontWeight="Bold" Padding="10,5">
+                    <Border Background="Transparent" CornerRadius="8" Padding="10" Margin="4">
+                        <TextBlock VerticalAlignment="Center" FontSize="16" FontWeight="Medium">
                             <Hyperlink Command="{Binding Path=Command}" Cursor="Hand">
                                 <TextBlock Text="{Binding Path=DisplayName}" Foreground="Black">
                                     <TextBlock.Style>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="FontWeight" Value="Medium"/>
                                             <Style.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Foreground" Value="White"/>
+                                                    <Setter Property="Foreground" Value="RoyalBlue"/>
+                                                    <Setter Property="FontWeight" Value="Bold"/>
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
@@ -186,12 +193,25 @@
                                 </TextBlock>
                             </Hyperlink>
                         </TextBlock>
+                        <!-- Efekt hover dla całego przycisku -->
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#D9E6FF"/> <!-- Lekki niebieski jak w Windows 11 -->
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
     </DataTemplate>
-
+    
     <!-- 
   This template explains how to render 
   a tab item with a close button.
@@ -284,4 +304,40 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
+    <Style x:Key="FluentHoverEffect" TargetType="Border">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <!-- Podkreślenie -->
+                <Setter Property="BorderThickness" Value="0,0,2,1"/> 
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,1">
+                            <GradientStop Color="#9e9e9e" Offset="0.0"/> <!-- Jasnoszary -->
+                            <GradientStop Color="Transparent" Offset="1.0"/> <!-- Rozmycie w prawo -->
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="4" Opacity="0.4" Color="#A0A0A0"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!-- Styl dla Hyperlink -->
+    <Style TargetType="Hyperlink">
+        <Setter Property="Foreground" Value="#333333"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#1B5E20"/> <!-- Ciemnozielony -->
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

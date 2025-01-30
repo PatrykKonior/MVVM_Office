@@ -10,17 +10,31 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace MVVMFirma.Views
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        private DispatcherTimer timer;
+
         public MainWindow()
         {
             InitializeComponent();
+            StartClock();
+        }
+
+        private void StartClock()
+        {
+            timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1)
+            };
+            timer.Tick += (sender, e) => 
+            {
+                ClockTextBlock.Text = DateTime.Now.ToString("HH:mm:ss");
+            };
+            timer.Start();
         }
     }
 }
