@@ -6,40 +6,75 @@
              xmlns:local="clr-namespace:MVVMFirma.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <StackPanel Margin="20">
-            <TextBlock Text="Dodaj Nowy Kontrakt" FontSize="20" FontWeight="Bold" Foreground="DarkSlateGray" Margin="0,0,0,20"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Projekt:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" 
-                          SelectedItem="{Binding SelectedProject, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                          DisplayMemberPath="Value"/>
+    <Grid Background="White" Margin="25"> 
+        
+        <!-- 🔹 Border obejmujący cały formularz -->
+        <Border BorderThickness="2" BorderBrush="Gray" Padding="25" CornerRadius="12">
+            <StackPanel HorizontalAlignment="Center"> <!-- Wyśrodkowanie -->
+
+                <!-- 🔹 Nagłówek -->
+                <TextBlock Text="Dodaj Nowy Kontrakt"
+                           FontSize="30" FontWeight="Bold" Foreground="#3C473F"
+                           HorizontalAlignment="Center" Margin="0,0,0,40"/> 
+
+                <!-- 🔹 Formularz -->
+                <StackPanel Width="700" Margin="20,0,20,0"> 
+
+                    <!-- Projekt -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Projekt:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <ComboBox Width="400" ItemsSource="{Binding ProjectsItems}" 
+                                  SelectedItem="{Binding SelectedProject, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                  DisplayMemberPath="Value"/>
+                    </StackPanel>
+
+                    <!-- Data Kontraktu -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Data Kontraktu:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <DatePicker Width="400" SelectedDate="{Binding ContractDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+
+                    <!-- Kwota Netto -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Kwota Netto:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400" Text="{Binding ContractValueNet, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+
+                    <!-- VAT -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="VAT (%):" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400" Text="{Binding VATRate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+
+                    <!-- Kwota Brutto -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Kwota Brutto:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400" Text="{Binding ContractValueGross}" IsReadOnly="True"/>
+                    </StackPanel>
+
+                    <!-- Data Podpisu Klienta -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Data podpisu klienta:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <DatePicker Width="400" SelectedDate="{Binding ClientSignatureDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+
+                    <!-- Data Podpisu Firmy -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Data podpisu firmy:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <DatePicker Width="400" SelectedDate="{Binding CompanySignatureDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Data Kontraktu:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding ContractDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Kwota Netto:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding ContractValueNet, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="VAT (%)" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding VATRate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Kwota Brutto:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding ContractValueGross}" IsReadOnly="True"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Data podpisu klienta:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding ClientSignatureDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Data podpisu firmy:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding CompanySignatureDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
-        </StackPanel>
+        </Border>
+
     </Grid>
 </local:JedenViewBase>

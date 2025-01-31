@@ -6,36 +6,60 @@
              xmlns:local="clr-namespace:MVVMFirma.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="200"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-        </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Margin="0,8,0,8" Content="Nazwa Materiału"/>
-        <TextBox Grid.Column="1" Grid.Row="0" Margin="0,8,0,8" 
-                 Text="{Binding MaterialName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+    <Grid Background="White" Margin="50"> 
+        
+        <!-- 🔹 Border obejmujący cały formularz -->
+        <Border BorderThickness="2" BorderBrush="Gray" Padding="30" CornerRadius="12">
+            <StackPanel HorizontalAlignment="Center"> <!-- Wyśrodkowanie -->
 
-        <Label Grid.Column="0" Grid.Row="1" Margin="0,8,0,8" Content="Opis Materiału"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Margin="0,8,0,8" 
-                 Text="{Binding MaterialDescription, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                <!-- 🔹 Nagłówek -->
+                <TextBlock Text="Dodaj Nowy Towar"
+                           FontSize="30" FontWeight="Bold" Foreground="#3C473F"
+                           HorizontalAlignment="Center" Margin="0,0,0,40"/> 
 
-        <Label Grid.Column="0" Grid.Row="2" Margin="0,8,0,8" Content="Cena jednostkowa"/>
-        <TextBox Grid.Column="1" Grid.Row="2" Margin="0,8,0,8" 
-                 Text="{Binding UnitPrice, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                <!-- 🔹 Formularz -->
+                <StackPanel Width="700" Margin="20,0,20,0"> 
 
-        <Label Grid.Column="0" Grid.Row="3" Margin="0,8,0,8" Content="Stawka VAT"/>
-        <TextBox Grid.Column="1" Grid.Row="3" Margin="0,8,0,8" 
-                 Text="{Binding VATRate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                    <!-- Nazwa Materiału (większa wysokość) -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Nazwa Materiału:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400" Height="40"
+                                 Text="{Binding MaterialName, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                    </StackPanel>
+
+                    <!-- Opis Materiału (2.5x większa wysokość) -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Opis Materiału:" Width="250" VerticalAlignment="Top"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400" Height="100" TextWrapping="Wrap"
+                                 Text="{Binding MaterialDescription, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                    </StackPanel>
+
+                    <!-- Cena jednostkowa -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Cena jednostkowa:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400"
+                                 Text="{Binding UnitPrice, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                    </StackPanel>
+
+                    <!-- Stawka VAT -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Stawka VAT:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400"
+                                 Text="{Binding VATRate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
     </Grid>
 </local:JedenViewBase>

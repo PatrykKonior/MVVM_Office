@@ -6,28 +6,44 @@
              xmlns:local="clr-namespace:MVVMFirma.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="White">
-        <StackPanel Margin="20">
-            <TextBlock Text="Dodaj Nowy Dział" FontSize="20" FontWeight="Bold" Foreground="DarkSlateGray" Margin="0,0,0,20"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Nazwa Działu:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding DepartmentName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
-            </StackPanel>
+    <Grid Background="White" Margin="50"> 
+        
+        <!-- 🔹 Border obejmujący cały formularz -->
+        <Border BorderThickness="2" BorderBrush="Gray" Padding="30" CornerRadius="12">
+            <StackPanel HorizontalAlignment="Center"> <!-- Wyśrodkowanie -->
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Menedżer:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" 
-                         IsReadOnly="True" 
-                         Text="{Binding SelectedManagerFullName, Mode=OneWay}" 
-                         Margin="0,0,10,0"/>
-                <Button Content="Wybierz Menedżera"
-                        Command="{Binding ShowAllEmployeesCommand}" 
-                        Width="150" 
-                        Background="#4C594F" 
-                        Foreground="White" 
-                        Cursor="Hand"/>
+                <!-- 🔹 Nagłówek -->
+                <TextBlock Text="Dodaj Nowy Dział"
+                           FontSize="30" FontWeight="Bold" Foreground="#3C473F"
+                           HorizontalAlignment="Center" Margin="0,0,0,40"/> 
+
+                <!-- 🔹 Formularz -->
+                <StackPanel Width="700" Margin="20,0,20,0"> 
+
+                    <!-- Nazwa Działu -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Nazwa Działu:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400" Text="{Binding DepartmentName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+                    </StackPanel>
+
+                    <!-- Menedżer -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Menedżer:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="200" IsReadOnly="True" 
+                                 Text="{Binding SelectedManagerFullName, Mode=OneWay}" 
+                                 Margin="5,0,15,0"/>
+                        <Button Content="Wybierz Menedżera"
+                                Command="{Binding ShowAllEmployeesCommand}" 
+                                Width="180" Background="#4C594F" 
+                                Foreground="White" Cursor="Hand"/>
+                    </StackPanel>
+
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </Border>
+
     </Grid>
 </local:JedenViewBase>

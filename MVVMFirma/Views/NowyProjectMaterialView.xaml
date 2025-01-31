@@ -5,35 +5,64 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MVVMFirma.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="White">
-        <StackPanel Margin="20">
-            <TextBlock Text="Dodaj Materiał do Projektu" FontSize="20" FontWeight="Bold" Foreground="DarkSlateGray" Margin="0,0,0,20"/>
+             d:DesignHeight="450" d:DesignWidth="800">
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Projekt:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding ProjectsItems}" 
-                          SelectedItem="{Binding SelectedProject, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                          DisplayMemberPath="Value"/>
+    <Grid Background="White" Margin="50"> 
+        
+        <!-- 🔹 Border obejmujący cały formularz -->
+        <Border BorderThickness="2" BorderBrush="Gray" Padding="30" CornerRadius="12">
+            <StackPanel HorizontalAlignment="Center"> <!-- Wyśrodkowanie -->
+
+                <!-- 🔹 Nagłówek -->
+                <TextBlock Text="Dodaj Materiał do Projektu"
+                           FontSize="30" FontWeight="Bold" Foreground="#3C473F"
+                           HorizontalAlignment="Center" Margin="0,0,0,40"/> 
+
+                <!-- 🔹 Formularz -->
+                <StackPanel Width="700" Margin="20,0,20,0"> 
+
+                    <!-- Projekt -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Projekt:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <ComboBox Width="400" ItemsSource="{Binding ProjectsItems}" 
+                                  SelectedItem="{Binding SelectedProject, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                  DisplayMemberPath="Value"/>
+                    </StackPanel>
+
+                    <!-- Materiał -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Materiał:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <ComboBox Width="400" ItemsSource="{Binding MaterialsItems}" 
+                                  SelectedItem="{Binding SelectedMaterial, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                  DisplayMemberPath="Value"/>
+                    </StackPanel>
+
+                    <!-- Ilość -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Ilość:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400" Text="{Binding Quantity, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <!-- Cena Jednostkowa -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Cena Jednostkowa:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400" Text="{Binding UnitPrice, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <!-- Kwota VAT -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Kwota VAT:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBlock Text="{Binding VATAmount, StringFormat='{}{0:C}'}" Width="400"/>
+                    </StackPanel>
+
+                </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Materiał:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding MaterialsItems}" 
-                          SelectedItem="{Binding SelectedMaterial, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                          DisplayMemberPath="Value"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Ilość:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding Quantity, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Cena Jednostkowa:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding UnitPrice, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Kwota VAT:" Width="150" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding VATAmount, StringFormat='{}{0:C}'}" Width="300"/>
-            </StackPanel>
-        </StackPanel>
+        </Border>
+
     </Grid>
 </local:JedenViewBase>
