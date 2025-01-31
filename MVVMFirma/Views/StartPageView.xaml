@@ -3,39 +3,34 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Background="#EEEEEE">
 
-    <!-- 📌 Definiujemy style lokalnie -->
     <UserControl.Resources>
 
-        <!-- 🟩 Tło karty -->
+        <!--Tło karty -->
         <SolidColorBrush x:Key="FluentCardBackground" Color="#F8F8F8"/>
 
-        <!-- 🌟 Cień dla Fluent Design -->
+        <!--Cień dla Fluent Design -->
         <DropShadowEffect x:Key="FluentShadowEffect" Color="#424242" Opacity="0.3" BlurRadius="8"/>
 
-        <!-- 🎨 Styl dla kart (FluentCardStyle) -->
+        <!--Styl dla kart -->
         <Style x:Key="FluentCardStyle" TargetType="Border">
-            <Setter Property="Background">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                        <GradientStop Color="#F0F0F0" Offset="0.0"/>
-                        <GradientStop Color="#E0E0E0" Offset="1.0"/>
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
+            <Setter Property="Background" Value="{StaticResource FluentCardBackground}"/>
             <Setter Property="CornerRadius" Value="12"/>
             <Setter Property="Padding" Value="20"/>
             <Setter Property="Effect" Value="{StaticResource FluentShadowEffect}"/>
             <Setter Property="Margin" Value="10"/>
+            <Setter Property="Width" Value="900"/>
         </Style>
 
-        <!-- 🟦 Styl dla przycisków (FluentButtonStyle) -->
+        <!-- 🟦 Styl dla przycisków -->
         <Style x:Key="FluentButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#73704F"/>
+            <Setter Property="Background" Value="#4C594F"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="18"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Padding" Value="15"/>
             <Setter Property="Margin" Value="10"/>
+            <Setter Property="Width" Value="250"/>
+            <Setter Property="Height" Value="60"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="Effect">
@@ -48,86 +43,94 @@
                     <Setter Property="Background">
                         <Setter.Value>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                                <GradientStop Color="#FA8072" Offset="0.0"/> <!-- Lekki czerwony -->
-                                <GradientStop Color="#E81123" Offset="1.0"/> <!-- Mocniejszy czerwony -->
+                                <GradientStop Color="#FA8072" Offset="0.0"/>
+                                <GradientStop Color="#E81123" Offset="1.0"/>
                             </LinearGradientBrush>
                         </Setter.Value>
                     </Setter>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <SolidColorBrush Color="#A80000"/> <!-- Głębszy odcień przy kliknięciu -->
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="Background" Value="#A80000"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
     </UserControl.Resources>
 
-    <!-- 📌 UI -->
-    <Grid Margin="20">
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top" Width="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Width="Auto">
 
-            <!-- 🟢 Nagłówek -->
-            <TextBlock Text="Wybierz co nowego chcesz dodać:"
-                       FontSize="18" FontWeight="Bold" Foreground="#73704F"
-                       HorizontalAlignment="Center" Margin="0,10"/>
+                <!--Nagłówek -->
+                <TextBlock Text="Wybierz co nowego chcesz dodać:"
+                           FontSize="22" FontWeight="Bold" Foreground="#757575"
+                           HorizontalAlignment="Center" Margin="0,20"/>
 
-            <!-- 🔄 Sekcja 1: Karuzela przycisków -->
-            <Border Style="{StaticResource FluentCardStyle}">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                    <StackPanel Orientation="Horizontal">
+                <!--Sekcja 1-->
+                <Border Style="{StaticResource FluentCardStyle}">
+                    <WrapPanel HorizontalAlignment="Center">
                         <ItemsControl ItemsSource="{Binding NewItemsCommands}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Button Content="{Binding Name}" Command="{Binding Command}" Style="{StaticResource FluentButtonStyle}" />
+                                    <Button Content="{Binding DisplayName}" Command="{Binding Command}" Style="{StaticResource FluentButtonStyle}" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
-            </Border>
+                    </WrapPanel>
+                </Border>
 
-            <!-- 🟢 Nagłówek 2 -->
-            <TextBlock Text="Zobacz tabele ze wszystkimi elementami:"
-                       FontSize="18" FontWeight="Bold" Foreground="#73704F"
-                       HorizontalAlignment="Center" Margin="0,10"/>
+                <!--Nagłówek 2-->
+                <TextBlock Text="Zobacz tabele ze wszystkimi elementami:"
+                           FontSize="22" FontWeight="Bold" Foreground="#757575"
+                           HorizontalAlignment="Center" Margin="0,20"/>
 
-            <!-- 🔄 Sekcja 2: Lista tabel -->
-            <Border Style="{StaticResource FluentCardStyle}">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto">
-                    <StackPanel Orientation="Horizontal">
+                <!--Sekcja 2-->
+                <Border Style="{StaticResource FluentCardStyle}">
+                    <WrapPanel HorizontalAlignment="Center">
                         <ItemsControl ItemsSource="{Binding AllItemsCommands}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Button Content="{Binding Name}" Command="{Binding Command}" Style="{StaticResource FluentButtonStyle}" />
+                                    <Button Content="{Binding DisplayName}" Command="{Binding Command}" Style="{StaticResource FluentButtonStyle}" />
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                         </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
-            </Border>
+                    </WrapPanel>
+                </Border>
 
-            <!-- 🟢 Nagłówek 3 -->
-            <TextBlock Text="Widoki biznesowe:"
-                       FontSize="18" FontWeight="Bold" Foreground="#73704F"
-                       HorizontalAlignment="Center" Margin="0,10"/>
+                <!--Nagłówek 3-->
+                <TextBlock Text="Widoki biznesowe:"
+                           FontSize="22" FontWeight="Bold" Foreground="#757575"
+                           HorizontalAlignment="Center" Margin="0,20"/>
 
-            <!-- 🔲 Sekcja 3: Widoki biznesowe -->
-            <Border Style="{StaticResource FluentCardStyle}">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <ItemsControl ItemsSource="{Binding BusinessViewsCommands}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Content="{Binding Name}" Command="{Binding Command}" Style="{StaticResource FluentButtonStyle}" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </StackPanel>
-            </Border>
+                <!--Sekcja 3-->
+                <Border Style="{StaticResource FluentCardStyle}">
+                    <WrapPanel HorizontalAlignment="Center">
+                        <ItemsControl ItemsSource="{Binding BusinessViewsCommands}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding DisplayName}" Command="{Binding Command}" Style="{StaticResource FluentButtonStyle}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </WrapPanel>
+                </Border>
 
-        </StackPanel>
-    </Grid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

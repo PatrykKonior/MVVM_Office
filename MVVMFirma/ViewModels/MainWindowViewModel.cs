@@ -198,7 +198,10 @@ namespace MVVMFirma.ViewModels
         private void OnWorkspaceRequestClose(object sender, EventArgs e)
         {
             WorkspaceViewModel workspace = sender as WorkspaceViewModel;
-            //workspace.Dispos();
+
+            if (workspace == null || workspace.IsStartPage)
+                return;
+
             this.Workspaces.Remove(workspace);
         }
 

@@ -12,6 +12,9 @@ namespace MVVMFirma.ViewModels
 
         public StartPageViewModel(MainWindowViewModel mainViewModel)
         {
+            DisplayName = "STRONA GŁÓWNA";
+            IsStartPage = true;
+            
             // NOWE ELEMENTY
             NewItemsCommands = new ObservableCollection<CommandViewModel>
             {

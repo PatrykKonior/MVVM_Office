@@ -11,6 +11,9 @@ namespace MVVMFirma.ViewModels
     {
         #region Fields
         private BaseCommand _CloseCommand;
+        
+        public bool IsStartPage { get; set; } = false;
+        
         #endregion 
 
         #region Constructor
@@ -25,7 +28,13 @@ namespace MVVMFirma.ViewModels
             get
             {
                 if (_CloseCommand == null)
-                    _CloseCommand = new BaseCommand(() => this.OnRequestClose());
+                {
+                    _CloseCommand = new BaseCommand(() =>
+                    {
+                        if (!IsStartPage)
+                            this.OnRequestClose();
+                    });
+                }
                 return _CloseCommand;
             }
         }
