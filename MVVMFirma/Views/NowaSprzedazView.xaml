@@ -6,53 +6,76 @@
              xmlns:local="clr-namespace:MVVMFirma.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        <StackPanel Margin="20">
-            <!-- Nagłówek -->
-            <TextBlock Text="Dodaj Nową Sprzedaż" FontSize="20" FontWeight="Bold" Foreground="DarkSlateGray" Margin="0,0,0,20"/>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Klient:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" 
-                         IsReadOnly="True" 
-                         Text="{Binding SelectedClientFullName, Mode=OneWay}" 
-                         Margin="0,0,10,0"/>
-                <Button Content="Wybierz Klienta"
-                        Command="{Binding ShowAllClientsCommand}" 
-                        Width="150" 
-                        Background="#4C594F" 
-                        Foreground="White" 
-                        Cursor="Hand"/>
-            </StackPanel>
+    <Grid Background="White" Margin="50"> 
+        
+        <!-- 🔹 Border obejmujący cały formularz -->
+        <Border BorderThickness="2" BorderBrush="Gray" Padding="30" CornerRadius="12">
+            <StackPanel HorizontalAlignment="Center"> <!-- Wyśrodkowanie -->
+                
+                <!-- 🔹 Nagłówek -->
+                <TextBlock Text="Dodaj Nową Sprzedaż"
+                           FontSize="30" FontWeight="Bold" Foreground="#3C473F"
+                           HorizontalAlignment="Center" Margin="0,0,0,40"/> 
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Data Sprzedaży:" Width="150" VerticalAlignment="Center"/>
-                <DatePicker Width="300" SelectedDate="{Binding SaleDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                            ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
-            </StackPanel>
+                <!-- 🔹 Formularz -->
+                <StackPanel Width="750" Margin="20,0,20,0"> 
+                    
+                    <!-- Klient -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Klient:" Width="200" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="200" IsReadOnly="True" 
+                                 Text="{Binding SelectedClientFullName, Mode=OneWay}" 
+                                 Margin="45,0,15,0"/>
+                        <Button Content="Wybierz Klienta"
+                                Command="{Binding ShowAllClientsCommand}" 
+                                Width="180" Background="#4C594F" 
+                                Foreground="White" Cursor="Hand"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Kwota Netto:" Width="150" VerticalAlignment="Center"/>
-                <TextBox Width="300" Text="{Binding TotalNetAmount, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                         ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
-            </StackPanel>
+                    <!-- Data Sprzedaży -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Data Sprzedaży:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <DatePicker Width="400" SelectedDate="{Binding SaleDate, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                    ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Kwota VAT:" Width="150" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding TotalVATAmount, StringFormat='{}{0:C}'}" Width="300"/>
-            </StackPanel>
+                    <!-- Kwota Netto -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Kwota Netto:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBox Width="400" Text="{Binding TotalNetAmount, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                 ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Kwota Brutto:" Width="150" VerticalAlignment="Center"/>
-                <TextBlock Text="{Binding TotalGrossAmount, StringFormat='{}{0:C}'}" Width="300"/>
-            </StackPanel>
+                    <!-- Kwota VAT -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Kwota VAT:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBlock Text="{Binding TotalVATAmount, StringFormat='{}{0:C}'}" Width="400"/>
+                    </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBlock Text="Status Sprzedaży:" Width="150" VerticalAlignment="Center"/>
-                <ComboBox Width="300" ItemsSource="{Binding SaleStatusList}" 
-                          SelectedItem="{Binding SaleStatus, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
-                          ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}" />
+                    <!-- Kwota Brutto -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Kwota Brutto:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <TextBlock Text="{Binding TotalGrossAmount, StringFormat='{}{0:C}'}" Width="400"/>
+                    </StackPanel>
+
+                    <!-- Status Sprzedaży -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,25">
+                        <TextBlock Text="Status Sprzedaży:" Width="250" VerticalAlignment="Center"
+                                   FontSize="20" FontWeight="SemiBold" Foreground="#3C473F"/>
+                        <ComboBox Width="400" ItemsSource="{Binding SaleStatusList}"
+                                  SelectedItem="{Binding SaleStatus, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}" 
+                                  ToolTip="{Binding (Validation.Errors)[0].ErrorContent, RelativeSource={RelativeSource Self}}"/>
+                    </StackPanel>
+
+                </StackPanel>
             </StackPanel>
-        </StackPanel>
+        </Border>
+
     </Grid>
 </local:JedenViewBase>
