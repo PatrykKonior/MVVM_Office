@@ -2,22 +2,86 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression.blend/2008" 
              xmlns:local="clr-namespace:MVVMFirma.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="White">
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}"
-                  SelectedItem="{Binding SelectedClient, Mode=TwoWay}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID Klienta" IsReadOnly="True" Binding="{Binding ClientID}"/>
-                <DataGridTextColumn Header="Company Name" IsReadOnly="True" Binding="{Binding CompanyName}"/>
-                <DataGridTextColumn Header="NIP" Binding="{Binding NIP}"/>
-                <DataGridTextColumn Header="REGON" Binding="{Binding Regon}"/>
-                <DataGridTextColumn Header="Telefon kontaktowy" Binding="{Binding PhoneNumber}"/>
-                <DataGridTextColumn Header="E-mail" Binding="{Binding Email}"/>
-                <DataGridTextColumn Header="Osoba odp. za kontakt" Binding="{Binding ContactPersonName}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+             d:DesignHeight="400" d:DesignWidth="700">
+
+    <Grid Background="White" Margin="20">
+
+        <!-- 🔹 Definicja stylów -->
+        <Grid.Resources>
+
+            <!-- 🔹 Efekt cienia -->
+            <DropShadowEffect x:Key="ShadowEffect" Color="#000000" BlurRadius="8" Opacity="0.2"/>
+
+            <!-- 🔹 Styl dla komórek DataGrid -->
+            <Style TargetType="DataGridCell" x:Key="CellStyle">
+                <Setter Property="Padding" Value="8"/>
+                <Setter Property="BorderThickness" Value="0,0,1,0"/> <!-- 🔹 Separator wierszy -->
+                <Setter Property="BorderBrush" Value="#D9D9D9"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#D1E8FF"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- 🔹 Styl dla TextBlock w komórkach -->
+            <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <!-- 🔹 Styl dla nagłówków -->
+            <Style TargetType="DataGridColumnHeader" x:Key="HeaderStyle">
+                <Setter Property="Background" Value="#BFBFB8"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="BorderBrush" Value="White"/>  <!-- 🔹 Separatory między nagłówkami -->
+                <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            </Style>
+
+        </Grid.Resources>
+
+        <!-- 🔹 Efekt cienia dla tabeli -->
+        <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="10" Padding="10"
+                Background="White" Effect="{StaticResource ShadowEffect}">
+
+            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}"
+                      SelectedItem="{Binding SelectedClient, Mode=TwoWay}"
+                      RowBackground="White" AlternatingRowBackground="#F2F2F2"
+                      GridLinesVisibility="Horizontal"
+                      BorderThickness="0"
+                      CanUserResizeRows="False"
+                      CanUserAddRows="False"
+                      HorizontalGridLinesBrush="#D9D9D9"
+                      VerticalGridLinesBrush="#D9D9D9"
+                      ColumnHeaderStyle="{StaticResource HeaderStyle}">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID Klienta" IsReadOnly="True" Binding="{Binding ClientID}" Width="Auto"
+                                        ElementStyle="{StaticResource TextBlockStyle}" />
+                    <DataGridTextColumn Header="Nazwa Firmy" IsReadOnly="True" Binding="{Binding CompanyName}" Width="*"
+                                        ElementStyle="{StaticResource TextBlockStyle}" />
+                    <DataGridTextColumn Header="NIP" Binding="{Binding NIP}" Width="*"
+                                        ElementStyle="{StaticResource TextBlockStyle}" />
+                    <DataGridTextColumn Header="REGON" Binding="{Binding Regon}" Width="*"
+                                        ElementStyle="{StaticResource TextBlockStyle}" />
+                    <DataGridTextColumn Header="Telefon" Binding="{Binding PhoneNumber}" Width="*"
+                                        ElementStyle="{StaticResource TextBlockStyle}" />
+                    <DataGridTextColumn Header="E-mail" Binding="{Binding Email}" Width="*"
+                                        ElementStyle="{StaticResource TextBlockStyle}" />
+                    <DataGridTextColumn Header="Osoba Kontaktowa" Binding="{Binding ContactPersonName}" Width="*"
+                                        ElementStyle="{StaticResource TextBlockStyle}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
     </Grid>
 </local:WszystkieViewBase>
