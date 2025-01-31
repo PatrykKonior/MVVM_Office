@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using MVVMFirma.ViewModels;
 
 namespace MVVMFirma.Views
 {
@@ -22,6 +23,7 @@ namespace MVVMFirma.Views
         {
             InitializeComponent();
             StartClock();
+            this.DataContext = new MainWindowViewModel();
         }
 
         private void StartClock()

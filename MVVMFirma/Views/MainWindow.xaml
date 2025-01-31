@@ -23,19 +23,8 @@
           Foreground="#424242"
           FontSize="12"
           FontWeight="SemiBold"
-          Margin="5,0,5,2">
-
+          Margin="5,0,5,2"> 
             <Menu.Resources>
-                <!-- Styl dla wszystkich rozwijanych menu (submenu) -->
-                <Style TargetType="ContextMenu">
-                    <Setter Property="Background" Value="#1F1F1F"/>
-                    <Setter Property="BorderBrush" Value="#333333"/>
-                    <Setter Property="BorderThickness" Value="1"/>
-                    <Setter Property="Padding" Value="1"/>
-                    <Setter Property="Foreground" Value="#424242"/> 
-                </Style>
-
-                <!-- Styl dla MenuItem -->
                 <Style TargetType="MenuItem">
                     <Setter Property="Padding" Value="10,3"/>  
                     <Setter Property="Margin" Value="5,0"/>
@@ -43,8 +32,6 @@
                     <Setter Property="FontSize" Value="11"/>
                     <Setter Property="FontWeight" Value="SemiBold"/>
                     <Setter Property="Background" Value="Transparent"/>
-                    
-                    <!-- Efekt hover i kliknięcia -->
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="#333333"/>  
@@ -54,59 +41,78 @@
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-
-                <!-- Separator w stylu Fluent -->
-                <Style TargetType="Separator">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Separator">
-                                <Border Background="#424242"
-                                        Height="1"
-                                        Margin="10,2"
-                                        Opacity="0.7"/>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
             </Menu.Resources>
 
-            <!-- Struktura menu -->
-            <MenuItem Header="_Plik">
-                <MenuItem Header="Nowy" />
-                <MenuItem Header="Zapisz" />
-                <MenuItem Header="Zamknij" />
-            </MenuItem>
+                <MenuItem Header="_Plik">
+                    <MenuItem Header="Nowy" />
+                    <MenuItem Header="Zapisz" />
+                    <MenuItem Header="Zamknij" />
+                </MenuItem>
 
-            <MenuItem Header="_Ewidencja Biura">
-                <MenuItem Header="Towary">
-                    <MenuItem Header="Wszystkie Towary" />
-                    <MenuItem Header="Dodaj Nowy Towar" />
-                    <MenuItem Header="Materiały" />
-                </MenuItem>
-                <MenuItem Header="Projekty">
-                    <MenuItem Header="Wszystkie Projekty" />
-                    <MenuItem Header="Dodaj Nowy Projekt" />
-                    <MenuItem Header="Zadania" />
-                </MenuItem>
-                <MenuItem Header="Sprzedaż">
-                    <MenuItem Header="Lista Sprzedaży" />
-                    <MenuItem Header="Dodaj Nową Sprzedaż" />
-                    <MenuItem Header="Faktury" />
-                </MenuItem>
-                <MenuItem Header="Pracownicy">
-                    <MenuItem Header="Lista Pracowników" />
-                    <MenuItem Header="Dodaj Pracownika" />
-                    <MenuItem Header="Działy" />
-                </MenuItem>
-                <MenuItem Header="Klienci">
-                    <MenuItem Header="Lista Klientów" />
-                    <MenuItem Header="Dodaj Klienta" />
-                </MenuItem>
-            </MenuItem>
+                    <MenuItem Header="_Ewidencja Biura">
+                                <MenuItem Header="Towary">
+                                    <MenuItem Header="Wszystkie Towary" 
+                                              Command="{Binding DataContext.StartPageViewModel.AllItemsCommands[4].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    
+                                    <MenuItem Header="Dodaj Nowy Towar" 
+                                              Command="{Binding DataContext.StartPageViewModel.NewItemsCommands[4].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+
+                                    <MenuItem Header="Materiały" 
+                                              Command="{Binding DataContext.StartPageViewModel.AllItemsCommands[5].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                </MenuItem>
+
+                                <MenuItem Header="Projekty">
+                                    <MenuItem Header="Wszystkie Projekty" 
+                                              Command="{Binding DataContext.StartPageViewModel.AllItemsCommands[0].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <MenuItem Header="Dodaj Nowy Projekt" 
+                                              Command="{Binding DataContext.StartPageViewModel.NewItemsCommands[0].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <MenuItem Header="Zadania" 
+                                              Command="{Binding DataContext.StartPageViewModel.AllItemsCommands[3].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                </MenuItem>
+
+                                <MenuItem Header="Sprzedaż">
+                                    <MenuItem Header="Lista Sprzedaży" 
+                                              Command="{Binding DataContext.StartPageViewModel.AllItemsCommands[7].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <MenuItem Header="Dodaj Nową Sprzedaż" 
+                                              Command="{Binding DataContext.StartPageViewModel.NewItemsCommands[7].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <MenuItem Header="Faktury" 
+                                              Command="{Binding DataContext.StartPageViewModel.AllItemsCommands[6].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                </MenuItem>
+
+                                <MenuItem Header="Pracownicy">
+                                    <MenuItem Header="Lista Pracowników" 
+                                              Command="{Binding DataContext.StartPageViewModel.AllItemsCommands[12].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <MenuItem Header="Dodaj Pracownika" 
+                                              Command="{Binding DataContext.StartPageViewModel.NewItemsCommands[12].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <MenuItem Header="Działy" 
+                                              Command="{Binding DataContext.StartPageViewModel.AllItemsCommands[13].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                </MenuItem>
+
+                                <MenuItem Header="Klienci">
+                                    <MenuItem Header="Lista Klientów" 
+                                              Command="{Binding DataContext.StartPageViewModel.AllItemsCommands[11].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                    <MenuItem Header="Dodaj Klienta" 
+                                              Command="{Binding DataContext.StartPageViewModel.NewItemsCommands[11].Command, 
+                                                        RelativeSource={RelativeSource AncestorType=Window}}" />
+                                </MenuItem>
+                    </MenuItem>
 
             <MenuItem Header="_Program">
-                <MenuItem Header="O Programie" />
-                <MenuItem Header="Wyjdź" />
+                <MenuItem Header="O Programie" Command="{Binding ShowAboutCommand}" />
+                <MenuItem Header="Wyjdź z aplikacji" Command="{Binding LogoutCommand}" />
             </MenuItem>
         </Menu>
         

@@ -7,6 +7,7 @@ using MVVMFirma.Helper;
 using System.Diagnostics;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Messaging;
@@ -19,6 +20,32 @@ namespace MVVMFirma.ViewModels
         private ReadOnlyCollection<CommandViewModel> _Commands;
         private ObservableCollection<WorkspaceViewModel> _Workspaces;
         #endregion
+        
+        #region Properties
+        public StartPageViewModel StartPageViewModel { get; }
+        public ICommand ShowAboutCommand { get; }
+        public ICommand LogoutCommand { get; }
+        #endregion
+        
+        #region Constructor
+        public MainWindowViewModel()
+        {
+            StartPageViewModel = new StartPageViewModel(this);
+            ShowAboutCommand = new BaseCommand(ShowAboutWindow);
+            LogoutCommand = new BaseCommand(Logout);
+        }
+        #endregion
+        
+        private void ShowAboutWindow()
+        {
+            MessageBox.Show("Aplikacja MVVMFirma\n\nWersja: 1.0.0\nAutor: Patryk Konior", 
+                "O Programie", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        
+        private void Logout()
+        {
+            Application.Current.Shutdown();
+        }
 
         #region Commands
         public ReadOnlyCollection<CommandViewModel> Commands
