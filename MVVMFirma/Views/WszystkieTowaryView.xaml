@@ -5,16 +5,90 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MVVMFirma.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="White">
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID Materiału" IsReadOnly="True" Binding="{Binding MaterialID}"/>
-                <DataGridTextColumn Header="Nazwa" Binding="{Binding MaterialName}"/>
-                <DataGridTextColumn Header="Opis" Binding="{Binding MaterialDescription}"/>
-                <DataGridTextColumn Header="Cena" Binding="{Binding UnitPrice}"/>
-                <DataGridTextColumn Header="Stawka VAT" Binding="{Binding VATRate}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+             d:DesignHeight="400" d:DesignWidth="700">
+
+    <Grid Background="White" Margin="20">
+
+        <!-- 🔹 Definicja stylów -->
+        <Grid.Resources>
+
+            <!-- 🔹 Efekt cienia -->
+            <DropShadowEffect x:Key="ShadowEffect" Color="#000000" BlurRadius="8" Opacity="0.2"/>
+
+            <!-- 🔹 Styl dla komórek DataGrid -->
+            <Style TargetType="DataGridCell" x:Key="CellStyle">
+                <Setter Property="Padding" Value="8"/>
+                <Setter Property="BorderThickness" Value="0,0,1,0"/> <!-- 🔹 Separator wierszy -->
+                <Setter Property="BorderBrush" Value="#D9D9D9"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#D1E8FF"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- 🔹 Styl dla TextBlock w komórkach -->
+            <Style TargetType="TextBlock" x:Key="TextBlockStyle">
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+            </Style>
+
+            <!-- 🔹 Styl dla nagłówków -->
+            <Style TargetType="DataGridColumnHeader" x:Key="HeaderStyle">
+                <Setter Property="Background" Value="#BFBFB8"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="BorderBrush" Value="White"/>  <!-- 🔹 Separator między nagłówkami -->
+                <Setter Property="BorderThickness" Value="0,0,1,0"/>
+            </Style>
+
+        </Grid.Resources>
+
+        <!-- 🔹 Efekt cienia dla tabeli -->
+        <Border BorderThickness="1" BorderBrush="Gray" CornerRadius="10" Padding="10"
+                Background="White" Effect="{StaticResource ShadowEffect}" Height="400">
+
+            <!-- 🔹 Dodanie ScrollViewer -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding List}"
+                          SelectedItem="{Binding SelectedMaterial, Mode=TwoWay}"
+                          RowBackground="White" AlternatingRowBackground="#F2F2F2"
+                          GridLinesVisibility="Horizontal"
+                          BorderThickness="0"
+                          CanUserResizeRows="False"
+                          CanUserAddRows="False"
+                          HorizontalGridLinesBrush="#D9D9D9"
+                          VerticalGridLinesBrush="#D9D9D9"
+                          ColumnHeaderStyle="{StaticResource HeaderStyle}"
+                          CellStyle="{StaticResource CellStyle}"
+                          ScrollViewer.CanContentScroll="True"
+                          ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                          MaxHeight="700">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID Materiału" IsReadOnly="True" Binding="{Binding MaterialID}" Width="120"
+                                            ElementStyle="{StaticResource TextBlockStyle}" />
+                        <DataGridTextColumn Header="Nazwa" Binding="{Binding MaterialName}" Width="200"
+                                            ElementStyle="{StaticResource TextBlockStyle}" />
+                        <DataGridTextColumn Header="Opis" Binding="{Binding MaterialDescription}" Width="300"
+                                            ElementStyle="{StaticResource TextBlockStyle}" />
+                        <DataGridTextColumn Header="Cena" Binding="{Binding UnitPrice, StringFormat=\{0:C\}}" Width="200"
+                                            ElementStyle="{StaticResource TextBlockStyle}" />
+                        <DataGridTextColumn Header="Stawka VAT" Binding="{Binding VATRate, StringFormat=\{0:N2\}}" Width="200"
+                                            ElementStyle="{StaticResource TextBlockStyle}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+
+        </Border>
+
     </Grid>
 </local:WszystkieViewBase>
