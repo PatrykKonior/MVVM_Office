@@ -42,13 +42,6 @@
                     </Style.Triggers>
                 </Style>
             </Menu.Resources>
-
-                <MenuItem Header="_Plik">
-                    <MenuItem Header="Nowy" />
-                    <MenuItem Header="Zapisz" />
-                    <MenuItem Header="Zamknij" />
-                </MenuItem>
-
                     <MenuItem Header="_Ewidencja Biura">
                                 <MenuItem Header="Towary">
                                     <MenuItem Header="Wszystkie Towary" 
